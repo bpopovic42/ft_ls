@@ -1,0 +1,10 @@
+*.pyc
+__pycache__/
+.idea/
+CMakeFiles/
+*.o
+libft.a
+*.swp
+*.dSYM
+*.gch
+.cmp

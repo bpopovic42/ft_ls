@@ -170,9 +170,22 @@ $(NAME)		:	$(OBJ) $(HEADERS)
 			@echo $(BG)[$(BLB)LIBFT $(BG)COMPILED$(BG)]$(X)
 
 
+$(OBJ) 		: | $(ODIR)
+
+$(ODIR)		:
+			@/bin/mkdir -p $(ODIR)
+			@/bin/mkdir -p objs/ft_io
+			@/bin/mkdir -p objs/ft_lst
+			@/bin/mkdir -p objs/ft_mem
+			@/bin/mkdir -p objs/ft_str
+			@/bin/mkdir -p objs/ft_dict
+			@/bin/mkdir -p objs/ft_hash
+			@/bin/mkdir -p objs/ft_printf
+			@/bin/mkdir -p objs/ft_vector
+			@/bin/mkdir -p objs/ft_bitmap
+
 $(ODIR)/%.o	:	$(SDIR)/%.c $(HEADERS)
 			@$(CMP)
-			@$(MKODIR)
 			@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 			@$(CLR)
 			@echo -n $@
@@ -187,21 +200,13 @@ clean		:
 fclean		:	clean
 			@/bin/rm -f $(NAME)
 
-re			:	fclean all
+re			:
+	@$(MAKE) fclean
+	@$(MAKE) all
 
 ############################## UTIL ############################################
 
 MKODIR		=	if [ ! -d $(ODIR) ]; then \
-			/bin/mkdir -p $(ODIR); \
-			/bin/mkdir -p objs/ft_io; \
-			/bin/mkdir -p objs/ft_lst; \
-			/bin/mkdir -p objs/ft_mem; \
-			/bin/mkdir -p objs/ft_str; \
-			/bin/mkdir -p objs/ft_dict; \
-			/bin/mkdir -p objs/ft_hash; \
-			/bin/mkdir -p objs/ft_printf; \
-			/bin/mkdir -p objs/ft_vector; \
-			/bin/mkdir -p objs/ft_bitmap; fi
 
 CMP			=	if [ ! -e .cmp ]; then \
 			echo $(BY)Compiling $(B)Libft $(X)files...$(BY); \

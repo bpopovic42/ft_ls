@@ -53,7 +53,7 @@ CFLAGS		=	$(DEBUG) $(if $(SILENT), , -Wall -Wextra -Werror)
 
 ############################## RULES ###########################################
 
-all			:	mklib $(NAME)
+all			:	$(NAME)
 
 $(NAME)		:	$(LFT) $(LS_OBJ) $(LS_INC)
 			@$(CC) $(CFLAGS) -o $(NAME) $(LS_OBJ) $(LFT) $(INCS)
@@ -62,12 +62,16 @@ $(NAME)		:	$(LFT) $(LS_OBJ) $(LS_INC)
 
 $(ODIR)/%.o	:	$(SDIR)/%.c $(HEADERS)
 			@$(CMP)
-			@$(MKODIR)
 			@$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
 			@$(CLR)
 			@echo -n $@
 
-mklib		:
+$(LS_OBJ) 	: | $(ODIR)
+
+$(ODIR)		:
+			@/bin/mkdir -p $(ODIR)
+
+$(LFT)		:
 	@$(IF_NO_LFT)
 	@$(MAKE) DEBUG="$(DEBUG)" -C $(LFTDIR)
 
@@ -82,18 +86,13 @@ fclean		:	clean
 	@/bin/rm -f $(LFT)
 	@/bin/rm -f $(NAME)
 
-re			:	fclean all
+re			:
+	@$(MAKE) fclean
+	@$(MAKE) all
 
 ############################## UTIL ############################################
 
 DBGDIR		=	$(NAME).dSYM
-
-MKODIR		=	if [ ! -d $(ODIR) ]; then \
-			/bin/mkdir -p $(ODIR); \
-			/bin/mkdir -p $(ODIR)/$(PARSING_DIR); \
-			/bin/mkdir -p $(ODIR)/$(ALGO_DIR); \
-			/bin/mkdir -p $(ODIR)/$(CMN_DIR); \
-			/bin/mkdir -p $(ODIR)/$(LS_OUT_DIR); fi
 
 CMP			=	if [ ! -e .cmp ]; then \
 				echo $(BY)Compiling $(B)Project $(X)files...$(BY); \

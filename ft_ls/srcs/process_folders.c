@@ -9,12 +9,12 @@ int process_folder_files(struct s_file *folder)
 
   folder_files_ptr = folder->files->head;
   new_folder = NULL;
-  ft_printf("Processing files of parent folder '%s'\n", folder->name);
+  ft_printf("%s:\n", folder->path);
   while (folder_files_ptr)
   {
     file = folder_files_ptr->data;
-    ft_printf("%s\nis_folder = %o\n", file->name, file->type);
-    if (file->type && file->name[0] != '.')
+    ft_printf("%s ", file->name);
+    if (S_ISDIR(file->type) && file->name[0] != '.')
     {
       new_folder = create_new_file(file->name, folder->path);
       new_node = ft_node_new(new_folder, sizeof(t_file));
@@ -25,6 +25,7 @@ int process_folder_files(struct s_file *folder)
     folder_files_ptr = folder_files_ptr->next;
   }
   ft_putchar('\n');
+  ft_putchar('\n');
   return (0);
 }
 
@@ -32,7 +33,6 @@ int get_folder_files(struct s_file *folder) {
   t_node *new_node;
   t_file *new_file;
   struct dirent *fe;
-  struct stat file_stat;
   DIR *f;
 
   new_node = NULL;
@@ -44,8 +44,6 @@ int get_folder_files(struct s_file *folder) {
   while ((fe = readdir(f)))
   {
     new_file = create_new_file(fe->d_name, folder->path);
-    lstat(new_file->path, &file_stat);
-    new_file->type = S_ISDIR(file_stat.st_mode);
     new_node = ft_node_new(new_file, sizeof(t_file));
     ft_lstadd(folder->files, new_node);
   }

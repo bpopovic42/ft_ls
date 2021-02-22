@@ -1,5 +1,14 @@
 #include "ft_ls.h"
 
+int read_file_properties(t_file *file)
+{
+  struct stat file_stat;
+
+  lstat(file->path, &file_stat);
+  file->type = file_stat.st_mode;
+  return (0);
+}
+
 t_file *create_new_file(char *name, char *parent_path) {
   t_file *file;
 
@@ -14,6 +23,7 @@ t_file *create_new_file(char *name, char *parent_path) {
   }
   else
     file->path = ft_strdup(name);
+  read_file_properties(file);
   return (file);
 }
 

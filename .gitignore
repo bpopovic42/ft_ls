@@ -8,3 +8,5 @@ libft.a
 *.dSYM
 *.gch
 .cmp
+ft_ls
+ft_ls/test/

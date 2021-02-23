@@ -24,6 +24,7 @@ typedef struct s_file {
 
 t_file *create_new_file(char *name, char *parent_path);
 int init_store(t_store *store);
+int clean_store(t_store *store);
 
 /*
 ** PARSE_ARGUMENTS

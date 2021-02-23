@@ -206,8 +206,6 @@ re			:
 
 ############################## UTIL ############################################
 
-MKODIR		=	if [ ! -d $(ODIR) ]; then \
-
 CMP			=	if [ ! -e .cmp ]; then \
 			echo $(BY)Compiling $(B)Libft $(X)files...$(BY); \
 			touch .cmp; fi

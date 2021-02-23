@@ -19,7 +19,10 @@ int process_folder_files(struct s_file *folder)
       new_folder = create_new_file(file->name, folder->path);
       new_node = ft_node_new(new_folder, sizeof(t_file));
       if (folder->sub_folders == NULL)
-        folder->sub_folders = ft_lstnew();
+      {
+        if (!(folder->sub_folders = ft_lstnew()))
+          return (1);
+      }
       ft_lstadd(folder->sub_folders, new_node);
     }
     folder_files_ptr = folder_files_ptr->next;
@@ -44,9 +47,11 @@ int get_folder_files(struct s_file *folder) {
   while ((fe = readdir(f)))
   {
     new_file = create_new_file(fe->d_name, folder->path);
-    new_node = ft_node_new(new_file, sizeof(t_file));
+    new_node = ft_node_new(NULL, 0);
+    new_node->data = new_file;
     ft_lstadd(folder->files, new_node);
   }
+  closedir(f);
   return (0);
 }
 

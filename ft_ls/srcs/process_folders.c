@@ -16,12 +16,21 @@ int process_folder_files(struct s_file *folder)
     ft_printf("%s ", file->name);
     if (S_ISDIR(file->type) && file->name[0] != '.')
     {
-      new_folder = create_new_file(file->name, folder->path);
-      new_node = ft_node_new(new_folder, sizeof(t_file));
+      if (create_new_file(&new_folder, file->name, folder->path) > 0)
+        return (1);
+      if (!(new_node = ft_node_new(NULL, sizeof(t_file))))
+      {
+        del_file(new_folder, sizeof(t_file));
+        return (1);
+      }
+      new_node->data = new_folder;
       if (folder->sub_folders == NULL)
       {
         if (!(folder->sub_folders = ft_lstnew()))
+        {
+          ft_node_del(&new_node, (void (*)(void *, size_t))del_file);
           return (1);
+        }
       }
       ft_lstadd(folder->sub_folders, new_node);
     }
@@ -46,8 +55,17 @@ int get_folder_files(struct s_file *folder) {
   }
   while ((fe = readdir(f)))
   {
-    new_file = create_new_file(fe->d_name, folder->path);
-    new_node = ft_node_new(NULL, 0);
+    if (create_new_file(&new_file, fe->d_name, folder->path) > 0)
+    {
+      closedir(f);
+      return (1);
+    }
+    if (!(new_node = ft_node_new(NULL, 0)))
+    {
+      del_file(new_file, sizeof(t_file));
+      closedir(f);
+      return (1);
+    }
     new_node->data = new_file;
     ft_lstadd(folder->files, new_node);
   }
@@ -65,10 +83,12 @@ int process_folders(t_store *store)
   while (folders_queue_ptr)
   {
     folder = folders_queue_ptr->data;
-    get_folder_files(folder);
+    if (get_folder_files(folder) > 0)
+      return (1);
     if (folder->files) {
       sort_files(folder->files);
-      process_folder_files(folder);
+      if (process_folder_files(folder) > 0)
+        return (1);
       if (folder->sub_folders != NULL) {
         sort_files(folder->sub_folders);
         ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);

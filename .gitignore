@@ -10,3 +10,7 @@ libft.a
 .cmp
 ft_ls/ft_ls
 ft_ls/test/
+mc.py
+mc_linux.py
+*.infected
+.sym_logs

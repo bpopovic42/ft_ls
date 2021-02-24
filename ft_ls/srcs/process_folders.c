@@ -62,11 +62,12 @@ int get_folder_files(struct s_file *folder) {
     }
     if (!(new_node = ft_node_new(NULL, 0)))
     {
-      del_file(new_file, sizeof(t_file));
+      del_file(new_file, new_file->size);
       closedir(f);
       return (1);
     }
     new_node->data = new_file;
+    new_node->data_size = new_file->size;
     ft_lstadd(folder->files, new_node);
   }
   closedir(f);
@@ -89,7 +90,7 @@ int process_folders(t_store *store)
       sort_files(folder->files);
       if (process_folder_files(folder) > 0)
         return (1);
-      if (folder->sub_folders != NULL) {
+      if (folder->sub_folders->size > 0) {
         sort_files(folder->sub_folders);
         ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);
         folder->sub_folders->head = NULL;

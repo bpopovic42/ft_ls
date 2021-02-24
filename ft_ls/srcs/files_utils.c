@@ -46,12 +46,7 @@ int create_new_file(t_file **new_file, char *name, char *parent_path) {
     return exit_error(new_file);
   ft_strcpy((*new_file)->name, name);
   if (parent_path)
-  {
-    ft_strncat((*new_file)->path, parent_path, ft_strlen(parent_path) + 1);
-    ft_strncat((*new_file)->path, "/", ft_strlen((*new_file)->path + 1) + 1);
-    ft_strncat((*new_file)->path, name, ft_strlen((*new_file)->path) +
-                                        ft_strlen(name) + 2);
-  }
+    ft_strcatn((*new_file)->path, 3, parent_path, "/\0", name);
   else
     ft_strncat((*new_file)->path, name, ft_strlen(name) + 1);
   if (read_file_properties(*new_file) > 0)
@@ -61,7 +56,7 @@ int create_new_file(t_file **new_file, char *name, char *parent_path) {
 
 int del_file(t_file *file, size_t folder_size)
 {
-  ft_printf("cleaning : %s\n", file->name);
+  //ft_printf("cleaning : %s\n", file->name);
   if (file != NULL)
   {
     if (file->files)

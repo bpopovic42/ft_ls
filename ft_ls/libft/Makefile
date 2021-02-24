@@ -89,7 +89,7 @@ STR_FILES	=	$(addprefix $(STRDIR)/, \
 			ft_strnappend.c ft_strcinsert.c ft_wctomb.c ft_wcstombs.c \
 			ft_wcslen.c ft_strrev.c ft_wcsnlen.c ft_strchrn.c ft_ccat.c \
 			ft_strtoupper.c ft_strcasestr.c ft_strcasenequ.c ft_atol.c \
-			ft_count_words.c ft_is_valid_int.c ft_strappendn.c)
+			ft_count_words.c ft_is_valid_int.c ft_strappendn.c ft_strcatn.c)
 
 # **************************************************************************** #
 # Dictionary :

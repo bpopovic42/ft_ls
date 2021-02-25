@@ -2,7 +2,8 @@
 
 int exit_error(t_file **file_to_clean)
 {
-  del_file(*file_to_clean, (*file_to_clean)->size);
+  if (*file_to_clean)
+    del_file(*file_to_clean, (*file_to_clean)->size);
   return (1);
 }
 

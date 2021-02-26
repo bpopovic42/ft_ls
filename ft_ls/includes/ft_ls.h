@@ -6,27 +6,43 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
-typedef struct s_store {
-  t_list *folders_queue;
+typedef struct s_store
+{
+	t_list *folders_queue;
 } t_store;
 
-typedef struct s_file {
-  char *name;
-  char *path;
-  int type;
-  int size;
-  t_list *files;
-  t_list *sub_folders;
+typedef struct s_file
+{
+	char   *name;
+	char   *path;
+	int    type;
+	int    size;
+	t_list *files;
+	t_list *sub_folders;
 } t_file;
+
+
+/*
+** FILES_UTILS
+*/
+
+int create_new_file(t_file **new_file, char *name, char *parent_path);
+
+void del_file(t_file *file, size_t folder_size);
+
+/*
+** READ_FILE
+*/
+
+int read_file_properties(t_file *file);
 
 /*
 ** STRUCTURES UTILS
 */
 
-int create_new_file(t_file **new_file, char *name, char *parent_path);
-int del_file(t_file *file, size_t folder_size);
 int init_store(t_store *store);
-int clean_store(t_store *store);
+
+void clean_store(t_store *store);
 
 /*
 ** PARSE_ARGUMENTS
@@ -50,6 +66,6 @@ void tmp_print_folder(t_node *node);
 ** PROCESS FOLDERS
 */
 
-int   process_folders(t_store *store);
+int process_folders(t_store *store);
 
 #endif

@@ -1,27 +1,21 @@
 #include "ft_ls.h"
 
+// TODO: Figure out exactly how files are supposed to be sorted
+
 int ascii_compare(t_file *f1, t_file *f2)
 {
-	int i;
+	int cmp;
 
-	i = 0;
-	while (ft_tolower(f1->name[i]) == ft_tolower(f2->name[i]))
-		i++;
-	if (ft_tolower(f1->name[i]) - ft_tolower(f2->name[i]) < 0)
-		return (1);
-	return (0);
+	cmp = ft_strcmp(f1->name, f2->name);
+	return cmp <= 0 ? 1 : 0;
 }
 
 int ascii_compare_reversed(t_file *f1, t_file *f2)
 {
-	int i;
+	int cmp;
 
-	i = 0;
-	while (ft_tolower(f1->name[i]) == ft_tolower(f2->name[i]))
-		i++;
-	if (ft_tolower(f1->name[i]) - ft_tolower(f2->name[i]) >= 0)
-		return (1);
-	return (0);
+	cmp = ft_strcmp(f1->name, f2->name);
+	return cmp <= 0 ? 0 : 1;
 }
 
 void sort_files(t_store *store, t_list *files)

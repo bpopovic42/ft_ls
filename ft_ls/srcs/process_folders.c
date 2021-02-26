@@ -87,11 +87,11 @@ int process_folders(t_store *store)
 		if (get_folder_files(folder) > 0)
 			return (1);
 		if (folder->files) {
-			sort_files(folder->files);
+			sort_files(store, folder->files);
 			if (process_folder_files(folder) > 0)
 				return (1);
 			if (folder->sub_folders->size > 0) {
-				sort_files(folder->sub_folders);
+				sort_files(store, folder->sub_folders);
 				ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);
 				folder->sub_folders->head = NULL;
 			}

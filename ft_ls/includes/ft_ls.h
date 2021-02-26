@@ -69,7 +69,7 @@ int parse_arguments(char **arguments, t_store *store);
 ** SORTING
 */
 
-void sort_files(t_list *files);
+void sort_files(t_store *store, t_list *files);
 
 /*
 ** PRINTING

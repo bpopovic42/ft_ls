@@ -2,14 +2,14 @@
 
 int handle_flag_argument(t_store *store, char *argument)
 {
-	if (ft_strcmp(argument, "--"))
+	if (!ft_strcmp(argument, "--"))
 	{
 		store->flags_end = true;
 		return (EXIT_SUCCESS);
 	}
 	else
 	{
-		while (++*argument)
+		while (++argument)
 		{
 			if (*argument == 'a')
 				store->flags[0] = 'a';

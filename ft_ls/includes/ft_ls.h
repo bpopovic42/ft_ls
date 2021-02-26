@@ -8,6 +8,8 @@
 
 typedef struct s_store
 {
+	char flags[5];
+	bool flags_end;
 	t_list *folders_queue;
 } t_store;
 

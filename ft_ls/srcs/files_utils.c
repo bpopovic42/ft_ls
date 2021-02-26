@@ -3,7 +3,7 @@
 int exit_error(t_file **file_to_clean)
 {
 	if (*file_to_clean)
-		del_file(*file_to_clean, (*file_to_clean)->size);
+		del_file(*file_to_clean, (*file_to_clean)->struct_size);
 	return (EXIT_FAILURE);
 }
 
@@ -22,9 +22,10 @@ int allocate_new_file(t_file **new_file, char *name, char *parent_path)
 	if (!(memory_block = ft_memalloc(allocation_size)))
 		return exit_error(new_file);
 	*new_file = memory_block;
-	(*new_file)->name = memory_block + sizeof(t_file);
-	(*new_file)->path = memory_block + sizeof(t_file) + sizeof_name;
-	(*new_file)->size = allocation_size;
+	(*new_file)->name        = memory_block + sizeof(t_file);
+	(*new_file)->path        = memory_block + sizeof(t_file) + sizeof_name;
+	(*new_file)->struct_size = allocation_size;
+	ft_memset(&(*new_file)->mode, '-', sizeof(t_mode));
 	return (EXIT_SUCCESS);
 }
 

@@ -11,12 +11,25 @@ typedef struct s_store
 	t_list *folders_queue;
 } t_store;
 
+typedef struct s_mode {
+	char type;
+	char usr_read;
+	char usr_write;
+	char usr_exec;
+	char grp_read;
+	char grp_write;
+	char grp_exec;
+	char oth_read;
+	char oth_write;
+	char oth_exec;
+} t_mode;
+
 typedef struct s_file
 {
 	char   *name;
 	char   *path;
-	int    type;
-	int    size;
+	int    struct_size;
+	t_mode mode;
 	t_list *files;
 	t_list *sub_folders;
 } t_file;

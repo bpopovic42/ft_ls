@@ -12,8 +12,8 @@ int process_folder_files(struct s_file *folder)
 	ft_printf("%s:\n", folder->path);
 	while (folder_files_ptr) {
 		file = folder_files_ptr->data;
-		ft_printf("%s ", file->name);
-		if (S_ISDIR(file->type) && file->name[0] != '.') {
+		ft_printf("%s %s\n", &file->mode, file->name);
+		if (file->mode.type == 'd' && file->name[0] != '.') {
 			if (create_new_file(&new_folder, file->name, folder->path) !=
 			    EXIT_SUCCESS)
 				return (1);
@@ -56,12 +56,12 @@ int get_folder_files(struct s_file *folder)
 			return (1);
 		}
 		if (!(new_node = ft_node_new(NULL, 0))) {
-			del_file(new_file, new_file->size);
+			del_file(new_file, new_file->struct_size);
 			closedir(f);
 			return (1);
 		}
 		new_node->data      = new_file;
-		new_node->data_size = new_file->size;
+		new_node->data_size = new_file->struct_size;
 		ft_lstadd(folder->files, new_node);
 	}
 	closedir(f);

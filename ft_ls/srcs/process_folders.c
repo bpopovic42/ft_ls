@@ -1,34 +1,41 @@
 #include "ft_ls.h"
 
+int add_subfolder(t_file *folder, t_file *subfolder)
+{
+	t_file *new_folder;
+	t_node *new_node;
+
+	new_folder = NULL;
+	if (create_new_file(&new_folder, subfolder->name, folder->path) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (!(new_node = ft_node_new(NULL, sizeof(t_file)))) {
+		del_file(new_folder, sizeof(t_file));
+		return (EXIT_FAILURE);
+	}
+	new_node->data = new_folder;
+	if (!(folder->sub_folders = ft_lstnew())) {
+		ft_node_del(&new_node, (void (*)(void *, size_t))del_file);
+		return (EXIT_FAILURE);
+	}
+	ft_lstadd(folder->sub_folders, new_node);
+	return (EXIT_SUCCESS);
+}
+
 int process_folder_files(struct s_file *folder)
 {
 	t_file *file;
-	t_node *new_node;
-	t_file *new_folder;
 	t_node *folder_files_ptr;
 
-	new_folder       = NULL;
 	folder_files_ptr = folder->files->head;
 	ft_printf("%s:\n", folder->path);
-	while (folder_files_ptr) {
+	while (folder_files_ptr)
+	{
 		file = folder_files_ptr->data;
 		ft_printf("%s %s\n", &file->mode, file->name);
-		if (file->mode.type == 'd' && file->name[0] != '.') {
-			if (create_new_file(&new_folder, file->name, folder->path) !=
-			    EXIT_SUCCESS)
-				return (1);
-			if (!(new_node = ft_node_new(NULL, sizeof(t_file)))) {
-				del_file(new_folder, sizeof(t_file));
-				return (1);
-			}
-			new_node->data = new_folder;
-			if (folder->sub_folders == NULL) {
-				if (!(folder->sub_folders = ft_lstnew())) {
-					ft_node_del(&new_node, (void (*)(void *, size_t))del_file);
-					return (1);
-				}
-			}
-			ft_lstadd(folder->sub_folders, new_node);
+		if (file->mode.type == 'd' && file->name[0] != '.')
+		{
+			if (add_subfolder(folder, file) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
 		}
 		folder_files_ptr = folder_files_ptr->next;
 	}

@@ -6,6 +6,9 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 		ft_printf("%s:\n", parent_folder->path);
 }
 
+// TODO: Issue : Space is added after last file printed if there's a \
+//  non-processed file after it in the list (hidden file without -a for
+//  instance)
 void print_file(t_file *file, int is_last_file)
 {
 	if (g_flags[1] != 'l')

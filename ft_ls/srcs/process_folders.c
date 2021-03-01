@@ -21,17 +21,7 @@ int add_subfolder(t_file *folder, t_file *subfolder)
 	return (EXIT_SUCCESS);
 }
 
-int add_file_if_folder(t_store *store, t_file *parent_folder, t_file *file)
-{
-	if (store->flags[3] == 'R' && file->mode.type == 'd'
-	    && !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
-	{
-		if (add_subfolder(parent_folder, file) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
+// TODO: Rework entire function by using ft_lstiter ?
 int process_folder_files(t_store *store, struct s_file *folder)
 {
 	t_file *file;
@@ -42,11 +32,14 @@ int process_folder_files(t_store *store, struct s_file *folder)
 	while (folder_files_ptr)
 	{
 		file = folder_files_ptr->data;
-		if (file->name[0] != '.' || store->flags[0] == 'a')
+		if (should_process_file(store->flags, file))
 		{
 			print_file(store, file, folder_files_ptr->next == NULL);
-			if (add_file_if_folder(store, folder, file) != EXIT_SUCCESS)
-				return (EXIT_FAILURE);
+			if (should_add_subfolder(store->flags, file))
+			{
+				if (add_subfolder(folder, file) != EXIT_SUCCESS)
+					return (EXIT_FAILURE);
+			}
 		}
 		folder_files_ptr = folder_files_ptr->next;
 	}

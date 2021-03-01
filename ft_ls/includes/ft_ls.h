@@ -88,4 +88,12 @@ void print_file(t_store *store, t_file *file, int is_last_file);
 
 int process_folders(t_store *store);
 
+/*
+** FILES PROCESSING CONDITIONS
+*/
+
+int should_process_file(char flags[FT_LS_FLAGS], t_file *file);
+
+int should_add_subfolder(char flags[FT_LS_FLAGS], t_file *subfolder);
+
 #endif

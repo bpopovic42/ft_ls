@@ -18,6 +18,6 @@ t_list	*ft_lstnew(void)
 
 	if (!(new = malloc(sizeof(*new))))
 		return (NULL);
-        ft_bzero(new, sizeof(*new));
+	ft_bzero(new, sizeof(*new));
 	return (new);
 }

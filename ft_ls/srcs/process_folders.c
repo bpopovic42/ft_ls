@@ -21,6 +21,7 @@ int add_subfolder(t_file *folder, t_file *subfolder)
 	return (EXIT_SUCCESS);
 }
 
+
 // TODO: Rework entire function by using ft_lstiter ?
 int process_folder_files(t_store *store, struct s_file *folder)
 {
@@ -32,10 +33,10 @@ int process_folder_files(t_store *store, struct s_file *folder)
 	while (folder_files_ptr)
 	{
 		file = folder_files_ptr->data;
-		if (should_process_file(store->flags, file))
+		if (should_process_file(file))
 		{
-			print_file(store, file, folder_files_ptr->next == NULL);
-			if (should_add_subfolder(store->flags, file))
+			print_file(file, folder_files_ptr->next == NULL);
+			if (should_add_subfolder(file))
 			{
 				if (add_subfolder(folder, file) != EXIT_SUCCESS)
 					return (EXIT_FAILURE);
@@ -89,11 +90,11 @@ int process_folders(t_store *store)
 		if (get_folder_files(folder) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (folder->files) {
-			sort_files(store, folder->files);
+			sort_files(folder->files);
 			if (process_folder_files(store, folder) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 			if (folder->sub_folders->size > 0) {
-				sort_files(store, folder->sub_folders);
+				sort_files(folder->sub_folders);
 				ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);
 				folder->sub_folders->head = NULL;
 			}

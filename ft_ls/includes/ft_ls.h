@@ -10,7 +10,6 @@
 
 typedef struct s_store
 {
-	char flags[FT_LS_FLAGS];
 	bool flags_end;
 	int nbr_of_file_args;
 	t_list *folders_queue;
@@ -40,6 +39,7 @@ typedef struct s_file
 	t_list *sub_folders;
 } t_file;
 
+char g_flags[FT_LS_FLAGS];
 
 /*
 ** FILES_UTILS
@@ -73,14 +73,14 @@ int parse_arguments(char **arguments, t_store *store);
 ** SORTING
 */
 
-void sort_files(t_store *store, t_list *files);
+void sort_files(t_list *files);
 
 /*
 ** PRINTING
 */
 
 void print_parent_folder(t_store *store, t_file *parent_folder);
-void print_file(t_store *store, t_file *file, int is_last_file);
+void print_file(t_file *file, int is_last_file);
 
 /*
 ** PROCESS FOLDERS
@@ -92,8 +92,8 @@ int process_folders(t_store *store);
 ** FILES PROCESSING CONDITIONS
 */
 
-int should_process_file(char flags[FT_LS_FLAGS], t_file *file);
+int should_process_file(t_file *file);
 
-int should_add_subfolder(char flags[FT_LS_FLAGS], t_file *subfolder);
+int should_add_subfolder(t_file *subfolder);
 
 #endif

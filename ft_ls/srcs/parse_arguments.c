@@ -12,15 +12,15 @@ int handle_flag_argument(t_store *store, char *argument)
 		while (++argument)
 		{
 			if (*argument == 'a')
-				store->flags[0] = 'a';
+				g_flags[0] = 'a';
 			else if (*argument == 'l')
-				store->flags[1] = 'l';
+				g_flags[1] = 'l';
 			else if (*argument == 'r')
-				store->flags[2] = 'r';
+				g_flags[2] = 'r';
 			else if (*argument == 'R')
-				store->flags[3] = 'R';
+				g_flags[3] = 'R';
 			else if (*argument == 't')
-				store->flags[4] = 't';
+				g_flags[4] = 't';
 			else
 				return (EXIT_FAILURE);
 		}

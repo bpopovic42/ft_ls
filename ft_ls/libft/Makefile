@@ -54,14 +54,14 @@ IO_FILES	=	$(addprefix $(IODIR)/, \
 # Lists :
 
 LST_FILES	=	$(addprefix $(LSTDIR)/, \
-			ft_lstnew.c ft_lstdel.c ft_lstadd.c \
+			ft_lstnew.c ft_lstdel.c ft_lstadd.c ft_lstmap.c \
 			ft_lstiter.c ft_lstpush_node.c ft_dlstnew.c ft_dlstdel.c \
 			ft_dlstdelone.c ft_dlstpop.c ft_dlstpush.c ft_dlstadd.c \
 			ft_dlstiter.c ft_lstadd_data.c ft_lstsort.c ft_node_new.c \
 			ft_node_del.c ft_lstdup.c ft_lstget_tail.c ft_lstget_tail_data.c \
 			ft_lstpop.c ft_lstpop_data.c ft_lstpush_back.c \
 			ft_lstpush_back_data.c ft_node_dup.c ft_lstnode_remove.c \
-			ft_lstinsert_after.c)
+			ft_lstinsert_after.c ft_lst_filter.c)
 
 # **************************************************************************** #
 # Memory :

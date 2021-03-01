@@ -113,7 +113,8 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list *alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list *alst, t_node *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_node *node));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+int					ft_lstmap(t_list *lst, t_list *result, int (f)(t_node
+*node, t_node **result));
 void				ft_lstpush_node(t_list *alst, t_node *node);
 t_dlist				*ft_dlstnew(void const *content, size_t content_size);
 void				ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
@@ -138,6 +139,7 @@ void				*ft_lstget_tail_data(t_list *list);
 t_list				*ft_lstdup(t_list *list);
 void				ft_lstnode_remove(t_list *list, t_node *target);
 void                            ft_lstinsert_after(t_list *src, t_node *dest);
+void ft_lst_filter(t_list *list, t_list **result, int (f)(t_node *node));
 
 /*
 ** MEMORY FUNCTIONS

@@ -16,3 +16,14 @@ void print_file(t_file *file, int is_last_file)
 	else
 		ft_printf("%s %s\n", &file->mode, file->name);
 }
+
+void print_file_from_node(t_node *file_node)
+{
+	t_file *file;
+
+	file = file_node->data;
+	if (g_flags[1] != 'l')
+		ft_printf("%s%s", file->name, file_node->next == NULL ? "\n\n" : "  ");
+	else
+		ft_printf("%s %s\n", &file->mode, file->name);
+}

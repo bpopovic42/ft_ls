@@ -81,6 +81,7 @@ void sort_files(t_list *files);
 
 void print_parent_folder(t_store *store, t_file *parent_folder);
 void print_file(t_file *file, int is_last_file);
+void print_file_from_node(t_node *file_node);
 
 /*
 ** PROCESS FOLDERS

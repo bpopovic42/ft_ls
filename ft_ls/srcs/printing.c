@@ -1,19 +1,15 @@
 #include "ft_ls.h"
 
-void tmp_print_file(t_node *node)
+void print_parent_folder(t_store *store, t_file *parent_folder)
 {
-	t_file *file;
-
-	file = (t_file *)node->data;
-	ft_printf("%s ", file->name);
+	if (store->flags[3] == 'R' || store->nbr_of_file_args > 1)
+		ft_printf("%s:\n", parent_folder->path);
 }
 
-void tmp_print_folder(t_node *node)
+void print_file(t_store *store, t_file *file, int is_last_file)
 {
-	t_file *folder;
-
-	folder = (t_file *)node->data;
-	ft_putendl(folder->name);
-	if (folder->files)
-		ft_lstiter(folder->files, tmp_print_file);
+	if (store->flags[1] != 'l')
+		ft_printf("%s%s", file->name, is_last_file ? "\n\n" : "  ");
+	else
+		ft_printf("%s %s\n", &file->mode, file->name);
 }

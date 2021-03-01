@@ -41,6 +41,7 @@ int handle_path_argument(t_store *store, char *argument)
 		return (EXIT_FAILURE);
 	new_node->data = new_folder;
 	ft_lstadd(store->folders_queue, new_node);
+	store->nbr_of_file_args += 1;
 	return (EXIT_SUCCESS);
 }
 

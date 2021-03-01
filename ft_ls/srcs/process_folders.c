@@ -13,7 +13,7 @@ int add_subfolder(t_file *folder, t_file *subfolder)
 		return (EXIT_FAILURE);
 	}
 	new_node->data = new_folder;
-	if (!(folder->sub_folders = ft_lstnew())) {
+	if (folder->sub_folders == NULL && !(folder->sub_folders = ft_lstnew())) {
 		ft_node_del(&new_node, (void (*)(void *, size_t))del_file);
 		return (EXIT_FAILURE);
 	}
@@ -21,26 +21,35 @@ int add_subfolder(t_file *folder, t_file *subfolder)
 	return (EXIT_SUCCESS);
 }
 
-int process_folder_files(struct s_file *folder)
+int add_file_if_folder(t_store *store, t_file *parent_folder, t_file *file)
+{
+	if (store->flags[3] == 'R' && file->mode.type == 'd'
+	    && !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
+	{
+		if (add_subfolder(parent_folder, file) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int process_folder_files(t_store *store, struct s_file *folder)
 {
 	t_file *file;
 	t_node *folder_files_ptr;
 
 	folder_files_ptr = folder->files->head;
-	ft_printf("%s:\n", folder->path);
+	print_parent_folder(store, folder);
 	while (folder_files_ptr)
 	{
 		file = folder_files_ptr->data;
-		ft_printf("%s %s\n", &file->mode, file->name);
-		if (file->mode.type == 'd' && file->name[0] != '.')
+		if (file->name[0] != '.' || store->flags[0] == 'a')
 		{
-			if (add_subfolder(folder, file) != EXIT_SUCCESS)
+			print_file(store, file, folder_files_ptr->next == NULL);
+			if (add_file_if_folder(store, folder, file) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 		}
 		folder_files_ptr = folder_files_ptr->next;
 	}
-	ft_putchar('\n');
-	ft_putchar('\n');
 	return (0);
 }
 
@@ -84,12 +93,12 @@ int process_folders(t_store *store)
 	folder            = NULL;
 	while (folders_queue_ptr) {
 		folder = folders_queue_ptr->data;
-		if (get_folder_files(folder) > 0)
-			return (1);
+		if (get_folder_files(folder) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
 		if (folder->files) {
 			sort_files(store, folder->files);
-			if (process_folder_files(folder) > 0)
-				return (1);
+			if (process_folder_files(store, folder) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
 			if (folder->sub_folders->size > 0) {
 				sort_files(store, folder->sub_folders);
 				ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);

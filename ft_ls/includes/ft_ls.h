@@ -6,10 +6,13 @@
 # include <dirent.h>
 # include <sys/stat.h>
 
+# define FT_LS_FLAGS 5
+
 typedef struct s_store
 {
-	char flags[5];
+	char flags[FT_LS_FLAGS];
 	bool flags_end;
+	int nbr_of_file_args;
 	t_list *folders_queue;
 } t_store;
 
@@ -30,6 +33,7 @@ typedef struct s_file
 {
 	char   *name;
 	char   *path;
+	int     timestamp;
 	int    struct_size;
 	t_mode mode;
 	t_list *files;
@@ -75,7 +79,8 @@ void sort_files(t_store *store, t_list *files);
 ** PRINTING
 */
 
-void tmp_print_folder(t_node *node);
+void print_parent_folder(t_store *store, t_file *parent_folder);
+void print_file(t_store *store, t_file *file, int is_last_file);
 
 /*
 ** PROCESS FOLDERS

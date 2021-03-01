@@ -28,6 +28,12 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 	mode->oth_exec = (S_ISVTX & file_stat->st_mode ? 't' : mode->oth_exec);
 }
 
+int get_file_time(t_file *file, struct stat *file_stat)
+{
+	file->timestamp = file_stat->st_mtime;
+	return (EXIT_SUCCESS);
+}
+
 int read_file_properties(t_file *file)
 {
 	struct stat file_stat;

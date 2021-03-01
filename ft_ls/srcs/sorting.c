@@ -18,11 +18,27 @@ int ascii_compare_reversed(t_file *f1, t_file *f2)
 	return cmp <= 0 ? 0 : 1;
 }
 
+// TODO: What happens when timestamp is the same for 2 files ?
+
+int timestamp_compare(t_file *f1, t_file *f2)
+{
+	return (f1->timestamp - f2->timestamp <= 0);
+}
+
+int timestamp_compare_reversed(t_file *f1, t_file *f2)
+{
+	return (f1->timestamp - f2->timestamp >= 0);
+}
+
 void sort_files(t_store *store, t_list *files)
 {
 	if (store->flags[4] == 't')
 	{
-		; // TODO: Implement file time
+		if (store->flags[2] == 'r')
+			ft_lstsort(files, (int (*)(void *, void *))
+			timestamp_compare_reversed);
+		else
+			ft_lstsort(files, (int (*)(void *, void *))timestamp_compare);
 	}
 	else
 	{

@@ -9,16 +9,16 @@ int add_file_to_node(t_file *file, t_node **node)
 	return (EXIT_SUCCESS);
 }
 
-int add_new_file_to_folder(t_file *folder, struct dirent *entry)
+int add_new_file_to_folder(t_file *folder, struct dirent *direntry)
 {
 	t_node        *new_node;
 	t_file        *new_file;
 
 	new_node = NULL;
 	new_file   = NULL;
-	if (entry->d_name[0] == '.' && g_flags[0] != 'a')
+	if (direntry->d_name[0] == '.' && g_flags[0] != 'a')
 		return (EXIT_SUCCESS);
-	if (create_new_file(&new_file, entry->d_name, folder->path) != EXIT_SUCCESS)
+	if (create_new_file(&new_file, direntry->d_name, folder->path) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (add_file_to_node(new_file, &new_node) != EXIT_SUCCESS)
 	{
@@ -31,19 +31,18 @@ int add_new_file_to_folder(t_file *folder, struct dirent *entry)
 
 int get_folder_files(struct s_file *folder)
 {
-	struct dirent *fe;
-	DIR           *f;
+	struct dirent *direntry;
+	DIR           *dirstream;
+	int           error_status;
 
-	if (!(f = opendir(folder->path)))
+	if (!(dirstream  = opendir(folder->path)))
 		return (EXIT_FAILURE);
-	while ((fe = readdir(f)))
+	while ((direntry = readdir(dirstream)))
 	{
-		if (add_new_file_to_folder(folder, fe) != EXIT_SUCCESS)
-		{
-			closedir(f);
-			return (EXIT_FAILURE);
-		}
+		error_status = add_new_file_to_folder(folder, direntry);
+		if (error_status != EXIT_SUCCESS)
+			break;
 	}
-	closedir(f);
-	return (0);
+	closedir(dirstream);
+	return (error_status);
 }

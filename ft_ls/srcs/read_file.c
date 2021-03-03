@@ -41,6 +41,7 @@ int read_file_properties(t_file *file)
 	if (lstat(file->path, &file_stat) < 0)
 		return (EXIT_FAILURE);
 	get_file_mode(&file->mode, &file_stat);
+	get_file_time(file, &file_stat);
 	return (EXIT_SUCCESS);
 }
 

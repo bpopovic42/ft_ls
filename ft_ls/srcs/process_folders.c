@@ -1,35 +1,5 @@
 #include "ft_ls.h"
 
-int is_file_a_valid_subfolder(t_node *file_node)
-{
-	t_file *original_file;
-
-	original_file = file_node->data;
-	return (
-			!ft_strequ(original_file->name, ".") &&
-			!ft_strequ(original_file->name, "..") &&
-			original_file->mode.type	== 'd'
-			);
-}
-
-int register_subfolders(t_file *parent_folder)
-{
-	if (g_flags[3] == 'R')
-	{
-		if (!(parent_folder->sub_folders = ft_lstnew()))
-			return (EXIT_FAILURE);
-		ft_lst_filter(parent_folder->files, &parent_folder->sub_folders,
-				&is_file_a_valid_subfolder);
-	}
-	return (EXIT_SUCCESS);
-}
-
-int process_folder_files(t_store *store, struct s_file *folder)
-{
-	print_parent_folder(store, folder);
-	ft_lstiter(folder->files, &print_file_from_node);
-	return (register_subfolders(folder));
-}
 
 int get_folder_files(struct s_file *folder)
 {
@@ -42,13 +12,13 @@ int get_folder_files(struct s_file *folder)
 	new_file   = NULL;
 	if (!(f    = opendir(folder->path))) {
 		ft_printf("Failed to open %s\n", folder->name);
-		return 1;
+		return (EXIT_FAILURE);
 	}
 	while ((fe = readdir(f))) {
 		if (fe->d_name[0] != '.' || g_flags[0] == 'a') {
-			if (create_new_file(&new_file, fe->d_name, folder->path) > 0) {
+			if (create_new_file(&new_file, fe->d_name, folder->path) != EXIT_SUCCESS) {
 				closedir(f);
-				return (1);
+				return (EXIT_FAILURE);
 			}
 			if (!(new_node = ft_node_new(NULL, 0))) {
 				del_file(new_file, new_file->struct_size);
@@ -64,6 +34,14 @@ int get_folder_files(struct s_file *folder)
 	return (0);
 }
 
+void add_subfolders_to_queue(t_node *folders_queue, t_file *parent_folder)
+{
+	if (parent_folder->sub_folders->size > 0) {
+		ft_lstinsert_after(parent_folder->sub_folders, folders_queue);
+		parent_folder->sub_folders->head = NULL;
+	}
+}
+
 int process_folders(t_store *store)
 {
 	t_node *folders_queue_ptr;
@@ -71,21 +49,15 @@ int process_folders(t_store *store)
 
 	folders_queue_ptr = store->folders_queue->head;
 	folder            = NULL;
-	while (folders_queue_ptr) {
+	while (folders_queue_ptr)
+	{
 		folder = folders_queue_ptr->data;
 		if (should_process_file(folder)) {
 			if (get_folder_files(folder) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
-			if (folder->files) {
-				sort_files(folder->files);
-				if (process_folder_files(store, folder) != EXIT_SUCCESS)
-					return (EXIT_FAILURE);
-				if (folder->sub_folders->size > 0) {
-					sort_files(folder->sub_folders);
-					ft_lstinsert_after(folder->sub_folders, folders_queue_ptr);
-					folder->sub_folders->head = NULL;
-				}
-			}
+			if (process_folder_files(store, folder) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+			add_subfolders_to_queue(folders_queue_ptr, folder);
 		}
 		folders_queue_ptr = folders_queue_ptr->next;
 	}

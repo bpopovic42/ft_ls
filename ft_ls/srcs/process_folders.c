@@ -1,7 +1,5 @@
 #include "ft_ls.h"
 
-
-
 void add_subfolders_to_queue(t_node *folders_queue, t_file *parent_folder)
 {
 	if (parent_folder->sub_folders->size > 0) {

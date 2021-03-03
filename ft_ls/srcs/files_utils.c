@@ -78,9 +78,10 @@ void del_file(t_file *file, size_t folder_size)
 	if (file != NULL) {
 		if (file->files)
 			ft_lstdel(file->files, (void (*)(void *, size_t))del_file);
-		if (file->sub_folders) {
+		if (file->sub_folders)
 			ft_lstdel(file->sub_folders, (void (*)(void *, size_t))del_file);
-		}
+		ft_bzero(file->properties, file->properties->struct_size);
+		ft_memdel((void **)&file->properties);
 		ft_bzero(file, folder_size);
 		ft_memdel((void **)&file);
 	}

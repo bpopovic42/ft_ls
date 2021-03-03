@@ -5,6 +5,8 @@
 # include "ft_printf.h"
 # include <dirent.h>
 # include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
 
 # define FT_LS_FLAGS 5
 
@@ -28,13 +30,22 @@ typedef struct s_mode {
 	char oth_exec;
 } t_mode;
 
+typedef struct s_properties
+{
+	int     timestamp;
+	char    *usr_owner;
+	char    *grp_owner;
+	char    *link;
+	int    struct_size;
+} t_properties;
+
 typedef struct s_file
 {
 	char   *name;
 	char   *path;
-	int     timestamp;
 	int    struct_size;
 	int     nbr_of_subfolders;
+	t_properties *properties;
 	t_mode mode;
 	t_list *files;
 	t_list *sub_folders;

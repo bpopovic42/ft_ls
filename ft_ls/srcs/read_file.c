@@ -30,7 +30,62 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 
 int get_file_time(t_file *file, struct stat *file_stat)
 {
-	file->timestamp = file_stat->st_mtime;
+	file->properties->timestamp = file_stat->st_mtime;
+	return (EXIT_SUCCESS);
+}
+
+int allocate_properties(t_file *file, char *pw_name, char *gr_name, char *link)
+{
+	ulong sizeof_pw_name;
+	ulong sizeof_gr_name;
+	ulong sizeof_link;
+	ulong allocation_size;
+	void *memory_block;
+
+	sizeof_pw_name = ft_strlen(pw_name) + 1;
+	sizeof_gr_name = ft_strlen(gr_name) + 1;
+	sizeof_link = ft_strlen(link) + 1;
+	allocation_size = sizeof(t_properties) + sizeof_pw_name + sizeof_gr_name
+	                  + sizeof_link;
+	if (!(memory_block = ft_memalloc(allocation_size)))
+		return (EXIT_FAILURE);
+	file->properties = memory_block;
+	file->properties->usr_owner = memory_block + sizeof(t_properties);
+	file->properties->grp_owner = file->properties->usr_owner + sizeof_pw_name;
+	file->properties->link = file->properties->grp_owner + sizeof_gr_name;
+	file->properties->struct_size = allocation_size;
+	return (EXIT_SUCCESS);
+}
+
+int read_link(t_file *file, char *link)
+{
+	ssize_t link_size;
+
+	if (file->mode.type != 'l')
+		return (EXIT_SUCCESS);
+	if ((link_size = readlink(file->path, link, PATH_MAX - 1)) < 0)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int get_file_properties(t_file *file, struct stat *file_stat)
+{
+	struct passwd *pwuid;
+	struct group *grgid;
+	char link[PATH_MAX];
+
+	ft_bzero(link, PATH_MAX);
+	if (!(pwuid = getpwuid(file_stat->st_uid)))
+		return (EXIT_FAILURE);
+	if (!(grgid = getgrgid(file_stat->st_gid)))
+		return (EXIT_FAILURE);
+	if (read_link(file, link) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	allocate_properties(file, pwuid->pw_name, grgid->gr_name, link);
+	ft_strcpy(file->properties->usr_owner, pwuid->pw_name);
+	ft_strcpy(file->properties->grp_owner, grgid->gr_name);
+	ft_strcpy(file->properties->link, link);
+	get_file_time(file, file_stat);
 	return (EXIT_SUCCESS);
 }
 
@@ -41,7 +96,7 @@ int read_file_properties(t_file *file)
 	if (lstat(file->path, &file_stat) < 0)
 		return (EXIT_FAILURE);
 	get_file_mode(&file->mode, &file_stat);
-	get_file_time(file, &file_stat);
+	get_file_properties(file, &file_stat);
 	return (EXIT_SUCCESS);
 }
 

@@ -36,6 +36,7 @@ typedef struct s_properties
 	char    *usr_owner;
 	char    *grp_owner;
 	char    *link;
+	int     size;
 	int    struct_size;
 } t_properties;
 

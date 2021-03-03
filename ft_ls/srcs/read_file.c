@@ -86,6 +86,7 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	ft_strcpy(file->properties->grp_owner, grgid->gr_name);
 	ft_strcpy(file->properties->link, link);
 	get_file_time(file, file_stat);
+	file->properties->size = file_stat->st_size;
 	return (EXIT_SUCCESS);
 }
 

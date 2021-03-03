@@ -34,6 +34,7 @@ typedef struct s_file
 	char   *path;
 	int     timestamp;
 	int    struct_size;
+	int     nbr_of_subfolders;
 	t_mode mode;
 	t_list *files;
 	t_list *sub_folders;

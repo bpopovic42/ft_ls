@@ -17,7 +17,7 @@ ODIR		=	./objs
 
 LS_FILES	=	main.c process_folders.c sorting.c printing.c \
 	parse_arguments.c structures_utils.c files_utils.c read_file.c \
-	files_processing_conditions.c process_folder_files.c
+	files_processing_conditions.c process_folder_files.c get_folder_files.c
 
 # **************************************************************************** #
 # Complete path :

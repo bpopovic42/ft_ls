@@ -90,6 +90,12 @@ void print_file_from_node(t_node *file_node);
 int process_folders(t_store *store);
 
 /*
+** GET FOLDER FILES
+*/
+
+int get_folder_files(struct s_file *folder);
+
+/*
 ** PROCESS FOLDER FILES
 */
 

@@ -30,7 +30,11 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 
 int get_file_time(t_file *file, struct stat *file_stat)
 {
-	file->properties->timestamp = file_stat->st_mtime;
+	char *date;
+
+	file->properties->timestamp = file_stat->st_mtim.tv_nsec;
+	date = ctime(&file_stat->st_mtime);
+	ft_strncpy(file->properties->date, date + 4, 12);
 	return (EXIT_SUCCESS);
 }
 

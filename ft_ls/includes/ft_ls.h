@@ -7,6 +7,7 @@
 # include <sys/stat.h>
 # include <pwd.h>
 # include <grp.h>
+# include <time.h>
 
 # define FT_LS_FLAGS 5
 
@@ -32,10 +33,11 @@ typedef struct s_mode {
 
 typedef struct s_properties
 {
-	int     timestamp;
+	long     timestamp;
 	char    *usr_owner;
 	char    *grp_owner;
 	char    *link;
+	char    date[13];
 	int     size;
 	int    struct_size;
 } t_properties;

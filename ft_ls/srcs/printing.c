@@ -25,12 +25,13 @@ void print_file_from_node(t_node *file_node)
 	if (g_flags[1] != 'l')
 		ft_printf("%s%s", file->name, file_node->next == NULL ? "\n\n" : "  ");
 	else
-		ft_printf("%s %d %s %s %4d %s%s%s\n",
+		ft_printf("%s %d %s %s %4d %s %s%s%s\n",
 			&file->mode,
 			file->nbr_of_subfolders,
 			file->properties->usr_owner,
 			file->properties->grp_owner,
 			file->properties->size,
+			file->properties->date,
 			file->name,
 			file->mode.type == 'l' ? " -> " : "",
 			file->properties->link

@@ -22,12 +22,12 @@ int ascii_compare_reversed(t_file *f1, t_file *f2)
 
 int timestamp_compare(t_file *f1, t_file *f2)
 {
-	return (f1->properties->timestamp - f2->properties->timestamp <= 0);
+	return (f1->properties->timestamp - f2->properties->timestamp >= 0);
 }
 
 int timestamp_compare_reversed(t_file *f1, t_file *f2)
 {
-	return (f1->properties->timestamp - f2->properties->timestamp >= 0);
+	return (f1->properties->timestamp - f2->properties->timestamp <= 0);
 }
 
 void sort_files(t_list *files)

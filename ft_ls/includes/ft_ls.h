@@ -38,6 +38,7 @@ typedef struct s_properties
 	char    *grp_owner;
 	char    *link;
 	char    date[13];
+	int     blocks;
 	int     size;
 	int    struct_size;
 } t_properties;
@@ -48,6 +49,7 @@ typedef struct s_file
 	char   *path;
 	int    struct_size;
 	int     nbr_of_subfolders;
+	struct s_file  *parent_folder;
 	t_properties *properties;
 	t_mode mode;
 	t_list *files;
@@ -55,6 +57,8 @@ typedef struct s_file
 } t_file;
 
 char g_flags[FT_LS_FLAGS];
+
+# define FT_LS_BLOCKSIZE 1024;
 
 /*
 ** FILES_UTILS

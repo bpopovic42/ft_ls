@@ -1,19 +1,21 @@
 #include "libft.h"
 
-int ft_lstmap(t_list *lst, t_list *result, int (f)(t_node *node, t_node
-**result))
+/*
+** Maps list by applying function 'map' to each of its nodes and providing
+** the variable '**res' for 'map' to store its results
+** Returns EXIT_FAILURE if 'map' does not return successfully
+** Returns EXIT_SUCCESS otherwise
+*/
+
+int ft_lstmap(t_list *lst, void **res, int (map)(t_node *node, void **res))
 {
 	t_node *node_ptr;
-	t_node *result_node;
 
 	node_ptr = lst->head;
 	while (node_ptr)
 	{
-		result_node = NULL;
-		if (f(node_ptr, &result_node) == -1)
+		if (map(node_ptr, res) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		if (result_node != NULL)
-			ft_lstadd(result, result_node);
 		node_ptr = node_ptr->next;
 	}
 	return (EXIT_SUCCESS);

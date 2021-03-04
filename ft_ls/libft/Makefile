@@ -61,7 +61,7 @@ LST_FILES	=	$(addprefix $(LSTDIR)/, \
 			ft_node_del.c ft_lstdup.c ft_lstget_tail.c ft_lstget_tail_data.c \
 			ft_lstpop.c ft_lstpop_data.c ft_lstpush_back.c \
 			ft_lstpush_back_data.c ft_node_dup.c ft_lstnode_remove.c \
-			ft_lstinsert_after.c ft_lst_filter.c)
+			ft_lstinsert_after.c ft_lst_filter.c ft_lstapply.c ft_lstmutate.c)
 
 # **************************************************************************** #
 # Memory :

@@ -13,7 +13,7 @@ int ft_lstapply(t_list *lst, int (apply)(t_node *node))
 	node_ptr = lst->head;
 	while (node_ptr)
 	{
-		if (mutation(node_ptr, &result_node) != EXIT_SUCCESS)
+		if (apply(node_ptr) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		node_ptr = node_ptr->next;
 	}

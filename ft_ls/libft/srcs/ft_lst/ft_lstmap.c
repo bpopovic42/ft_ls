@@ -7,7 +7,7 @@
 ** Returns EXIT_SUCCESS otherwise
 */
 
-int ft_lstmap(t_list *lst, void **res, int (map)(t_node *node, void **res))
+int ft_lstmap(t_list *lst, void *res, int (map)(t_node *node, void *res))
 {
 	t_node *node_ptr;
 

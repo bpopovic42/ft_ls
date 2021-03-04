@@ -138,7 +138,7 @@ t_list				*ft_lstdup(t_list *list);
 void				ft_lstnode_remove(t_list *list, t_node *target);
 void                ft_lstinsert_after(t_list *src, t_node *dest);
 void ft_lst_filter(t_list *list, t_list **result, int (f)(t_node *node));
-int ft_lstmap(t_list *lst, void **res, int (map)(t_node *node, void **res));
+int ft_lstmap(t_list *lst, void *res, int (map)(t_node *node, void *res));
 int ft_lstapply(t_list *lst, int (apply)(t_node *node));
 int ft_lstmutate(t_list *src, t_list *dst, int (mut)(t_node *src, t_node
 **dst));
@@ -225,6 +225,7 @@ long				ft_atol(const char *str);
 size_t				ft_count_words(const char *s, const char *spaces);
 int					ft_is_valid_int(const char *nbr);
 char	                        *ft_strcatn(char *s1, size_t ac, ...);
+int                 ft_intlen(int nbr);
 
 /*
 ** DICTIONARY FUNCTIONS

@@ -34,8 +34,6 @@ int get_number_of_subfolders(t_file **folder)
 {
 	struct dirent *direntry;
 	DIR           *dirstream;
-	struct stat file_stat;
-	int error_status;
 
 	if ((*folder)->mode.type != 'd')
 		return (EXIT_SUCCESS);
@@ -43,13 +41,11 @@ int get_number_of_subfolders(t_file **folder)
 		return (EXIT_FAILURE);
 	while ((direntry = readdir(dirstream)))
 	{
-		if ((error_status = lstat((*folder)->path, &file_stat)) < 0)
-			break;
 		if (direntry->d_type == DT_DIR)
 			(*folder)->nbr_of_subfolders += 1;
 	}
 	closedir(dirstream);
-	return (error_status < 0 ? EXIT_FAILURE : EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int create_new_file(t_file **new_file, char *name, char *parent_path)

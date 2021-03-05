@@ -9,7 +9,7 @@ FROM ubuntu:18.04
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
-    clang-9 make curl cmake git ruby ruby-bundler ruby-dev build-essential
+    clang-9 make curl cmake git ruby ruby-bundler ruby-dev build-essential gdb
 
 RUN git clone https://github.com/hivehelsinki/norminette-client.git /.norminette && \
 	cd /.norminette && bundle && chmod 755 norminette.rb && ln -s /.norminette/norminette.rb /usr/bin/norminette

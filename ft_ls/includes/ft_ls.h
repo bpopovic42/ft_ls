@@ -39,6 +39,7 @@ typedef struct s_properties
 	char    *link;
 	char    date[13];
 	int     blocks;
+	int     total_blocks;
 	int     size;
 	int    struct_size;
 } t_properties;
@@ -58,7 +59,7 @@ typedef struct s_file
 
 char g_flags[FT_LS_FLAGS];
 
-# define FT_LS_BLOCKSIZE 1024;
+# define FT_LS_BLOCKSIZE 1024
 
 /*
 ** FILES_UTILS

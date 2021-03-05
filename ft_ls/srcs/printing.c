@@ -5,7 +5,7 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 	if (g_flags[3] == 'R' || store->nbr_of_file_args > 1)
 		ft_printf("%s:\n", parent_folder->path);
 	if (g_flags[1] == 'l')
-		ft_printf("total %d\n", parent_folder->properties->blocks);
+		ft_printf("total %d\n", parent_folder->properties->total_blocks);
 }
 
 // TODO: Issue : Space is added after last file printed if there's a \

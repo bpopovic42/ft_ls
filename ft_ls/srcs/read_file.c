@@ -121,6 +121,13 @@ int get_usr_and_grp_info(struct stat *file_stat, char **usr_name, char
 	return (EXIT_SUCCESS);
 }
 
+/*
+** GNU ls uses 1024 bytes blocks
+** but st_blocks uses 512 bytes blocks on Linux (defined in S_BLKSIZE)
+** Therefore we divide the value of st_blocks by 2 in order to reproduce
+** GNU ls's behavior
+*/
+
 int get_file_properties(t_file *file, struct stat *file_stat)
 {
 	char *usr_name;
@@ -139,6 +146,7 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	ft_strcpy(file->properties->link, link);
 	get_file_time(file, file_stat);
 	file->properties->size = file_stat->st_size;
+	file->properties->blocks = file_stat->st_blocks / 2;
 	ft_strdel(&usr_name);
 	ft_strdel(&grp_name);
 	return (EXIT_SUCCESS);

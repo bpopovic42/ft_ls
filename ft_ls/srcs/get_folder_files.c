@@ -25,6 +25,8 @@ int add_new_file_to_folder(t_file *folder, struct dirent *direntry)
 		del_file(new_file, new_file->struct_size);
 		return (EXIT_FAILURE);
 	}
+	new_file->parent_folder = folder;
+	folder->properties->total_blocks += new_file->properties->blocks;
 	ft_lstadd(folder->files, new_node);
 	return (EXIT_SUCCESS);
 }

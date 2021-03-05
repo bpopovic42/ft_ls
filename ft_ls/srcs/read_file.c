@@ -72,25 +72,75 @@ int read_link(t_file *file, char *link)
 	return (EXIT_SUCCESS);
 }
 
-int get_file_properties(t_file *file, struct stat *file_stat)
+int get_usr_name(struct stat *file_stat, char **usr_name)
 {
 	struct passwd *pwuid;
+
+	pwuid = getpwuid(file_stat->st_uid);
+	if (pwuid == NULL || pwuid->pw_name == NULL)
+	{
+		if (!(*usr_name = ft_itoa(file_stat->st_uid)))
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (!(*usr_name = ft_strdup(pwuid->pw_name)))
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int get_grp_name(struct stat *file_stat, char **grp_name)
+{
 	struct group *grgid;
+
+	grgid = getgrgid(file_stat->st_gid);
+	if (grgid == NULL || grgid->gr_name == NULL)
+	{
+		if (!(*grp_name = ft_itoa(file_stat->st_gid)))
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (!(*grp_name = ft_strdup(grgid->gr_name)))
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int get_usr_and_grp_info(struct stat *file_stat, char **usr_name, char
+		**grp_name)
+{
+	if (get_usr_name(file_stat, usr_name) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (get_grp_name(file_stat, grp_name) != EXIT_SUCCESS)
+	{
+		ft_strdel(usr_name);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int get_file_properties(t_file *file, struct stat *file_stat)
+{
+	char *usr_name;
+	char *grp_name;
 	char link[PATH_MAX];
 
 	ft_bzero(link, PATH_MAX);
-	if (!(pwuid = getpwuid(file_stat->st_uid)))
-		return (EXIT_FAILURE);
-	if (!(grgid = getgrgid(file_stat->st_gid)))
+	if (get_usr_and_grp_info(file_stat, &usr_name, &grp_name) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	if (read_link(file, link) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	allocate_properties(file, pwuid->pw_name, grgid->gr_name, link);
-	ft_strcpy(file->properties->usr_owner, pwuid->pw_name);
-	ft_strcpy(file->properties->grp_owner, grgid->gr_name);
+	if (allocate_properties(file, usr_name, grp_name, link) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	ft_strcpy(file->properties->usr_owner, usr_name);
+	ft_strcpy(file->properties->grp_owner, grp_name);
 	ft_strcpy(file->properties->link, link);
 	get_file_time(file, file_stat);
 	file->properties->size = file_stat->st_size;
+	ft_strdel(&usr_name);
+	ft_strdel(&grp_name);
 	return (EXIT_SUCCESS);
 }
 
@@ -101,7 +151,8 @@ int read_file_properties(t_file *file)
 	if (lstat(file->path, &file_stat) < 0)
 		return (EXIT_FAILURE);
 	get_file_mode(&file->mode, &file_stat);
-	get_file_properties(file, &file_stat);
+	if (get_file_properties(file, &file_stat) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

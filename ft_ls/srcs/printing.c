@@ -31,20 +31,36 @@ int get_longest_file_size(t_node *file_node, int *result)
 	return (EXIT_SUCCESS);
 }
 
+int get_longest_file_subfolders(t_node *file_node, int *result)
+{
+	t_file *file;
+	int file_size_length;
+
+	file = file_node->data;
+	file_size_length = ft_intlen(file->nbr_of_subfolders);
+	if (file_size_length > *result)
+		*result = file_size_length;
+	return (EXIT_SUCCESS);
+}
+
 void print_file_from_node(t_node *file_node)
 {
 	t_file *file;
 	int l_flag_size_padding;
+	int l_flag_subfolders_padding;
 
 	file = file_node->data;
 	l_flag_size_padding = 0;
 	ft_lstmap(file->parent_folder->files, (void*)&l_flag_size_padding,
 	          (int (*)(t_node *, void *))&get_longest_file_size);
+	ft_lstmap(file->parent_folder->files, (void*)&l_flag_subfolders_padding,
+	          (int (*)(t_node *, void *))&get_longest_file_subfolders);
 	if (g_flags[1] != 'l')
 		ft_printf("%s%s", file->name, file_node->next == NULL ? "\n\n" : "  ");
 	else
-		ft_printf("%s %d %s %s %*d %s %s%s%s%s\n",
+		ft_printf("%s %*d %s %s %*d %s %s%s%s%s\n",
 			&file->mode,
+			l_flag_subfolders_padding,
 			file->nbr_of_subfolders,
 			file->properties->usr_owner,
 			file->properties->grp_owner,

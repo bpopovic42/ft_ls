@@ -31,10 +31,18 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 int get_file_time(t_file *file, struct stat *file_stat)
 {
 	char *date;
+	long file_time;
+	long current_time;
 
-	file->properties->timestamp = file_stat->st_mtim.tv_nsec;
+	file_time    = file_stat->st_mtim.tv_sec;
+	current_time = time(0);
+	file->properties->timestamp = file_time;
 	date = ctime(&file_stat->st_mtime);
-	ft_strncpy(file->properties->date, date + 4, 12);
+	ft_strncpy(file->properties->date, date + 4, 7);
+	if ((current_time - file_time) > (int)(31556952 / 2))
+		ft_strncpy(file->properties->date + 7, date + 19, 5);
+	else
+		ft_strncpy(file->properties->date + 7, date + 11, 5);
 	return (EXIT_SUCCESS);
 }
 

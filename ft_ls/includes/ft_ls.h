@@ -8,6 +8,7 @@
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
+# include <errno.h>
 
 # define FT_LS_FLAGS 5
 

@@ -2,10 +2,19 @@
 
 void print_parent_folder(t_store *store, t_file *parent_folder)
 {
-	if (g_flags[3] == 'R' || store->nbr_of_file_args > 1)
-		ft_printf("%s:\n", parent_folder->path);
-	if (g_flags[1] == 'l')
-		ft_printf("total %d\n", parent_folder->properties->total_blocks);
+	if (parent_folder->error == 0)
+	{
+		if (g_flags[3] == 'R' || store->nbr_of_file_args > 1)
+			ft_printf("%s:\n", parent_folder->path);
+		if (g_flags[1] == 'l')
+			ft_printf("total %d\n", parent_folder->properties->total_blocks);
+	}
+	else
+		ft_dprintf(2, "%s: cannot open directory '%s': %s\n",
+			 store->program_name,
+			 parent_folder->path,
+			 parent_folder->error_msg
+			 );
 }
 
 // TODO: Issue : Space is added after last file printed if there's a \

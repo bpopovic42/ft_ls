@@ -36,7 +36,10 @@ int get_number_of_subfolders(t_file **folder)
 	DIR           *dirstream;
 
 	if ((*folder)->mode.type != 'd')
+	{
+		(*folder)->nbr_of_subfolders = 1;
 		return (EXIT_SUCCESS);
+	}
 	if (!(dirstream  = opendir((*folder)->path)))
 		return (EXIT_FAILURE);
 	while ((direntry = readdir(dirstream)))

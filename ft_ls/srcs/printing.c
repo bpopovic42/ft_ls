@@ -51,14 +51,15 @@ void print_file_from_node(t_node *file_node)
 
 	file = file_node->data;
 	l_flag_size_padding = 0;
+	l_flag_subfolders_padding = 0;
 	ft_lstmap(file->parent_folder->files, (void*)&l_flag_size_padding,
 	          (int (*)(t_node *, void *))&get_longest_file_size);
 	ft_lstmap(file->parent_folder->files, (void*)&l_flag_subfolders_padding,
 	          (int (*)(t_node *, void *))&get_longest_file_subfolders);
 	if (g_flags[1] != 'l')
-		ft_printf("%s%s", file->name, file_node->next == NULL ? "\n\n" : "  ");
+		ft_printf("%s\n", file->name);
 	else
-		ft_printf("%s %*d %s %s %*d %s %s%s%s%s\n",
+		ft_printf("%s %*d %s %s %*d %s %s%s%s\n",
 			&file->mode,
 			l_flag_subfolders_padding,
 			file->nbr_of_subfolders,
@@ -69,7 +70,6 @@ void print_file_from_node(t_node *file_node)
 			file->properties->date,
 			file->name,
 			file->mode.type == 'l' ? " -> " : "",
-			file->properties->link,
-			file_node->next == NULL ? "\n" : ""
+			file->properties->link
 			);
 }

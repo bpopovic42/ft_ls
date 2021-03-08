@@ -24,6 +24,8 @@ int process_folders(t_store *store)
 			if (process_folder_files(store, folder) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 			add_subfolders_to_queue(folders_queue_ptr, folder);
+			if (folders_queue_ptr->next != NULL)
+				ft_putchar('\n');
 		}
 		folders_queue_ptr = folders_queue_ptr->next;
 	}

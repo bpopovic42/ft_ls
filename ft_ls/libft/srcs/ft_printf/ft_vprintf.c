@@ -129,12 +129,9 @@ int					ft_vdprintf(int fd, const char *restrict fmt, va_list ap)
 	int				ret;
 	t_ptf			ptf;
 
-	ptf.buff.pos = 0;
-	ptf.buff.read = 0;
+	ft_bzero(&ptf, sizeof(ptf));
 	ptf.fmt.format = fmt;
-	ptf.fmt.i = 0;
 	ptf.fd = fd;
-	ptf.error = 0;
 	if ((ret = (int)parse_fmt(&ptf, ap)) < 0)
 	{
 		write_wrapper(&ptf, fd, ptf.buff.buff, ptf.buff.pos);

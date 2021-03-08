@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	int     error_status;
 
 	(void)ac;
-	if ((error_status = init_store(&store)) != EXIT_SUCCESS)
+	if ((error_status = init_store(&store, av[0])) != EXIT_SUCCESS)
 		return (exit_clean(&store, error_status));
 	if ((error_status = parse_arguments(av + 1, &store)) != EXIT_SUCCESS)
 		return (exit_clean(&store, error_status));

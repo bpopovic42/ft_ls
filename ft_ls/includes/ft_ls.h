@@ -15,6 +15,7 @@ typedef struct s_store
 {
 	bool flags_end;
 	int nbr_of_file_args;
+	char *program_name;
 	t_list *folders_queue;
 } t_store;
 
@@ -81,7 +82,7 @@ int read_file_properties(t_file *file);
 ** STRUCTURES UTILS
 */
 
-int init_store(t_store *store);
+int init_store(t_store *store, char *program_name);
 
 void clean_store(t_store *store);
 

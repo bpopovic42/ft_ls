@@ -32,7 +32,7 @@ char	*ft_strappendn(char *dst, size_t ac, ...)
 				if (!(dst = ft_strappend(dst, tmp)))
 				{
 					ft_strdel(&dst);
-					return (NULL);
+					break;
 				}
 			}
 			i++;

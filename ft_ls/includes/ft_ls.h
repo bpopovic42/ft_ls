@@ -46,15 +46,17 @@ typedef struct s_properties
 
 typedef struct s_file
 {
-	char   *name;
-	char   *path;
-	int    struct_size;
-	int     nbr_of_subfolders;
-	struct s_file  *parent_folder;
-	t_properties *properties;
-	t_mode mode;
-	t_list *files;
-	t_list *sub_folders;
+	char          *name;
+	char          *path;
+	int           struct_size;
+	int           hard_links;
+	int           error;
+	char          *error_msg;
+	struct s_file *parent_folder;
+	t_properties  *properties;
+	t_mode        mode;
+	t_list        *files;
+	t_list        *sub_folders;
 } t_file;
 
 char g_flags[FT_LS_FLAGS];

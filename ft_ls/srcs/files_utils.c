@@ -29,28 +29,6 @@ int allocate_new_file(t_file **new_file, char *name, char *parent_path)
 	return (EXIT_SUCCESS);
 }
 
-// TODO: Notify which mistake lead to this function in README
-int get_number_of_subfolders(t_file **folder)
-{
-	struct dirent *direntry;
-	DIR           *dirstream;
-
-	if ((*folder)->mode.type != 'd')
-	{
-		(*folder)->nbr_of_subfolders = 1;
-		return (EXIT_SUCCESS);
-	}
-	if (!(dirstream  = opendir((*folder)->path)))
-		return (EXIT_FAILURE);
-	while ((direntry = readdir(dirstream)))
-	{
-		if (direntry->d_type == DT_DIR)
-			(*folder)->nbr_of_subfolders += 1;
-	}
-	closedir(dirstream);
-	return (EXIT_SUCCESS);
-}
-
 int create_new_file(t_file **new_file, char *name, char *parent_path)
 {
 	if (allocate_new_file(new_file, name, parent_path) != EXIT_SUCCESS)
@@ -66,8 +44,6 @@ int create_new_file(t_file **new_file, char *name, char *parent_path)
 		ft_strncat((*new_file)->path, name, ft_strlen(name) + 1);
 	if (read_file_properties(*new_file) != EXIT_SUCCESS)
 		return exit_error(new_file);
-	if (get_number_of_subfolders(new_file) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

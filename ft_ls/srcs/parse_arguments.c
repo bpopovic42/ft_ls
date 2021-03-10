@@ -1,15 +1,20 @@
 #include "ft_ls.h"
 
+int handle_invalid_flag(t_store *store, char *argument)
+{
+	ft_dprintf(2, "%s: invalid option -- '%c'\n", store->program_name,
+		   *argument);
+	ft_dprintf(2, "Try '%s --help' for more information.\n",
+	store->program_name);
+	return (handle_error(store, FT_LS_FATAL_ERROR));
+}
+
 int handle_flag_argument(t_store *store, char *argument)
 {
 	while (*argument)
 	{
 		if (!ft_strchr(FT_LS_FLAGS_LIST, *argument))
-		{
-			ft_printf("%s: invalid option -- '%c'\n", store->program_name,
-			          *argument);
-			return (handle_error(store, FT_LS_FATAL_ERROR));
-		}
+			return (handle_invalid_flag(store, argument));
 		if (*argument == 'a')
 			g_flags[0] = 'a';
 		else if (*argument == 'l')

@@ -45,12 +45,11 @@ int main(int ac, char **av)
 {
 	t_store store;
 
-	(void)ac;
 	if (!help_flag_requested(ac - 1, av + 1))
 	{
 		if ((init_store(&store, av[0])) != EXIT_SUCCESS)
 			return (exit_clean(&store));
-		if ((parse_arguments(av + 1, &store)) != EXIT_SUCCESS)
+		if ((parse_arguments(ac - 1, av + 1, &store)) != EXIT_SUCCESS)
 			return (exit_clean(&store));
 		sort_files(store.folders_queue);
 		print_invalid_folders(&store);

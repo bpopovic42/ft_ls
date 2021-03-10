@@ -94,7 +94,7 @@ void clean_store(t_store *store);
 ** PARSE_ARGUMENTS
 */
 
-int parse_arguments(char **arguments, t_store *store);
+int parse_arguments(int arg_count, char **arguments, t_store *store);
 
 /*
 ** SORTING

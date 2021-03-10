@@ -64,12 +64,12 @@ int handle_path_argument(t_store *store, char *argument)
 	return (EXIT_SUCCESS);
 }
 
-int parse_arguments(char **arguments, t_store *store)
+int parse_arguments(int arg_count, char **arguments, t_store *store)
 {
 	int    i;
 
 	i          = 0;
-	while (arguments[i]) {
+	while (i < arg_count) {
 		if (arguments[i][0] == '-' && ft_strlen(arguments[i]) > 1 && g_flags[5]
 		!= '-') {
 			if (handle_flag_argument(store, &arguments[i][1]) != EXIT_SUCCESS)
@@ -80,6 +80,11 @@ int parse_arguments(char **arguments, t_store *store)
 				return (handle_error(store, FT_LS_FATAL_ERROR));
 		}
 		i++;
+	}
+	if (store->folders_queue->size == 0)
+	{
+		if (handle_path_argument(store, ".") != EXIT_SUCCESS)
+			return (handle_error(store, FT_LS_FATAL_ERROR));
 	}
 	return (EXIT_SUCCESS);
 }

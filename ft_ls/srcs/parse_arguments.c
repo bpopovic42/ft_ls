@@ -2,28 +2,27 @@
 
 int handle_flag_argument(t_store *store, char *argument)
 {
-	if (!ft_strcmp(argument, "--"))
+	while (*argument)
 	{
-		store->flags_end = true;
-		return (EXIT_SUCCESS);
-	}
-	else
-	{
-		while (++argument)
+		if (!ft_strchr(FT_LS_FLAGS_LIST, *argument))
 		{
-			if (*argument == 'a')
-				g_flags[0] = 'a';
-			else if (*argument == 'l')
-				g_flags[1] = 'l';
-			else if (*argument == 'r')
-				g_flags[2] = 'r';
-			else if (*argument == 'R')
-				g_flags[3] = 'R';
-			else if (*argument == 't')
-				g_flags[4] = 't';
-			else
-				return (EXIT_FAILURE);
+			ft_printf("%s: invalid option -- '%c'\n", store->program_name,
+			          *argument);
+			return (EXIT_FAILURE);
 		}
+		if (*argument == 'a')
+			g_flags[0] = 'a';
+		else if (*argument == 'l')
+			g_flags[1] = 'l';
+		else if (*argument == 'r')
+			g_flags[2] = 'r';
+		else if (*argument == 'R')
+			g_flags[3] = 'R';
+		else if (*argument == 't')
+			g_flags[4] = 't';
+		else if (*argument == '-')
+			g_flags[5] = '-';
+		argument++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -51,8 +50,11 @@ int parse_arguments(char **arguments, t_store *store)
 
 	i          = 0;
 	while (arguments[i]) {
-		if (arguments[i][0] == '-' && !store->flags_end)
-			handle_flag_argument(store, arguments[i]);
+		if (arguments[i][0] == '-' && ft_strlen(arguments[i]) > 1 && g_flags[5]
+		!= '-') {
+			if (handle_flag_argument(store, &arguments[i][1]) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+		}
 		else {
 			if (handle_path_argument(store, arguments[i]) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);

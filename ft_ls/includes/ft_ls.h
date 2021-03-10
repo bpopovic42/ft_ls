@@ -10,11 +10,12 @@
 # include <time.h>
 # include <errno.h>
 
-# define FT_LS_FLAGS 5
+# define FT_LS_FLAGS 6
+# define FT_LS_FLAGS_LIST "alrRt-"
+
 
 typedef struct s_store
 {
-	bool flags_end;
 	int nbr_of_file_args;
 	char *program_name;
 	t_list *folders_queue;
@@ -62,8 +63,6 @@ typedef struct s_file
 } t_file;
 
 char g_flags[FT_LS_FLAGS];
-
-# define FT_LS_BLOCKSIZE 1024
 
 /*
 ** FILES_UTILS

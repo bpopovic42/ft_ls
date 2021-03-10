@@ -1,5 +1,17 @@
 #include "ft_ls.h"
 
+void print_file_error(t_store *store, t_file *file)
+{
+	if (file)
+	{
+		ft_dprintf(2, "%s: %s '%s': %s\n",
+		           store->program_name,
+		           file->error_msg,
+		           file->path,
+		           strerror(file->error)
+		);
+	}
+}
 void print_parent_folder(t_store *store, t_file *parent_folder)
 {
 	if (parent_folder->error == 0)
@@ -10,11 +22,7 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 			ft_printf("total %d\n", parent_folder->properties->total_blocks);
 	}
 	else
-		ft_dprintf(2, "%s: cannot open directory '%s': %s\n",
-			 store->program_name,
-			 parent_folder->path,
-			 parent_folder->error_msg
-			 );
+		print_file_error(store, parent_folder);
 }
 
 // TODO: Issue : Space is added after last file printed if there's a \

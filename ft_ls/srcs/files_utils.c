@@ -2,7 +2,7 @@
 
 int exit_error(t_file **file_to_clean)
 {
-	if (*file_to_clean)
+	if (*file_to_clean && errno != ENOENT)
 		del_file(*file_to_clean, (*file_to_clean)->struct_size);
 	return (EXIT_FAILURE);
 }

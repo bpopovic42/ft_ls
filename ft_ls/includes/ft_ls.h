@@ -12,13 +12,17 @@
 
 # define FT_LS_FLAGS 6
 # define FT_LS_FLAGS_LIST "alrRt-"
+# define FT_LS_ERROR 1
+# define FT_LS_FATAL_ERROR 2
 
 
 typedef struct s_store
 {
 	int nbr_of_file_args;
 	char *program_name;
+	int error_status;
 	t_list *folders_queue;
+	t_list *invalid_folders;
 } t_store;
 
 typedef struct s_mode {
@@ -97,6 +101,7 @@ int parse_arguments(char **arguments, t_store *store);
 */
 
 void sort_files(t_list *files);
+int ascii_compare(t_file *f1, t_file *f2);
 
 /*
 ** PRINTING
@@ -105,6 +110,7 @@ void sort_files(t_list *files);
 void print_parent_folder(t_store *store, t_file *parent_folder);
 void print_file(t_file *file, int is_last_file);
 void print_file_from_node(t_node *file_node);
+void print_file_error(t_store *store, t_file *file);
 
 /*
 ** PROCESS FOLDERS
@@ -131,5 +137,11 @@ int process_folder_files(t_store *store, struct s_file *folder);
 int should_process_file(t_file *file);
 
 int should_add_subfolder(t_file *subfolder);
+
+/*
+** ERROR UTILS
+*/
+
+int handle_error(t_store *store, int error_status);
 
 #endif

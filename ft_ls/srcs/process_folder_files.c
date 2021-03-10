@@ -32,7 +32,8 @@ int process_folder_files(t_store *store, struct s_file *folder)
 		sort_files(folder->files);
 		print_parent_folder(store, folder);
 		ft_lstiter(folder->files, &print_file_from_node);
-		return (register_subfolders(folder));
+		if (register_subfolders(folder) != EXIT_SUCCESS)
+			return (handle_error(store, FT_LS_FATAL_ERROR));
 	}
 	return (EXIT_SUCCESS);
 }

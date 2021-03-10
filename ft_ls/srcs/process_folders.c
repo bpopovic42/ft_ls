@@ -19,14 +19,17 @@ int process_folders(t_store *store)
 	{
 		folder = folders_queue_ptr->data;
 		if (should_process_file(folder)) {
-			if (get_folder_files(folder) == EXIT_SUCCESS)
+			if (get_folder_files(folder) != EXIT_SUCCESS)
 			{
-				if (folders_queue_ptr != store->folders_queue->head && !folder->error)
-					ft_putchar('\n');
-				if (process_folder_files(store, folder) != EXIT_SUCCESS)
-					return (EXIT_FAILURE);
-				add_subfolders_to_queue(folders_queue_ptr, folder);
+				if (errno != EACCES)
+					return (handle_error(store, FT_LS_FATAL_ERROR));
+				handle_error(store, FT_LS_ERROR);
 			}
+			if (folders_queue_ptr != store->folders_queue->head && !folder->error)
+				ft_putchar('\n');
+			if (process_folder_files(store, folder) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
+			add_subfolders_to_queue(folders_queue_ptr, folder);
 		}
 		folders_queue_ptr = folders_queue_ptr->next;
 	}

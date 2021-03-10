@@ -34,14 +34,12 @@ int add_new_file_to_folder(t_file *folder, struct dirent *direntry)
 	return (EXIT_SUCCESS);
 }
 
-int handle_error(t_file *file)
+int handle_opendir_failure(t_file *file)
 {
 	if (file && errno == EACCES)
 	{
-		file->error = 1;
-		file->error_msg = strerror(errno);
-		errno = 0;
-		return (EXIT_SUCCESS);
+		file->error = errno;
+		file->error_msg = "cannot open directory";
 	}
 	return (EXIT_FAILURE);
 }
@@ -53,7 +51,7 @@ int get_folder_files(struct s_file *folder)
 	int           error_status;
 
 	if (!(dirstream  = opendir(folder->path)))
-		return (handle_error(folder));
+		return (handle_opendir_failure(folder));
 	while ((direntry = readdir(dirstream)))
 	{
 		error_status = add_new_file_to_folder(folder, direntry);

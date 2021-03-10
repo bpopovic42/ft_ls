@@ -1,5 +1,10 @@
 #include "ft_ls.h"
 
+void print_help()
+{
+	ft_printf("Usage: ./ft_ls [-alRrt]... [FILE]...\n");
+}
+
 void print_file_error(t_store *store, t_file *file)
 {
 	if (file)

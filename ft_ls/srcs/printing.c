@@ -50,7 +50,7 @@ int get_paddings(t_node *file_node, t_padding *padding)
 	if (ft_strlen(file->properties->usr_owner) > padding->file_uid)
 		padding->file_uid = ft_strlen(file->properties->usr_owner);
 	if (ft_strlen(file->properties->grp_owner) > padding->file_gid)
-		padding->file_gid = ft_strlen(file->properties->usr_owner);
+		padding->file_gid = ft_strlen(file->properties->grp_owner);
 	if (ft_intlen(file->hard_links) > padding->file_links)
 		padding->file_links = ft_intlen(file->hard_links);
 	if (ft_intlen(file->properties->size) > padding->file_size)

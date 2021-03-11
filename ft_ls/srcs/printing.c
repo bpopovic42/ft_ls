@@ -41,6 +41,7 @@ void print_file(t_file *file, int is_last_file)
 		ft_printf("%s %s\n", &file->mode, file->name);
 }
 
+// no uid/gid name case
 int get_paddings(t_node *file_node, t_padding *padding)
 {
 	t_file *file;

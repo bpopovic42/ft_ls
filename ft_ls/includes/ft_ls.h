@@ -66,6 +66,14 @@ typedef struct s_file
 	t_list        *sub_folders;
 } t_file;
 
+typedef struct s_padding
+{
+	size_t file_uid;
+	size_t file_gid;
+	size_t file_links;
+	size_t file_size;
+} t_padding;
+
 char g_flags[FT_LS_FLAGS];
 
 /*

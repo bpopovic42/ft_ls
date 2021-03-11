@@ -41,53 +41,42 @@ void print_file(t_file *file, int is_last_file)
 		ft_printf("%s %s\n", &file->mode, file->name);
 }
 
-int get_longest_file_size(t_node *file_node, int *result)
+void get_paddings(t_node *file_node, t_padding *padding)
 {
 	t_file *file;
-	int file_size_length;
 
 	file = file_node->data;
-	file_size_length = ft_intlen(file->properties->size);
-	if (file_size_length > *result)
-		*result = file_size_length;
-	return (EXIT_SUCCESS);
-}
-
-int get_longest_file_hardlinks(t_node *file_node, int *result)
-{
-	t_file *file;
-	int file_size_length;
-
-	file = file_node->data;
-	file_size_length = ft_intlen(file->hard_links);
-	if (file_size_length > *result)
-		*result = file_size_length;
-	return (EXIT_SUCCESS);
+	if (ft_strlen(file->properties->usr_owner) > padding->file_uid)
+		padding->file_uid = ft_strlen(file->properties->usr_owner);
+	if (ft_strlen(file->properties->grp_owner) > padding->file_gid)
+		padding->file_gid = ft_strlen(file->properties->usr_owner);
+	if (ft_intlen(file->hard_links) > padding->file_links)
+		padding->file_links = ft_intlen(file->hard_links);
+	if (ft_intlen(file->properties->size) > padding->file_size)
+		padding->file_size = ft_intlen(file->properties->size);
 }
 
 void print_file_from_node(t_node *file_node)
 {
 	t_file *file;
-	int l_flag_size_padding;
-	int l_flag_subfolders_padding;
+	t_padding padding;
 
 	file = file_node->data;
-	l_flag_size_padding = 0;
-	l_flag_subfolders_padding = 0;
-	ft_lstmap(file->parent_folder->files, (void*)&l_flag_size_padding,
-	          (int (*)(t_node *, void *))&get_longest_file_size);
-	ft_lstmap(file->parent_folder->files, (void*)&l_flag_subfolders_padding,
-	          (int (*)(t_node *, void *))&get_longest_file_hardlinks);
+	ft_bzero(&padding, sizeof(padding));
+	ft_lstmap(file->parent_folder->files, (void*)&padding,
+			(int (*)(t_node *, void *))&get_paddings);
 	if (g_flags[1] != 'l')
 		ft_printf("%s\n", file->name);
 	else
-		ft_printf("%s %*d %s %s %*d %s %s%s%s\n",
+		ft_printf("%s %*d %-*s %-*s %*d %s %s%s%s\n",
 			&file->mode,
-			l_flag_subfolders_padding,
+			padding.file_links,
 			file->hard_links,
+			padding.file_uid,
 			file->properties->usr_owner,
+			padding.file_gid,
 			file->properties->grp_owner,
-			l_flag_size_padding,
+			padding.file_size,
 			file->properties->size,
 			file->properties->date,
 			file->name,

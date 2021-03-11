@@ -1,4 +1,5 @@
 #include "ft_ls.h"
+#include <sys/sysmacros.h>
 
 void get_file_mode(t_mode *mode, struct stat *file_stat)
 {
@@ -156,6 +157,11 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	file->hard_links         = file_stat->st_nlink;
 	file->properties->size   = file_stat->st_size;
 	file->properties->blocks = file_stat->st_blocks / 2;
+	if (file->mode.type == 'c' || file->mode.type == 'b')
+	{
+		file->properties->major_rdev = major(file_stat->st_rdev);
+		file->properties->minor_rdev = minor(file_stat->st_rdev);
+	}
 	ft_strdel(&usr_name);
 	ft_strdel(&grp_name);
 	return (EXIT_SUCCESS);

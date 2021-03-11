@@ -54,7 +54,60 @@ int get_paddings(t_node *file_node, t_padding *padding)
 		padding->file_links = ft_intlen(file->hard_links);
 	if (ft_intlen(file->properties->size) > padding->file_size)
 		padding->file_size = ft_intlen(file->properties->size);
+	if (file->mode.type == 'c' || file->mode.type == 'b')
+	{
+		if (ft_intlen(file->properties->major_rdev) > padding->file_major_rdev)
+			padding->file_major_rdev = ft_intlen(file->properties->major_rdev);
+		if (ft_intlen(file->properties->minor_rdev) > padding->file_size)
+			padding->file_size = ft_intlen(file->properties->minor_rdev);
+	}
 	return (EXIT_SUCCESS);
+}
+
+void print_file_l_flag(t_file *file, t_padding *padding)
+{
+	size_t major_rdev_padding;
+
+	major_rdev_padding = 0;
+	if (padding->file_major_rdev > 0)
+		major_rdev_padding = padding->file_major_rdev + 1;
+	if (file->mode.type == 'c' || file->mode.type == 'b')
+	{
+		ft_printf("%s %*d %-*s %-*s %*d,%*d %s %s%s%s\n",
+		          &file->mode,
+		          padding->file_links,
+		          file->hard_links,
+		          padding->file_uid,
+		          file->properties->usr_owner,
+		          padding->file_gid,
+		          file->properties->grp_owner,
+		          padding->file_major_rdev,
+		          file->properties->major_rdev,
+		          padding->file_size,
+		          file->properties->minor_rdev,
+		          file->properties->date,
+		          file->name,
+		          file->mode.type == 'l' ? " -> " : "",
+		          file->properties->link
+		);
+	}
+	else {
+		ft_printf("%s %*d %-*s %-*s %*d %s %s%s%s\n",
+		          &file->mode,
+		          padding->file_links,
+		          file->hard_links,
+		          padding->file_uid,
+		          file->properties->usr_owner,
+		          padding->file_gid,
+		          file->properties->grp_owner,
+		          padding->file_size + major_rdev_padding,
+		          file->properties->size,
+		          file->properties->date,
+		          file->name,
+		          file->mode.type == 'l' ? " -> " : "",
+		          file->properties->link
+		);
+	}
 }
 
 void print_file_from_node(t_node *file_node)
@@ -69,19 +122,5 @@ void print_file_from_node(t_node *file_node)
 	if (g_flags[1] != 'l')
 		ft_printf("%s\n", file->name);
 	else
-		ft_printf("%s %*d %-*s %-*s %*d %s %s%s%s\n",
-			&file->mode,
-			padding.file_links,
-			file->hard_links,
-			padding.file_uid,
-			file->properties->usr_owner,
-			padding.file_gid,
-			file->properties->grp_owner,
-			padding.file_size,
-			file->properties->size,
-			file->properties->date,
-			file->name,
-			file->mode.type == 'l' ? " -> " : "",
-			file->properties->link
-			);
+		print_file_l_flag(file, &padding);
 }

@@ -48,6 +48,8 @@ typedef struct s_properties
 	int     blocks;
 	int     total_blocks;
 	int     size;
+	int     major_rdev;
+	int     minor_rdev;
 	int    struct_size;
 } t_properties;
 
@@ -72,6 +74,7 @@ typedef struct s_padding
 	size_t file_gid;
 	size_t file_links;
 	size_t file_size;
+	size_t file_major_rdev;
 } t_padding;
 
 char g_flags[FT_LS_FLAGS];

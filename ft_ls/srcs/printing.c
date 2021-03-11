@@ -41,7 +41,7 @@ void print_file(t_file *file, int is_last_file)
 		ft_printf("%s %s\n", &file->mode, file->name);
 }
 
-void get_paddings(t_node *file_node, t_padding *padding)
+int get_paddings(t_node *file_node, t_padding *padding)
 {
 	t_file *file;
 
@@ -54,6 +54,7 @@ void get_paddings(t_node *file_node, t_padding *padding)
 		padding->file_links = ft_intlen(file->hard_links);
 	if (ft_intlen(file->properties->size) > padding->file_size)
 		padding->file_size = ft_intlen(file->properties->size);
+	return (EXIT_SUCCESS);
 }
 
 void print_file_from_node(t_node *file_node)

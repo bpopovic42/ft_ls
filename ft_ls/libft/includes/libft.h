@@ -225,7 +225,7 @@ long				ft_atol(const char *str);
 size_t				ft_count_words(const char *s, const char *spaces);
 int					ft_is_valid_int(const char *nbr);
 char	                        *ft_strcatn(char *s1, size_t ac, ...);
-int                 ft_intlen(int nbr);
+size_t                 ft_intlen(int nbr);
 
 /*
 ** DICTIONARY FUNCTIONS

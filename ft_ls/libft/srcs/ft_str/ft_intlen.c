@@ -1,8 +1,8 @@
 #include "libft.h"
 
-int ft_intlen(int nbr)
+size_t ft_intlen(int nbr)
 {
-	int    int_length;
+	size_t    int_length;
 	t_uint tmp;
 
 	int_length = 1;

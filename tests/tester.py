@@ -2,6 +2,7 @@
 
 import os
 import sys
+import shutil
 import subprocess as sb
 
 from datetime import datetime
@@ -68,7 +69,7 @@ def test_l_flag_simple():
     eventid = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
     test_folder = SANDBOX + "/" + eventid
     os.mkdir(test_folder)
-    for i in range(10):
+    for i in range(100):
         file_name = test_folder + "/" + str(i)
         open(file_name, "w+")
         files.append(file_name)
@@ -80,9 +81,28 @@ def test_l_flag_simple():
     os.rmdir(test_folder)
     return test_status
 
+def test_recursion():
+    test_name = "test_subdir"
+    cwd = os.getcwd()
+    SANDBOX = os.path.join(os.path.dirname(__file__), "sandbox")
+    eventid = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
+    test_folder = SANDBOX + "/" + eventid
+    os.mkdir(test_folder)
+    os.chdir(test_folder)
+    for i in range(800):
+        os.mkdir("subdir")
+        os.chdir("subdir")
+    os.chdir(cwd)
+    original_ls = sb.run([ORIGINAL_LS, "-R", test_folder], capture_output=True)
+    ft_ls  = sb.run([FT_LS, "-R", test_folder], capture_output=True)
+    print(ft_ls.stderr.decode("utf-8"))
+    test_status = compare(test_name, original_ls, ft_ls)
+    shutil.rmtree(test_folder)
+    return test_status
 
 def run_test_suites():
     test_l_flag_simple()
+    test_recursion()
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

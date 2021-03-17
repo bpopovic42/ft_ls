@@ -36,10 +36,10 @@ def compare(test_name, original_ls, ft_ls):
     returncode_matches = ft_ls.returncode == original_ls.returncode
     stdout_matches = ft_ls.stdout.decode("utf-8") == original_ls.stdout.decode("utf-8")
     if returncode_matches and stdout_matches:
-        print("TEST '{}' ".format(test_name) + OKGREEN + "PASSED" + ENDC)
+        print("{}: ".format(test_name).ljust(40, " ") + OKGREEN + "PASSED" + ENDC)
         return TEST_PASSED
     else:
-        print("TEST '{}' ".format(test_name) + FAIL + "FAILED" + ENDC)
+        print("{}: ".format(test_name).ljust(40, " ") + FAIL + "FAILED" + ENDC)
         if SHOULD_PRINT_DIFF:
             if not returncode_matches: print_return_value_diff(original_ls, ft_ls)
             if not stdout_matches: print_stdout_diff(original_ls, ft_ls)

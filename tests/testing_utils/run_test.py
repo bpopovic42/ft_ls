@@ -1,9 +1,9 @@
-import shutil
 import os
 import subprocess as sb
 
 from testing_utils.globals import LS_PATH, FT_LS_PATH
 from testing_utils.utils import make_new_unique_path
+from testing_utils.utils import write_process_stdout_to_file
 
 SHOULD_PRINT_DIFF = True
 TEST_PASSED = 0
@@ -20,13 +20,9 @@ def print_return_value_diff(original_ls, ft_ls):
 def print_stdout_diff(original_ls, ft_ls):
     test_results_dir = make_new_unique_path(RESULTS_DIR)
     ls_output_file_path = test_results_dir + "/" + "ls_out"
-    ls_output_file = open(test_results_dir + "/" + "ls_out", "w+")
-    ls_output_file.write(original_ls.stdout.decode("utf-8"))
-    ls_output_file.close()
+    write_process_stdout_to_file(original_ls, ls_output_file_path)
     ft_ls_output_file_path = test_results_dir + "/" + "ft_ls_out"
-    ft_ls_output_file = open(test_results_dir + "/" + "ft_ls_out", "w+")
-    ft_ls_output_file.write(ft_ls.stdout.decode("utf-8"))
-    ft_ls_output_file.close()
+    write_process_stdout_to_file(ft_ls, ft_ls_output_file_path)
     os.system("diff -u " + ls_output_file_path + " " + ft_ls_output_file_path + " | ydiff -s -p cat")
     os.remove(ft_ls_output_file_path)
     os.remove(ls_output_file_path)

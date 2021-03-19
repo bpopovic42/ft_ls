@@ -16,8 +16,8 @@ ENDC = '\033[0m'
 
 
 def record_return_values(original_ls, ft_ls, destination_file):
-    expected_return_value = "Expected return value :\t" + OKGREEN + "{}".format(original_ls.returncode) + ENDC
-    ft_ls_return_value = "Ft_ls return value:\t" + FAIL + "{}".format(ft_ls.returncode) + ENDC
+    expected_return_value = "Expected return value :\t {}".format(original_ls.returncode)
+    ft_ls_return_value = "Ft_ls return value :\t {}".format(ft_ls.returncode)
     destination_file.write(expected_return_value + "\n")
     destination_file.write(ft_ls_return_value + "\n")
     if SHOULD_PRINT_DIFF:
@@ -37,7 +37,7 @@ def record_stdout(original_ls, ft_ls, recording_destination_folder):
 def record_results(recording_destination_folder, original_ls, ft_ls, arguments):
     info_file_path = recording_destination_folder + "/" + "info"
     info_file = open(info_file_path, "a+")
-    info_file.write(arguments + "\n")
+    info_file.write("Arguments :\t\t " + arguments + "\n")
     record_return_values(original_ls, ft_ls, info_file)
     info_file.close()
     record_stdout(original_ls, ft_ls, recording_destination_folder)
@@ -60,7 +60,7 @@ def run_test(sandbox, arguments):
         print("{}: ".format(sandbox.name).ljust(40, " ") + OKGREEN + "PASSED" + ENDC)
     else:
         results_destination = get_new_folder(RESULTS_DIR, sandbox.name)
-        print("{}: ".format(sandbox.name).ljust(40, " ") + FAIL + "FAILED".ljust(20, " ") + ENDC + "(see '{}')".format(results_destination))
+        print("{}: ".format(sandbox.name).ljust(40, " ") + FAIL + "FAILED " + ENDC)
         record_results(results_destination, original_ls, ft_ls, arguments)
     sandbox.clean()
     return test_result

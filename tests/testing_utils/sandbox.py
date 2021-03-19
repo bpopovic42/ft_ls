@@ -1,13 +1,12 @@
 import os
 import shutil
-from testing_utils.utils import make_new_unique_path
-
-SANDBOXES_PATH = os.path.join(os.path.dirname(__file__), "../sandbox")
+from testing_utils.utils import get_new_folder
+from testing_utils.globals import SANDBOXES_DIR
 
 
 class Sandbox:
     def __init__(self, name):
-        self.path = make_new_unique_path(SANDBOXES_PATH)
+        self.path = get_new_folder(SANDBOXES_DIR, name)
         self.name = name
 
     def run(self, command):
@@ -17,4 +16,8 @@ class Sandbox:
         os.chdir(current_dir)
 
     def clean(self):
-        shutil.rmtree(self.path)
+        try:
+            shutil.rmtree(self.path)
+        except PermissionError:
+            self.run("chmod -R 755 {}".format(self.path))
+            shutil.rmtree(self.path)

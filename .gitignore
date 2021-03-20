@@ -16,4 +16,3 @@ mc_linux.py
 .sym_logs
 ft_ls/testing_assets/
 tests/sandbox
-tests/results

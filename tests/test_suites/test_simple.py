@@ -1,23 +1,22 @@
-from testing_utils.run_test import run_test
 from testing_utils.sandbox import Sandbox
 
 
 def test_simple_1():
-    sandbox = Sandbox("test_simple_1")
-    sandbox.run("touch aaa bbb ccc")
-    return run_test(sandbox, "")
+    sandbox = Sandbox("test_simple_1", "")
+    sandbox.cmd("touch aaa bbb ccc")
+    return sandbox.run()
 
 
 def test_simple_2():
-    sandbox = Sandbox("test_simple_2")
-    sandbox.run("touch - file")
-    return run_test(sandbox, "")
+    sandbox = Sandbox("test_simple_2", "")
+    sandbox.cmd("touch - file")
+    return sandbox.run()
 
 
 def test_simple_3():
-    sanbox = Sandbox("test_simple_3")
-    sanbox.run("mkdir - dir")
-    return run_test(sanbox, "")
+    sanbox = Sandbox("test_simple_3", "")
+    sanbox.cmd("mkdir - dir")
+    return sanbox.run()
 
 
 def run_test_simple():

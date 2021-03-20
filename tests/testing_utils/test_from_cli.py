@@ -1,8 +1,8 @@
-import subprocess as sb
-from testing_utils.globals import LS_PATH, FT_LS_PATH
-from testing_utils.run_test import compare
+import os
+
+from testing_utils.sandbox import Sandbox
+
 
 def test_from_cli(arguments):
-    original_ls = sb.run([LS_PATH] + arguments, capture_output=True)
-    ft_ls = sb.run([FT_LS_PATH] + arguments, capture_output=True)
-    compare(" ".join(arguments), original_ls, ft_ls)
+    sandbox = Sandbox("cli_test", arguments, provided_working_dir=os.getcwd(), print_results=True)
+    sandbox.run()

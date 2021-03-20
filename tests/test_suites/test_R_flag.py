@@ -1,64 +1,63 @@
 import os
 
-from testing_utils.run_test import run_test
 from testing_utils.sandbox import Sandbox
 
 
 def test_R_flag_1():
-    sandbox = Sandbox("test_R_flag_1")
-    sandbox.run("mkdir -p level1_{1..2}/level2_{1..2}/level3_{1..2}")
-    return run_test(sandbox, "-R")
+    sandbox = Sandbox("test_R_flag_1", "-R")
+    sandbox.cmd("mkdir -p level1_{1..2}/level2_{1..2}/level3_{1..2}")
+    return sandbox.run()
 
 
 def test_R_flag_2():
-    sandbox = Sandbox("test_R_flag_2")
-    sandbox.run("mkdir -p level1_{1..3}/level2_{6..8}/level3_{11..13}")
-    return run_test(sandbox, "-R")
+    sandbox = Sandbox("test_R_flag_2", "-R")
+    sandbox.cmd("mkdir -p level1_{1..3}/level2_{6..8}/level3_{11..13}")
+    return sandbox.run()
 
 
 def test_R_flag_3():
-    sandbox = Sandbox("test_R_flag_3")
-    sandbox.run("mkdir -p .a .b .c && mkdir -p a b c ")
-    return run_test(sandbox, "-R")
+    sandbox = Sandbox("test_R_flag_3", "-R")
+    sandbox.cmd("mkdir -p .a .b .c && mkdir -p a b c ")
+    return sandbox.run()
 
 
 def test_R_flag_4():
-    sandbox = Sandbox("test_R_flag_4")
-    sandbox.run("mkdir a b c")
-    sandbox.run("chmod 000 b")
-    return run_test(sandbox, "-1R 2>&1 | grep -v denied")
+    sandbox = Sandbox("test_R_flag_4", "-1R 2>&1 | grep -v denied")
+    sandbox.cmd("mkdir a b c")
+    sandbox.cmd("chmod 000 b")
+    return sandbox.run()
 
 
 def test_R_flag_5():
-    sandbox = Sandbox("test_R_flag_5")
-    sandbox.run("mkdir a b c")
-    sandbox.run("chmod 000 b")
-    return run_test(sandbox, "-1R 2>&1 | grep denied | wc -l | tr -d ' ' | tr -d '\n'")
+    sandbox = Sandbox("test_R_flag_5", "-1R 2>&1 | grep denied | wc -l | tr -d ' ' | tr -d '\n'")
+    sandbox.cmd("mkdir a b c")
+    sandbox.cmd("chmod 000 b")
+    return sandbox.run()
 
 
 def test_R_flag_6():
-    sandbox = Sandbox("test_R_flag_6")
-    sandbox.run("mkdir A")
-    sandbox.run("touch A/file")
-    return run_test(sandbox, "-1R A a")
+    sandbox = Sandbox("test_R_flag_6", "-1R A a")
+    sandbox.cmd("mkdir A")
+    sandbox.cmd("touch A/file")
+    return sandbox.run()
 
 
 def test_R_flag_7():
-    sandbox = Sandbox("test_R_flag_7")
-    sandbox.run("mkdir A")
-    sandbox.run("touch A/file rootfile")
-    return run_test(sandbox, "-1R A a rootfile rootfile")
+    sandbox = Sandbox("test_R_flag_7", "-1R A a rootfile rootfile")
+    sandbox.cmd("mkdir A")
+    sandbox.cmd("touch A/file rootfile")
+    return sandbox.run()
 
 
 def test_recursion():
-    sandbox = Sandbox("test_recursion")
+    sandbox = Sandbox("test_recursion", "-R")
     current_dir = os.getcwd()
     os.chdir(sandbox.path)
     for i in range(800):
         os.mkdir("subdir" + str(i))
         os.chdir("subdir" + str(i))
     os.chdir(current_dir)
-    return run_test(sandbox, "-R")
+    return sandbox.run()
 
 
 def run_test_R_flag():

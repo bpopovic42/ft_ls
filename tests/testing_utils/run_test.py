@@ -7,12 +7,8 @@ from testing_utils.utils import write_process_stdout_to_file
 
 from testing_utils.globals import RESULTS_DIR
 
-SHOULD_PRINT_DIFF = False
 TEST_PASSED = 0
 TEST_FAILED = 1
-OKGREEN = '\033[92m'
-FAIL = '\033[91m'
-ENDC = '\033[0m'
 
 
 def record_return_values(original_ls, ft_ls, destination_file):

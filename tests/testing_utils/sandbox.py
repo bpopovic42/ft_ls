@@ -9,6 +9,7 @@ COLOR_GREEN = '\033[92m'
 COLOR_RED = '\033[91m'
 COLOR_END = '\033[0m'
 SHOULD_PRINT_RESULTS = False
+SHOULD_KEEP_ALL_RESULTS = False
 
 
 def sanitize_stderr(stderr):
@@ -132,7 +133,7 @@ class Sandbox:
         os.chdir(current_dir)
 
     def clean(self):
-        if self.test_results.success:
+        if self.test_results.success and not SHOULD_KEEP_ALL_RESULTS:
             try:
                 shutil.rmtree(self.path)
             except PermissionError:

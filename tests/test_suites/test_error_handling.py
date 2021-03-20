@@ -8,5 +8,12 @@ def test_error_handling_1():
     return sandbox.run()
 
 
+def test_error_handling_2():
+    sandbox = Sandbox("test_error_handling_2", "-R 2>&1 | grep denied | wc -l | tr -d ' ' | tr -d '\n'")
+    sandbox.cmd("mkdir a b c")
+    sandbox.cmd("chmod 000 b")
+    return sandbox.run()
+
+
 def run_test_error_handling():
     test_error_handling_1()

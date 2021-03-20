@@ -22,14 +22,14 @@ def test_R_flag_3():
 
 
 def test_R_flag_4():
-    sandbox = Sandbox("test_R_flag_4", "-1R 2>&1 | grep -v denied")
+    sandbox = Sandbox("test_R_flag_4", "-R")
     sandbox.cmd("mkdir a b c")
     sandbox.cmd("chmod 000 b")
     return sandbox.run()
 
 
 def test_R_flag_5():
-    sandbox = Sandbox("test_R_flag_5", "-1R 2>&1 | grep denied | wc -l | tr -d ' ' | tr -d '\n'")
+    sandbox = Sandbox("test_R_flag_5", "-R")
     sandbox.cmd("mkdir a b c")
     sandbox.cmd("chmod 000 b")
     return sandbox.run()

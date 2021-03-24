@@ -57,9 +57,13 @@ int handle_path_argument(t_store *store, char *argument)
 	new_node->data = new_folder;
 	if (new_folder->error != 0)
 		ft_lstadd(store->invalid_folders, new_node);
-	else {
+	else if (new_folder->mode.type == 'd'){
 		ft_lstadd(store->folders_queue, new_node);
-		store->nbr_of_file_args += 1;
+		store->nbr_of_file_args += 1; // TODO : what's that
+	}
+	else {
+		new_folder->parent_folder = store->cli_file_arguments_folder;
+		ft_lstadd(store->cli_file_arguments_folder->files, new_node);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -81,7 +85,8 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 		}
 		i++;
 	}
-	if (store->folders_queue->size == 0)
+	if (store->folders_queue->size == 0 &&
+	store->cli_file_arguments_folder->files->size == 0)
 	{
 		if (handle_path_argument(store, ".") != EXIT_SUCCESS)
 			return (handle_error(store, FT_LS_FATAL_ERROR));

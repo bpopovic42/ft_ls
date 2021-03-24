@@ -41,6 +41,16 @@ int help_flag_requested(int ac, char **av)
 	return (0);
 }
 
+void print_cli_argument_files(t_store *store)
+{
+	if (store->cli_file_arguments_folder->files->size > 0) {
+		ft_lstiter(store->cli_file_arguments_folder->files,
+		           &print_file_from_node);
+		if (store->folders_queue->size > 0)
+			ft_putchar('\n');
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_store store;
@@ -52,7 +62,9 @@ int main(int ac, char **av)
 		if ((parse_arguments(ac - 1, av + 1, &store)) != EXIT_SUCCESS)
 			return (exit_clean(&store));
 		sort_files(store.folders_queue);
+		sort_files(store.cli_file_arguments_folder->files);
 		print_invalid_folders(&store);
+		print_cli_argument_files(&store);
 		process_folders(&store);
 		return (exit_clean(&store));
 	}

@@ -21,6 +21,7 @@ typedef struct s_store
 	int nbr_of_file_args;
 	char *program_name;
 	int error_status;
+	struct s_file *cli_file_arguments_folder;
 	t_list *folders_queue;
 	t_list *invalid_folders;
 } t_store;

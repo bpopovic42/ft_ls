@@ -49,7 +49,6 @@ int create_new_file(t_file **new_file, char *name, char *parent_path)
 
 void del_file(t_file *file, size_t folder_size)
 {
-	//ft_printf("cleaning : %s\n", file->name);
 	if (file != NULL) {
 		if (file->files)
 			ft_lstdel(file->files, (void (*)(void *, size_t))del_file);

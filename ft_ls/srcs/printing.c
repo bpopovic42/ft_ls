@@ -7,16 +7,24 @@ void print_help()
 
 void print_file_error(t_store *store, t_file *file)
 {
+	char quotes_type;
+
+	quotes_type = '\'';
 	if (file)
 	{
-		ft_dprintf(2, "%s: %s '%s': %s\n",
+		if (ft_strchr(file->path, '\''))
+			quotes_type = '"';
+		ft_dprintf(2, "%s: %s %c%s%c: %s\n",
 		           store->program_name,
 		           file->error_msg,
+		           quotes_type,
 		           file->path,
+		           quotes_type,
 		           strerror(file->error)
 		);
 	}
 }
+
 void print_parent_folder(t_store *store, t_file *parent_folder)
 {
 	if (parent_folder->error == 0)

@@ -86,7 +86,8 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 		i++;
 	}
 	if (store->folders_queue->size == 0 &&
-	store->cli_file_arguments_folder->files->size == 0)
+		store->invalid_folders->size == 0 &&
+		store->cli_file_arguments_folder->files->size == 0)
 	{
 		if (handle_path_argument(store, ".") != EXIT_SUCCESS)
 			return (handle_error(store, FT_LS_FATAL_ERROR));

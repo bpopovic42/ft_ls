@@ -36,14 +36,14 @@ def test_R_flag_5():
 
 
 def test_R_flag_6():
-    sandbox = Sandbox("test_R_flag_6", "-1R A a")
+    sandbox = Sandbox("test_R_flag_6", "-R A a")
     sandbox.cmd("mkdir A")
     sandbox.cmd("touch A/file")
     return sandbox.run()
 
 
 def test_R_flag_7():
-    sandbox = Sandbox("test_R_flag_7", "-1R A a rootfile rootfile")
+    sandbox = Sandbox("test_R_flag_7", "-R A a rootfile rootfile")
     sandbox.cmd("mkdir A")
     sandbox.cmd("touch A/file rootfile")
     return sandbox.run()

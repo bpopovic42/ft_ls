@@ -25,6 +25,7 @@
 # define WSPCS "\040\t"
 
 typedef unsigned int	t_uint;
+typedef unsigned long long t_uint64;
 typedef unsigned char	t_uchar;
 typedef int				t_word;
 

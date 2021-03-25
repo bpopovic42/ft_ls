@@ -19,16 +19,16 @@ int ascii_compare_reversed(t_file *f1, t_file *f2)
 int timestamp_compare(t_file *f1, t_file *f2)
 {
 
-	if (f1->properties->tv_sec == f2->properties->tv_sec)
+	if (f1->properties->mtime == f2->properties->mtime)
 		return ascii_compare(f1, f2);
-	return ((int)f1->properties->tv_sec > (int)f2->properties->tv_sec);
+	return (f1->properties->mtime > f2->properties->mtime);
 }
 
 int timestamp_compare_reversed(t_file *f1, t_file *f2)
 {
-	if (f1->properties->tv_sec == f2->properties->tv_sec)
+	if (f1->properties->mtime == f2->properties->mtime)
 		return ascii_compare_reversed(f1, f2);
-	return (f1->properties->tv_sec < f2->properties->tv_sec);
+	return (f1->properties->mtime < f2->properties->mtime);
 }
 
 void sort_files(t_list *files)

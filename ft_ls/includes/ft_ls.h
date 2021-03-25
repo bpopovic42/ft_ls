@@ -9,11 +9,13 @@
 # include <grp.h>
 # include <time.h>
 # include <errno.h>
+# include <stdint.h>
 
 # define FT_LS_FLAGS 6
 # define FT_LS_FLAGS_LIST "alrRt-"
 # define FT_LS_ERROR 1
 # define FT_LS_FATAL_ERROR 2
+# define SECONDS_IN_A_YEAR 31556952
 
 
 typedef struct s_store
@@ -41,17 +43,17 @@ typedef struct s_mode {
 
 typedef struct s_properties
 {
-	unsigned long long tv_sec;
-	char *usr_owner;
-	char *grp_owner;
-	char *link;
-	char date[13];
-	int  blocks;
-	int  total_blocks;
-	int  size;
-	int  major_rdev;
-	int  minor_rdev;
-	int  struct_size;
+	t_uint64 mtime;
+	char     *usr_owner;
+	char     *grp_owner;
+	char     *link;
+	char     date[13];
+	int      blocks;
+	int      total_blocks;
+	int      size;
+	int      major_rdev;
+	int      minor_rdev;
+	int      struct_size;
 } t_properties;
 
 typedef struct s_file

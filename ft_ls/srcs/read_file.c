@@ -32,15 +32,15 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 int get_file_time(t_file *file, struct stat *file_stat)
 {
 	char *date;
-	long file_time;
-	long current_time;
+	t_uint64 current_time;
 
-	file_time    = file_stat->st_mtim.tv_sec;
 	current_time = time(0);
 	date = ctime(&file_stat->st_mtime);
-	file->properties->tv_sec = file_time;
+	file->properties->mtime = file_stat->st_mtim.tv_sec * 1000 +
+			file_stat->st_mtim.tv_nsec / 1000000;
 	ft_strncpy(file->properties->date, date + 4, 7);
-	if ((current_time - file_time) > (int)(31556952 / 2))
+	if ((current_time - file_stat->st_mtim.tv_sec) >
+		(t_uint64)(SECONDS_IN_A_YEAR / 2))
 		ft_strncpy(file->properties->date + 7, date + 19, 5);
 	else
 		ft_strncpy(file->properties->date + 7, date + 11, 5);

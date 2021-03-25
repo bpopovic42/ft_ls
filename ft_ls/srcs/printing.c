@@ -118,6 +118,7 @@ void print_file_l_flag(t_file *file, t_padding *padding)
 	}
 }
 
+#include <printf.h>
 void print_file_from_node(t_node *file_node)
 {
 	t_file *file;
@@ -128,7 +129,7 @@ void print_file_from_node(t_node *file_node)
 	ft_lstmap(file->parent_folder->files, (void*)&padding,
 			(int (*)(t_node *, void *))&get_paddings);
 	if (g_flags[1] != 'l')
-		ft_printf("%s\n", file->name, file->properties->tv_sec);
+		ft_printf("%s\n", file->name);
 	else
 		print_file_l_flag(file, &padding);
 }

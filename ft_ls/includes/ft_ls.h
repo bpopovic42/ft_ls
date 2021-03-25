@@ -41,17 +41,17 @@ typedef struct s_mode {
 
 typedef struct s_properties
 {
-	long     timestamp;
-	char    *usr_owner;
-	char    *grp_owner;
-	char    *link;
-	char    date[13];
-	int     blocks;
-	int     total_blocks;
-	int     size;
-	int     major_rdev;
-	int     minor_rdev;
-	int    struct_size;
+	unsigned long long tv_sec;
+	char *usr_owner;
+	char *grp_owner;
+	char *link;
+	char date[13];
+	int  blocks;
+	int  total_blocks;
+	int  size;
+	int  major_rdev;
+	int  minor_rdev;
+	int  struct_size;
 } t_properties;
 
 typedef struct s_file

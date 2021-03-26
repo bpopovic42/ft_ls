@@ -56,7 +56,7 @@ int handle_path_argument(t_store *store, char *argument)
 		return (handle_error(store, FT_LS_FATAL_ERROR));
 	new_node->data = new_folder;
 	if (new_folder->error != 0)
-		ft_lstadd(store->invalid_folders, new_node);
+		ft_lstpush_back(store->invalid_folders, new_node);
 	else if (new_folder->mode.type == 'd'){
 		ft_lstadd(store->folders_queue, new_node);
 		store->nbr_of_file_args += 1; // TODO : what's that

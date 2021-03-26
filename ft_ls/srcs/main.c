@@ -16,8 +16,6 @@ void print_invalid_folders(t_store *store)
 	t_node *invalid_folder_ptr;
 	t_file *invalid_folder;
 
-	if (store->invalid_folders->size > 1)
-		ft_lstsort(store->invalid_folders, (int (*)(void *, void *))&ascii_compare);
 	invalid_folder_ptr = store->invalid_folders->head;
 	while (invalid_folder_ptr)
 	{

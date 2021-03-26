@@ -8,8 +8,9 @@ def test_error_handling_1():
     return sandbox.run()
 
 
+# Invalid arguments (program arguments are not interpreted as commands in this tester)
 def test_error_handling_2():
-    sandbox = Sandbox("test_error_handling_2", "-R 2>&1 | grep denied | wc -l | tr -d ' ' | tr -d '\n'")
+    sandbox = Sandbox("test_error_handling_2", "-R 2>&1 | grep denied | wc -l | tr ' ' | tr '\n'")
     sandbox.cmd("mkdir a b c")
     sandbox.cmd("chmod 000 b")
     return sandbox.run()

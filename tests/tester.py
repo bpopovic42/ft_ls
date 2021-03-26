@@ -4,6 +4,11 @@ import os
 import sys
 import subprocess as sb
 
+from test_suites.test_aR_flag import run_test_aR_flag
+from test_suites.test_alR_flag import run_test_alR_flag
+from test_suites.test_hyphen import run_test_hyphen
+from test_suites.test_hyphen_harder import run_test_hyphen_harder
+from test_suites.test_perms import run_test_perms
 from test_suites.test_simple import run_test_simple
 from test_suites.test_R_flag import run_test_R_flag
 from test_suites.test_multiple_dirs import run_test_multiple_dirs
@@ -33,6 +38,11 @@ def run_test_suites():
     run_tR_flag()
     run_test_l_flag()
     run_test_error_handling()
+    run_test_aR_flag()
+    run_test_alR_flag()
+    run_test_perms()
+    run_test_hyphen()
+    run_test_hyphen_harder()
     print("\nSee '{}/[TEST_NAME]' for failed tests output\n".format(SANDBOXES_DIR))
 
 

@@ -73,11 +73,15 @@ int allocate_properties(t_file *file, char *pw_name, char *gr_name, char *link)
 int read_link(t_file *file, char *link)
 {
 	ssize_t link_size;
+	struct stat link_stat;
 
 	if (file->mode.type != 'l')
 		return (EXIT_SUCCESS);
 	if ((link_size = readlink(file->path, link, PATH_MAX - 1)) < 0)
 		return (EXIT_FAILURE);
+	if (stat(file->path, &link_stat) < 0)
+		return (EXIT_FAILURE);
+	get_file_mode(&file->properties->link_mode, &link_stat);
 	return (EXIT_SUCCESS);
 }
 
@@ -146,9 +150,9 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	ft_bzero(link, PATH_MAX);
 	if (get_usr_and_grp_info(file_stat, &usr_name, &grp_name) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (read_link(file, link) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
 	if (allocate_properties(file, usr_name, grp_name, link) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	if (read_link(file, link) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	ft_strcpy(file->properties->usr_owner, usr_name);
 	ft_strcpy(file->properties->grp_owner, grp_name);

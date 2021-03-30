@@ -47,6 +47,7 @@ typedef struct s_properties
 	char     *usr_owner;
 	char     *grp_owner;
 	char     *link;
+	t_mode   link_mode;
 	char     date[13];
 	int      blocks;
 	int      total_blocks;

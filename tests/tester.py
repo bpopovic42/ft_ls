@@ -3,7 +3,7 @@
 import os
 import sys
 
-from test_suites.test_non_printable import run_test_non_printable
+from test_suites.test_bonus_non_printable import run_test_bonus_non_printable
 from test_suites.test_aR_flag import run_test_aR_flag
 from test_suites.test_alR_flag import run_test_alR_flag
 from test_suites.test_hyphen import run_test_hyphen
@@ -43,7 +43,7 @@ def run_test_suites():
     run_test_perms()
     run_test_hyphen()
     run_test_hyphen_harder()
-    run_test_non_printable()
+    #run_test_bonus_non_printable()
     print("\nSee '{}/[TEST_NAME]' for failed tests output\n".format(SANDBOXES_DIR))
 
 

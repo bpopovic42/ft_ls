@@ -18,13 +18,13 @@
 ** Returns output's size
 */
 
-static int	local_putnbr_octal(t_ptf *ptf, char value)
+static int	local_putnbr_octal(t_ptf *ptf, unsigned char value)
 {
 	char	tmp[4];
 	int		i;
 
 	i = 0;
-	while (value)
+	while (i < 3)
 	{
 		tmp[i] = value % 8 + '0';
 		value /= 8;

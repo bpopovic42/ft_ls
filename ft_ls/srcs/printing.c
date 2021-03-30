@@ -14,7 +14,7 @@ void print_file_error(t_store *store, t_file *file)
 	{
 		if (ft_strchr(file->path, '\''))
 			quotes_type = '"';
-		ft_dprintf(2, "%s: %s %c%s%c: %s\n",
+		ft_dprintf(2, "%r: %s %c%r%c: %s\n",
 		           store->program_name,
 		           file->error_msg,
 		           quotes_type,
@@ -30,7 +30,7 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 	if (parent_folder->error == 0)
 	{
 		if (g_flags[3] == 'R' || store->nbr_of_file_args > 1)
-			ft_printf("%s:\n", parent_folder->path);
+			ft_printf("%r:\n", parent_folder->path);
 		if (g_flags[1] == 'l')
 			ft_printf("total %d\n", parent_folder->properties->total_blocks);
 	}
@@ -81,7 +81,7 @@ void print_file_l_flag(t_file *file, t_padding *padding)
 		major_rdev_padding = padding->file_major_rdev + 1;
 	if (file->mode.type == 'c' || file->mode.type == 'b')
 	{
-		ft_printf("%s %*d %-*s %-*s %*d,%*d %s %s%s%s\n",
+		ft_printf("%s %*d %-*r %-*r %*d,%*d %s %r%s%r\n",
 		          &file->mode,
 		          padding->file_links,
 		          file->hard_links,
@@ -100,7 +100,7 @@ void print_file_l_flag(t_file *file, t_padding *padding)
 		);
 	}
 	else {
-		ft_printf("%s %*d %-*s %-*s %*d %s %s%s%s\n",
+		ft_printf("%s %*d %-*r %-*r %*d %s %r%s%r\n",
 		          &file->mode,
 		          padding->file_links,
 		          file->hard_links,
@@ -129,7 +129,7 @@ void print_file_from_node(t_node *file_node)
 	ft_lstmap(file->parent_folder->files, (void*)&padding,
 			(int (*)(t_node *, void *))&get_paddings);
 	if (g_flags[1] != 'l')
-		ft_printf("%s\n", file->name);
+		ft_printf("%r\n", file->name);
 	else
 		print_file_l_flag(file, &padding);
 }

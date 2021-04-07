@@ -1,6 +1,22 @@
 #include "ft_ls.h"
 #include <sys/sysmacros.h>
 
+void get_special_bits(t_mode *mode, struct stat *file_stat)
+{
+	if (S_IXUSR & file_stat->st_mode)
+		mode->usr_exec = (S_ISUID & file_stat->st_mode) ? 's' : 'x';
+	else
+		mode->usr_exec = (S_ISUID & file_stat->st_mode) ? 'S' : '-';
+	if (S_IXGRP & file_stat->st_mode)
+		mode->grp_exec = (S_ISGID & file_stat->st_mode) ? 's' : 'x';
+	else
+		mode->grp_exec = (S_ISGID & file_stat->st_mode) ? 'S' : '-';
+	if (S_IXOTH & file_stat->st_mode)
+		mode->oth_exec = (S_ISVTX & file_stat->st_mode) ? 't' : 'x';
+	else
+		mode->oth_exec = (S_ISVTX & file_stat->st_mode) ? 'T' : '-';
+}
+
 void get_file_mode(t_mode *mode, struct stat *file_stat)
 {
 	if (S_ISBLK(file_stat->st_mode))
@@ -17,16 +33,11 @@ void get_file_mode(t_mode *mode, struct stat *file_stat)
 		mode->type = 's';
 	mode->usr_read = (S_IRUSR & file_stat->st_mode ? 'r' : '-');
 	mode->usr_write = (S_IWUSR & file_stat->st_mode ? 'w' : '-');
-	mode->usr_exec = (S_IXUSR & file_stat->st_mode ? 'x' : '-');
-	mode->usr_exec = (S_ISUID & file_stat->st_mode ? 's' : mode->usr_exec);
 	mode->grp_read = (S_IRGRP & file_stat->st_mode ? 'r' : '-');
 	mode->grp_write = (S_IWGRP & file_stat->st_mode ? 'w' : '-');
-	mode->grp_exec = (S_IXGRP & file_stat->st_mode ? 'x' : '-');
-	mode->grp_exec = (S_ISGID & file_stat->st_mode ? 's' : mode->grp_exec);
 	mode->oth_read = (S_IROTH & file_stat->st_mode ? 'r' : '-');
 	mode->oth_write = (S_IWOTH & file_stat->st_mode ? 'w' : '-');
-	mode->oth_exec = (S_IXOTH & file_stat->st_mode ? 'x' : '-');
-	mode->oth_exec = (S_ISVTX & file_stat->st_mode ? 't' : mode->oth_exec);
+	get_special_bits(mode, file_stat);
 }
 
 int get_file_time(t_file *file, struct stat *file_stat)

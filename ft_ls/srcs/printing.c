@@ -29,7 +29,8 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 {
 	if (parent_folder->error == 0)
 	{
-		if (g_flags[3] == 'R' || store->nbr_of_file_args > 1)
+		if (g_flags[3] == 'R' || (store->nbr_of_file_args > 1 &&
+			parent_folder->is_cli_arg))
 			ft_printf("%r:\n", parent_folder->path);
 		if (g_flags[1] == 'l')
 			ft_printf("total %d\n", parent_folder->properties->total_blocks);

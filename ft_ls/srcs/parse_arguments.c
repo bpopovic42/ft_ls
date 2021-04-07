@@ -39,7 +39,7 @@ void handle_invalid_file(t_store *store, t_file *invalid_file)
 	invalid_file->error_msg = "cannot access";
 }
 
-int handle_path_argument(t_store *store, char *argument)
+int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 {
 	t_node *new_node;
 	t_file *new_folder;
@@ -61,12 +61,12 @@ int handle_path_argument(t_store *store, char *argument)
 		(new_folder->mode.type == 'l' && new_folder->properties->link_mode
 		.type == 'd')) {
 		ft_lstadd(store->folders_queue, new_node);
-		store->nbr_of_file_args += 1; // TODO : what's that
 	}
 	else {
 		new_folder->parent_folder = store->cli_file_arguments_folder;
 		ft_lstadd(store->cli_file_arguments_folder->files, new_node);
 	}
+	new_folder->is_cli_arg = is_cli_arg;
 	return (EXIT_SUCCESS);
 }
 
@@ -82,7 +82,8 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 				return (handle_error(store, FT_LS_FATAL_ERROR));
 		}
 		else {
-			if (handle_path_argument(store, arguments[i]) != EXIT_SUCCESS)
+			store->nbr_of_file_args += 1;
+			if (handle_path_argument(store, arguments[i], 1) != EXIT_SUCCESS)
 				return (handle_error(store, FT_LS_FATAL_ERROR));
 		}
 		i++;
@@ -91,7 +92,7 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 		store->invalid_folders->size == 0 &&
 		store->cli_file_arguments_folder->files->size == 0)
 	{
-		if (handle_path_argument(store, ".") != EXIT_SUCCESS)
+		if (handle_path_argument(store, ".", 0) != EXIT_SUCCESS)
 			return (handle_error(store, FT_LS_FATAL_ERROR));
 	}
 	return (EXIT_SUCCESS);

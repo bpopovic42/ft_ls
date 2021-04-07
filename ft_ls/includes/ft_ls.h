@@ -63,6 +63,7 @@ typedef struct s_file
 	char          *path;
 	int           struct_size;
 	int           hard_links;
+	int           is_cli_arg;
 	int           error;
 	char          *error_msg;
 	struct s_file *parent_folder;

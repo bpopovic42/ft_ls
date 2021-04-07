@@ -114,4 +114,3 @@ def run_test_special_bits_dir():
     test_special_bits_dir_14()
     test_special_bits_dir_15()
     test_special_bits_dir_16()
-

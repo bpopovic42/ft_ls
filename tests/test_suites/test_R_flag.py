@@ -5,13 +5,19 @@ from testing_utils.sandbox import Sandbox
 
 def test_R_flag_1():
     sandbox = Sandbox("test_R_flag_1", "-R")
-    sandbox.cmd("mkdir -p level1_{1..2}/level2_{1..2}/level3_{1..2}")
+    sandbox.cmd("mkdir -p {}".format(
+        " ".join(["level1_" + str(n) + "/level2_" + str(n2) + "/level3_" + str(n3)
+                 for n3 in range(1, 3) for n2 in range(1, 3) for n in range(1, 3)])
+    ))
     return sandbox.run()
 
 
 def test_R_flag_2():
     sandbox = Sandbox("test_R_flag_2", "-R")
-    sandbox.cmd("mkdir -p level1_{1..3}/level2_{6..8}/level3_{11..13}")
+    sandbox.cmd("mkdir -p {}".format(
+        " ".join(["level1_" + str(n) + "/level2_" + str(n2) + "/level3_" + str(n3)
+                   for n3 in range(11, 14) for n2 in range(6, 9) for n in range(1, 4)])
+    ))
     return sandbox.run()
 
 

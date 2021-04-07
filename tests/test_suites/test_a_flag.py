@@ -9,7 +9,12 @@ def test_a_flag_1():
 
 def test_a_flag_2():
     sandbox = Sandbox("test_a_flag_2", "-a")
-    sandbox.cmd("mkdir .hiddendir{1..10} dir{1..10} && touch .hiddenfile{1..10} file{1..10}")
+    sandbox.cmd("mkdir {} {} && touch {} {}".format(
+        " ".join([".hiddendir" + str(n) for n in range(1, 11)]),
+        " ".join(["dir" + str(n) for n in range(1, 11)]),
+        " ".join([".hiddenfile" + str(n) for n in range(1, 11)]),
+        " ".join(["file" + str(n) for n in range(1, 11)])
+    ))
     return sandbox.run()
 
 

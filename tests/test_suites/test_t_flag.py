@@ -15,7 +15,12 @@ def test_t_flag_2():
 
 def test_t_flag_3():
     sandbox = Sandbox("test_t_flag_3", "-t")
-    sandbox.cmd("touch fileA{1..5} fileB{1..5} fileC{1..5} && touch -t 200012101830.55 fileA{1..5}")
+    sandbox.cmd("touch {} {} {} && touch -t 200012101830.55 {}".format(
+        " ".join(["fileA" + str(n) for n in range(1, 6)]),
+        " ".join(["fileB" + str(n) for n in range(1, 6)]),
+        " ".join(["fileC" + str(n) for n in range(1, 6)]),
+        " ".join(["fileA" + str(n) for n in range(1, 6)]),
+    ))
     return sandbox.run()
 
 
@@ -49,7 +54,9 @@ def test_t_flag_5():
 
 def test_t_flag_6():
     sandbox = Sandbox("test_t_flag_6", "-t")
-    sandbox.cmd("mkdir -p level1_{1..2}/level2_{1..2}")
+    sandbox.cmd("mkdir -p {}".format(
+        " ".join(["level1_" + str(n) + "/level2_" + str(n2) for n2 in range (1, 3) for n in range(1, 3)])
+    ))
     sandbox.cmd(
         "touch -t 201312101830.55 B && "
         "touch -t 201312101830.55 a"

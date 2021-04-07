@@ -3,7 +3,9 @@ from testing_utils.sandbox import Sandbox
 
 def test_symlink_1():
     sandbox = Sandbox("test_symlink_1", "symdir")
-    sandbox.cmd("mkdir mydir && ln -s mydir symdir && touch mydir/file{1..5}")
+    sandbox.cmd("mkdir mydir && ln -s mydir symdir && touch {}".format(
+        " ".join(["mydir/file" + str(n) for n in range(1, 6)])
+    ))
     return sandbox.run()
 
 

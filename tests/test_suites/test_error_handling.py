@@ -24,7 +24,7 @@ def test_error_handling_3():
 
 
 def test_error_handling_4():
-    sandbox = Sandbox("test_error_handling_4", "-Z_bad_flag")
+    sandbox = Sandbox("test_error_handling_4", "-_bad_flag")
     return sandbox.run()
 
 
@@ -34,7 +34,7 @@ def test_error_handling_5():
 
 
 def test_error_handling_6():
-    sandbox = Sandbox("test_error_handling_6", "--a")
+    sandbox = Sandbox("test_error_handling_6", "--j")
     return sandbox.run()
 
 
@@ -55,7 +55,7 @@ def test_error_handling_9():
 
 
 def test_error_handling_10():
-    sandbox = Sandbox("test_error_handling_10", "-lZWYX243")
+    sandbox = Sandbox("test_error_handling_10", "-lWZYX243")
     return sandbox.run()
 
 

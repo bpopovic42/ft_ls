@@ -12,7 +12,7 @@
 # include <stdint.h>
 
 # define FT_LS_FLAGS 6
-# define FT_LS_FLAGS_LIST "alrRt-"
+# define FT_LS_FLAGS_LIST "alrRt"
 # define FT_LS_ERROR 1
 # define FT_LS_FATAL_ERROR 2
 # define SECONDS_IN_A_YEAR 31556952

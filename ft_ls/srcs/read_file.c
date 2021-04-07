@@ -152,8 +152,7 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 		return (EXIT_FAILURE);
 	if (allocate_properties(file, usr_name, grp_name, link) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (read_link(file, link) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+	read_link(file, link);
 	ft_strcpy(file->properties->usr_owner, usr_name);
 	ft_strcpy(file->properties->grp_owner, grp_name);
 	ft_strcpy(file->properties->link, link);

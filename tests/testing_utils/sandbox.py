@@ -8,7 +8,7 @@ from testing_utils.globals import SANDBOXES_DIR, FT_LS_PATH, LS_PATH
 COLOR_GREEN = '\033[92m'
 COLOR_RED = '\033[91m'
 COLOR_END = '\033[0m'
-SHOULD_PRINT_RESULTS = False
+SHOULD_PRINT_RESULTS = True
 SHOULD_KEEP_ALL_RESULTS = False
 
 
@@ -24,6 +24,7 @@ def sanitize_stderr(stderr):
 
 def get_test_results(ls, ft_ls):
     test_results = TestResult()
+    test_results.crash = ft_ls.returncode < 0
     test_results.returncode_matches = ls.returncode == ft_ls.returncode
     test_results.stdout_matches = ls.stdout.decode("utf-8") == ft_ls.stdout.decode("utf-8")
     test_results.stderr_matches = (
@@ -32,7 +33,9 @@ def get_test_results(ls, ft_ls):
     test_results.success = (
             test_results.returncode_matches and
             test_results.stdout_matches and
-            test_results.stderr_matches
+            test_results.stderr_matches and
+            not test_results.crash
+
     )
     return test_results
 
@@ -43,6 +46,7 @@ class TestResult:
         self.stderr_matches = False
         self.returncode_matches = False
         self.success = False
+        self.crash = False
 
 
 class Sandbox:
@@ -114,7 +118,10 @@ class Sandbox:
         if self.test_results.success:
             print("{}: ".format(self.name).ljust(40, " ") + COLOR_GREEN + "PASSED" + COLOR_END)
         else:
-            print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "FAILED " + COLOR_END)
+            if self.test_results.crash:
+                print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "CRASH" + COLOR_END)
+            else:
+                print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "FAILED " + COLOR_END)
             self.__record_test_results()
             self.__print_test_results()
 

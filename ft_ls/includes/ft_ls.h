@@ -80,6 +80,7 @@ typedef struct s_padding
 	size_t file_links;
 	size_t file_size;
 	size_t file_major_rdev;
+	size_t file_minor_rdev;
 } t_padding;
 
 char g_flags[FT_LS_FLAGS];

@@ -20,7 +20,16 @@ def test_multiple_files_3():
     return sandbox.run()
 
 
+def test_multiple_files_4():
+    sandbox = Sandbox("test_multiple_files_4", "-l")
+    sandbox.cmd("touch {}".format(
+        " ".join(["file_" + str(n) for n in range(0, 1000)])
+    ))
+    return sandbox.run()
+
+
 def run_test_multiple_files():
     test_multiple_files_1()
     test_multiple_files_2()
     test_multiple_files_3()
+    test_multiple_files_4()

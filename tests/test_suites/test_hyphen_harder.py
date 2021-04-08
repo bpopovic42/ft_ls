@@ -37,10 +37,12 @@ def test_hyphen_harder_6():
     return sandbox.run()
 
 
-def run_test_hyphen_harder():
-    test_hyphen_harder_1()
-    test_hyphen_harder_2()
-    test_hyphen_harder_3()
-    test_hyphen_harder_4()
-    test_hyphen_harder_5()
-    test_hyphen_harder_6()
+def get_tests_hyphen_harder():
+    return (
+        test_hyphen_harder_1,
+        test_hyphen_harder_2,
+        test_hyphen_harder_3,
+        test_hyphen_harder_4,
+        test_hyphen_harder_5,
+        test_hyphen_harder_6
+    )

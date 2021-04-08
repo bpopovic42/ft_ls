@@ -8,5 +8,7 @@ def test_aR_flag_1():
     return sandbox.run()
 
 
-def run_test_aR_flag():
-    test_aR_flag_1()
+def get_tests_aR_flag():
+    return [
+        test_aR_flag_1
+    ]

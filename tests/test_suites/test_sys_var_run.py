@@ -6,5 +6,7 @@ def test_sys_var_run_1():
     return sandbox.run()
 
 
-def run_test_sys_var_run():
-    test_sys_var_run_1()
+def get_tests_sys_var_run():
+    return [
+        test_sys_var_run_1
+    ]

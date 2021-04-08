@@ -32,8 +32,10 @@ def test_symlink_4():
     return sandbox.run()
 
 
-def run_test_symlink():
-    test_symlink_1()
-    test_symlink_2()
-    test_symlink_3()
-    test_symlink_4()
+def get_tests_symlink():
+    return [
+        test_symlink_1,
+        test_symlink_2,
+        test_symlink_3,
+        test_symlink_4
+    ]

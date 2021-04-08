@@ -3,12 +3,9 @@ import shutil
 import subprocess
 
 from testing_utils.utils import get_new_folder, append_to_file, get_new_file
-from testing_utils.globals import SANDBOXES_DIR, FT_LS_PATH, LS_PATH
+from testing_utils.globals import SANDBOXES_DIR, FT_LS_PATH, LS_PATH, COLOR_GREEN, COLOR_RED, COLOR_END
 
-COLOR_GREEN = '\033[92m'
-COLOR_RED = '\033[91m'
-COLOR_END = '\033[0m'
-SHOULD_PRINT_RESULTS = True
+SHOULD_PRINT_RESULTS = False
 SHOULD_KEEP_ALL_RESULTS = False
 
 

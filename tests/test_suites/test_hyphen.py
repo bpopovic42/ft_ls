@@ -115,23 +115,24 @@ def test_hyphen_19():
     return sandbox.run()
 
 
-def run_test_hyphen():
-    test_hyphen_1()
-    test_hyphen_2()
-    test_hyphen_3()
-    test_hyphen_4()
-    test_hyphen_5()
-    test_hyphen_6()
-    test_hyphen_7()
-    test_hyphen_8()
-    test_hyphen_9()
-    test_hyphen_10()
-    test_hyphen_11()
-    test_hyphen_12()
-    test_hyphen_13()
-    test_hyphen_14()
-    test_hyphen_15()
-    test_hyphen_16()
-    test_hyphen_17()
-    test_hyphen_18()
-    test_hyphen_19()
+def get_tests_hyphen():
+    return (
+        test_hyphen_1,
+        test_hyphen_3,
+        test_hyphen_4,
+        test_hyphen_5,
+        test_hyphen_6,
+        test_hyphen_7,
+        test_hyphen_8,
+        test_hyphen_9,
+        test_hyphen_10,
+        test_hyphen_11,
+        test_hyphen_12,
+        test_hyphen_13,
+        test_hyphen_14,
+        test_hyphen_15,
+        test_hyphen_16,
+        test_hyphen_17,
+        test_hyphen_18,
+        test_hyphen_19
+    )

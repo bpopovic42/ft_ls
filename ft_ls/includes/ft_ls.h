@@ -160,6 +160,6 @@ int should_add_subfolder(t_file *subfolder);
 ** ERROR UTILS
 */
 
-int handle_error(t_store *store, int error_status);
+int handle_error(t_store *store, int err_status);
 
 #endif

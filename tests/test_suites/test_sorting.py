@@ -19,7 +19,9 @@ def test_r_flag_3():
     return sandbox.run()
 
 
-def run_test_sorting():
-    test_sorting_1()
-    test_sorting_2()
-    test_r_flag_3()
+def get_tests_sorting():
+    return [
+        test_sorting_1,
+        test_sorting_2,
+        test_r_flag_3
+    ]

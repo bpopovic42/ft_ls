@@ -13,5 +13,7 @@ def test_flags_mix_1():
     return sandbox.run()
 
 
-def run_test_flags_mix():
-    test_flags_mix_1()
+def get_tests_flags_mix():
+    return [
+        test_flags_mix_1
+    ]

@@ -28,8 +28,10 @@ def test_multiple_files_4():
     return sandbox.run()
 
 
-def run_test_multiple_files():
-    test_multiple_files_1()
-    test_multiple_files_2()
-    test_multiple_files_3()
-    test_multiple_files_4()
+def get_tests_multiple_files():
+    return (
+        test_multiple_files_1,
+        test_multiple_files_2,
+        test_multiple_files_3,
+        test_multiple_files_4
+    )

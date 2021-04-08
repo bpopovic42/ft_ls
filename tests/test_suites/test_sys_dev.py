@@ -16,7 +16,9 @@ def test_sys_dev_3():
     return sandbox.run()
 
 
-def run_test_sys_dev():
-    test_sys_dev_1()
-    test_sys_dev_2()
-    test_sys_dev_3()
+def get_tests_sys_dev():
+    return [
+        test_sys_dev_1,
+        test_sys_dev_2,
+        test_sys_dev_3
+    ]

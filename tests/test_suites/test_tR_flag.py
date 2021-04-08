@@ -19,5 +19,7 @@ def test_tR_flag_1():
     return sandbox.run()
 
 
-def run_tR_flag():
-    test_tR_flag_1()
+def get_tests_tR_flag():
+    return [
+        test_tR_flag_1
+    ]

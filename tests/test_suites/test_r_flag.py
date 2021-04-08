@@ -19,7 +19,9 @@ def test_r_flag_3():
     return sandbox.run()
 
 
-def run_test_r_flag():
-    test_r_flag_1()
-    test_r_flag_2()
-    test_r_flag_3()
+def get_tests_r_flag():
+    return (
+        test_r_flag_1,
+        test_r_flag_2,
+        test_r_flag_3
+    )

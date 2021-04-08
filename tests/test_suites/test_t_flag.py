@@ -74,11 +74,13 @@ def test_t_flag_7():
     return sandbox.run()
 
 
-def run_test_t_flag():
-    test_t_flag_1()
-    test_t_flag_2()
-    test_t_flag_3()
-    test_t_flag_4()
-    test_t_flag_5()
-    test_t_flag_6()
-    test_t_flag_7()
+def get_tests_t_flag():
+    return [
+        test_t_flag_1,
+        test_t_flag_2,
+        test_t_flag_3,
+        test_t_flag_4,
+        test_t_flag_5,
+        test_t_flag_6,
+        test_t_flag_7
+    ]

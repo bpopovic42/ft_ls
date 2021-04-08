@@ -64,5 +64,3 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
 
 RUN mkdir /home/$DOCKER_USER/devel
 WORKDIR "/home/$DOCKER_USER/devel"
-
-ENTRYPOINT zsh

@@ -6,5 +6,7 @@ def test_sys_etc_1():
     return sandbox.run()
 
 
-def run_test_sys_etc():
-    test_sys_etc_1()
+def get_tests_sys_etc():
+    return [
+        test_sys_etc_1
+    ]

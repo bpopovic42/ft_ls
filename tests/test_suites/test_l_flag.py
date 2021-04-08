@@ -53,10 +53,12 @@ def test_l_flag_padding():
     return sandbox.run()
 
 
-def run_test_l_flag():
-    test_l_flag_1()
-    test_l_flag_2()
-    test_l_flag_3()
-    test_l_flag_4()
-    test_l_flag_5()
-    test_l_flag_padding()
+def get_tests_l_flag():
+    return (
+        test_l_flag_1,
+        test_l_flag_2,
+        test_l_flag_3,
+        test_l_flag_4,
+        test_l_flag_5,
+        test_l_flag_padding
+    )

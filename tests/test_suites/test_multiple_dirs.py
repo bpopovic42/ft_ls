@@ -37,8 +37,10 @@ def test_multiple_dirs_4():
     return sandbox.run()
 
 
-def run_test_multiple_dirs():
-    test_multiple_dirs_1()
-    test_multiple_dirs_2()
-    test_multiple_dirs_3()
-    test_multiple_dirs_4()
+def get_tests_multiple_dirs():
+    return (
+        test_multiple_dirs_1,
+        test_multiple_dirs_2,
+        test_multiple_dirs_3,
+        test_multiple_dirs_4
+    )

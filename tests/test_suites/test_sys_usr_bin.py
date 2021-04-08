@@ -21,8 +21,10 @@ def test_sys_usr_bin_4():
     return sandbox.run()
 
 
-def run_test_sys_usr_bin():
-    test_sys_usr_bin_1()
-    test_sys_usr_bin_2()
-    test_sys_usr_bin_3()
-    test_sys_usr_bin_4()
+def get_tests_sys_usr_bin():
+    return [
+        test_sys_usr_bin_1,
+        test_sys_usr_bin_2,
+        test_sys_usr_bin_3,
+        test_sys_usr_bin_4
+    ]

@@ -19,6 +19,8 @@ def test_perms_2():
     return sandbox.run()
 
 
-def run_test_perms():
-    test_perms_1()
-    test_perms_2()
+def get_tests_perms():
+    return (
+        test_perms_1,
+        test_perms_2
+    )

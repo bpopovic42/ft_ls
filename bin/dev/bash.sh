@@ -9,4 +9,4 @@ docker run --rm -ti --user `id -u` --name ${PROJECT_NAME}-bash \
 	-v ${PWD}/${TEST_DIR}:/workspace/${TEST_DIR} \
 	--net host \
 	-w /workspace \
-	${PROJECT_NAME}-dev /bin/bash
+	${PROJECT_NAME}-dev /bin/zsh

@@ -66,12 +66,14 @@ def test_recursion():
     return sandbox.run()
 
 
-def run_test_R_flag():
-    test_R_flag_1()
-    test_R_flag_2()
-    test_R_flag_3()
-    test_R_flag_4()
-    test_R_flag_5()
-    test_R_flag_6()
-    test_R_flag_7()
-    test_recursion()
+def get_tests_R_flag():
+    return (
+        test_R_flag_1,
+        test_R_flag_2,
+        test_R_flag_3,
+        test_R_flag_4,
+        test_R_flag_5,
+        test_R_flag_6,
+        test_R_flag_7,
+        test_recursion
+    )

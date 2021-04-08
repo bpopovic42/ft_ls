@@ -34,8 +34,10 @@ def test_rR_flag_4():
     return sandbox.run()
 
 
-def run_test_rR_flag():
-    test_rR_flag_1()
-    test_rR_flag_2()
-    test_rR_flag_3()
-    test_rR_flag_4()
+def get_tests_rR_flag():
+    return (
+        test_rR_flag_1,
+        test_rR_flag_2,
+        test_rR_flag_3,
+        test_rR_flag_4
+    )

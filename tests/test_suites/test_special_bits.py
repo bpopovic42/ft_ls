@@ -97,20 +97,22 @@ def test_special_bits_16():
     return sandbox.run()
 
 
-def run_test_special_bits():
-    test_special_bits_1()
-    test_special_bits_2()
-    test_special_bits_3()
-    test_special_bits_4()
-    test_special_bits_5()
-    test_special_bits_6()
-    test_special_bits_7()
-    test_special_bits_8()
-    test_special_bits_9()
-    test_special_bits_10()
-    test_special_bits_11()
-    test_special_bits_12()
-    test_special_bits_13()
-    test_special_bits_14()
-    test_special_bits_15()
-    test_special_bits_16()
+def get_tests_special_bits():
+    return [
+        test_special_bits_1,
+        test_special_bits_2,
+        test_special_bits_3,
+        test_special_bits_4,
+        test_special_bits_5,
+        test_special_bits_6,
+        test_special_bits_7,
+        test_special_bits_8,
+        test_special_bits_9,
+        test_special_bits_10,
+        test_special_bits_11,
+        test_special_bits_12,
+        test_special_bits_13,
+        test_special_bits_14,
+        test_special_bits_15,
+        test_special_bits_16
+    ]

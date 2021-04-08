@@ -26,8 +26,10 @@ def test_simple_4():
     return sanbox.run()
 
 
-def run_test_simple():
-    test_simple_1()
-    test_simple_2()
-    test_simple_3()
-    test_simple_4()
+def get_tests_simple():
+    return (
+        test_simple_1,
+        test_simple_2,
+        test_simple_3,
+        test_simple_4
+    )

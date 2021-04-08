@@ -25,8 +25,10 @@ def test_bonus_buggy_quote_01():
     return sandbox.run()
 
 
-def run_test_bonus_non_printable():
-    test_bonus_non_printable_newline()
-    test_bonus_non_printable_yen()
-    test_bonus_non_printable_heart()
-    test_bonus_buggy_quote_01()
+def get_tests_bonus_non_printable():
+    return (
+        test_bonus_non_printable_newline,
+        test_bonus_non_printable_yen,
+        test_bonus_non_printable_heart,
+        test_bonus_buggy_quote_01
+    )

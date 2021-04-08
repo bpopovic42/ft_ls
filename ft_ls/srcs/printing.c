@@ -129,7 +129,6 @@ void print_file_l_flag(t_file *file, t_padding *padding)
 	}
 }
 
-#include <printf.h>
 void print_file_from_node(t_node *file_node)
 {
 	t_file *file;

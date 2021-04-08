@@ -73,7 +73,8 @@ int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 	if (new_folder->error != 0)
 		ft_lstpush_back(store->invalid_folders, new_node);
 	else if (new_folder->mode.type == 'd' ||
-		(new_folder->mode.type == 'l' && new_folder->properties->link_mode
+		(g_flags[1] != 'l' && new_folder->mode.type == 'l' &&
+		new_folder->properties->link_mode
 		.type == 'd')) {
 		ft_lstadd(store->folders_queue, new_node);
 	}

@@ -3,6 +3,7 @@
 import sys
 
 from test_suites.test_bonus_non_printable import run_test_bonus_non_printable
+from test_suites.test_sys_dev import run_test_sys_dev
 from test_suites.test_sys_usr_bin import run_test_sys_usr_bin
 from test_suites.test_flags_mix import run_test_flags_mix
 from test_suites.test_special_bits_dir import run_test_special_bits_dir
@@ -54,6 +55,7 @@ def run_test_suites():
     run_test_special_bits_dir()
     run_test_flags_mix()
     run_test_sys_usr_bin()
+    run_test_sys_dev()
     #run_test_bonus_non_printable()
     print("\nSee '{}/[TEST_NAME]' for failed tests output\n".format(SANDBOXES_DIR))
 

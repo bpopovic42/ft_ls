@@ -47,7 +47,16 @@ class TestResult:
 
 
 class Sandbox:
-    def __init__(self, name, arguments, provided_working_dir=None, print_results=SHOULD_PRINT_RESULTS):
+    print_results = False
+    keep_all_results = False
+
+    def set_printing(should_print_results):
+        Sandbox.print_results = should_print_results
+
+    def set_record(should_keep_all_results):
+        Sandbox.keep_all_results = should_keep_all_results
+
+    def __init__(self, name, arguments, provided_working_dir=None):
         self.path = get_new_folder(SANDBOXES_DIR, name)
         self.test_dir_path = get_new_folder(self.path, "test_dir") if not provided_working_dir else None
         self.working_dir = self.test_dir_path if not provided_working_dir else provided_working_dir
@@ -55,7 +64,6 @@ class Sandbox:
         self.info_file_path = get_new_file(self.path, "info")
         self.ls_output_file_path = get_new_file(self.results_dir_path, "ls_output")
         self.ft_ls_output_file_path = get_new_file(self.results_dir_path, "ft_ls_output")
-        self.print_results = print_results
         self.name = name
         self.arguments = arguments.split(" ") if len(arguments) > 0 else []
         self.ls = None
@@ -137,7 +145,7 @@ class Sandbox:
         os.chdir(current_dir)
 
     def clean(self):
-        if self.test_results.success and not SHOULD_KEEP_ALL_RESULTS:
+        if self.test_results.success and not self.keep_all_results:
             try:
                 shutil.rmtree(self.path)
             except PermissionError:

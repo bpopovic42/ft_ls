@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from testing_utils import sandbox
 from testing_utils.globals import SANDBOXES_DIR
 
 
@@ -30,3 +31,12 @@ def clean_existing_tests():
             os.system("chmod -R 755 {}".format(SANDBOXES_DIR))
             shutil.rmtree(SANDBOXES_DIR)
     os.mkdir(SANDBOXES_DIR)
+
+
+def process_cli_flags(cli_args):
+    for arg in cli_args:
+        if len(arg) > 0 and arg[0] == "-":
+            if "p" in arg:
+                sandbox.Sandbox.set_printing(True)
+            if "s" in arg:
+                sandbox.Sandbox.set_record(True)

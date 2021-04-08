@@ -5,8 +5,7 @@ import sys
 import test_suites
 
 from testing_utils.globals import SANDBOXES_DIR, COLOR_GREEN, COLOR_RED, COLOR_END
-from testing_utils.test_from_cli import test_from_cli
-from testing_utils.utils import clean_existing_tests
+from testing_utils.utils import clean_existing_tests, process_cli_flags
 
 
 def run_test_suites():
@@ -28,11 +27,9 @@ def run_test_suites():
 
 
 if __name__ == '__main__':
+    process_cli_flags(sys.argv)
     clean_existing_tests()
-    if len(sys.argv) > 1:
-        test_from_cli(" ".join(sys.argv[1:]))
-    else:
-        test_results = run_test_suites()
-        if test_results[0] != test_results[1]:
-            sys.exit(1)
+    test_results = run_test_suites()
+    if test_results[0] != test_results[1]:
+        sys.exit(1)
     sys.exit(0)

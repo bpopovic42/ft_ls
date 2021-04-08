@@ -67,5 +67,5 @@ int main(int ac, char **av)
 		return (exit_clean(&store));
 	}
 	print_help();
-	return (EXIT_SUCCESS);
+	return (exit_clean(&store));
 }

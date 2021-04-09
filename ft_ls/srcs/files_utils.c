@@ -29,6 +29,26 @@ int allocate_new_file(t_file **new_file, char *name, char *parent_path)
 	return (EXIT_SUCCESS);
 }
 
+void build_file_path(char *file_path, char *parent_file_path, char *file_name)
+{
+	size_t i;
+
+	i = 0;
+	if (parent_file_path)
+	{
+		i = ft_strlen(parent_file_path);
+		while (i > 0) {
+			if (parent_file_path[i] != '/' && parent_file_path[i] != '\0')
+				break;
+			i--;
+		}
+		ft_strncpy(file_path, parent_file_path, i + 1);
+		ft_strcatn(file_path, 2, "/\0", file_name);
+	}
+	else
+		ft_strncat(file_path, file_name, ft_strlen(file_name) + 1);
+}
+
 int create_new_file(t_file **new_file, char *name, char *parent_path)
 {
 	if (allocate_new_file(new_file, name, parent_path) != EXIT_SUCCESS)
@@ -38,10 +58,7 @@ int create_new_file(t_file **new_file, char *name, char *parent_path)
 	if (!((*new_file)->sub_folders = ft_lstnew()))
 		return exit_error(new_file);
 	ft_strcpy((*new_file)->name, name);
-	if (parent_path)
-		ft_strcatn((*new_file)->path, 3, parent_path, "/\0", name);
-	else
-		ft_strncat((*new_file)->path, name, ft_strlen(name) + 1);
+	build_file_path((*new_file)->path, parent_path, name);
 	if (read_file_properties(*new_file) != EXIT_SUCCESS)
 		return exit_error(new_file);
 	return (EXIT_SUCCESS);

@@ -134,7 +134,7 @@ void print_help();
 ** PROCESS FOLDERS
 */
 
-int process_folders(t_store *store);
+int process_folders_queue(t_store *store);
 
 /*
 ** GET FOLDER FILES
@@ -152,7 +152,7 @@ int process_folder_files(t_store *store, struct s_file *folder);
 ** FILES PROCESSING CONDITIONS
 */
 
-int should_process_file(t_file *file);
+int should_process_folder(t_file *file);
 
 int should_add_subfolder(t_file *subfolder);
 

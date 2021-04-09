@@ -63,7 +63,7 @@ int main(int ac, char **av)
 		sort_files(store.cli_file_arguments_folder->files);
 		print_invalid_folders(&store);
 		print_cli_argument_files(&store);
-		process_folders(&store);
+		process_folders_queue(&store);
 		return (exit_clean(&store));
 	}
 	print_help();

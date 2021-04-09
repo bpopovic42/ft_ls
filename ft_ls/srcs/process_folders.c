@@ -8,7 +8,23 @@ void add_subfolders_to_queue(t_node *folders_queue, t_file *parent_folder)
 	}
 }
 
-int process_folders(t_store *store)
+int process_folder(t_store *store, t_file *folder)
+{
+	if (get_folder_files(folder) != EXIT_SUCCESS)
+	{
+		if (errno == EACCES)
+			handle_error(store, FT_LS_ERROR);
+		else
+			return (handle_error(store, FT_LS_FATAL_ERROR));
+	}
+	if (folder != store->folders_queue->head->data && !folder->error)
+		ft_putchar('\n');
+	if (process_folder_files(store, folder) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int process_folders_queue(t_store *store)
 {
 	t_node *folders_queue_ptr;
 	t_file *folder;
@@ -18,17 +34,9 @@ int process_folders(t_store *store)
 	while (folders_queue_ptr)
 	{
 		folder = folders_queue_ptr->data;
-		if (should_process_file(folder)) {
-			if (get_folder_files(folder) != EXIT_SUCCESS)
-			{
-				if (errno != EACCES)
-					return (handle_error(store, FT_LS_FATAL_ERROR));
-				handle_error(store, FT_LS_ERROR);
-			}
-			if (folders_queue_ptr != store->folders_queue->head && !folder->error)
-				ft_putchar('\n');
-			if (process_folder_files(store, folder) != EXIT_SUCCESS)
-				return (EXIT_FAILURE);
+		if (should_process_folder(folder))
+		{
+			process_folder(store, folder);
 			add_subfolders_to_queue(folders_queue_ptr, folder);
 		}
 		folders_queue_ptr = folders_queue_ptr->next;

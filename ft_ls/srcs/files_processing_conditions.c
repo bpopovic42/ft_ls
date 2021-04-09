@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-int should_process_file(t_file *file)
+int should_process_folder(t_file *file)
 {
 	return !(file->name[0] == '.' && g_flags[0] != 'a' &&
 	!ft_strequ(file->name, file->path));

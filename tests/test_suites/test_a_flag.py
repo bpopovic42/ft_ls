@@ -19,7 +19,7 @@ def test_a_flag_2():
 
 
 def get_tests_a_flag():
-    return (
+    return [
         test_a_flag_1,
         test_a_flag_2
-    )
+    ]

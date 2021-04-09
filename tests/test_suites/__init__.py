@@ -24,6 +24,7 @@ from test_suites.test_sorting import get_tests_sorting
 from test_suites.test_t_flag import get_tests_t_flag
 from test_suites.test_tR_flag import get_tests_tR_flag
 from test_suites.test_error_handling import get_tests_error_handling
+from test_suites.test_parsing import get_tests_parsing
 
 
 def get_all_tests():
@@ -53,5 +54,6 @@ def get_all_tests():
     tests += get_tests_sys_dev()
     tests += get_tests_sys_etc()
     tests += get_tests_sys_var_run()
+    tests += get_tests_parsing()
     # tests += get_tests_bonus_non_printable()
     return tests

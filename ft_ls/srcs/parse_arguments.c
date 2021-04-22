@@ -68,7 +68,7 @@ int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 		handle_invalid_file(store, new_folder);
 	}
 	if (!(new_node = ft_node_new(NULL, 0)))
-		return (handle_error(store, FT_LS_FATAL_ERROR));
+		return (handle_error(store, ENOMEM));
 	new_node->data = new_folder;
 	if (new_folder->error != 0)
 		ft_lstpush_back(store->invalid_folders, new_node);
@@ -100,7 +100,7 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 		else {
 			store->nbr_of_file_args += 1;
 			if (handle_path_argument(store, arguments[i], 1) != EXIT_SUCCESS)
-				return (handle_error(store, FT_LS_FATAL_ERROR));
+				return (FT_LS_FATAL_ERROR);
 		}
 		i++;
 	}
@@ -109,7 +109,7 @@ int parse_arguments(int arg_count, char **arguments, t_store *store)
 		store->cli_file_arguments_folder->files->size == 0)
 	{
 		if (handle_path_argument(store, ".", 0) != EXIT_SUCCESS)
-			return (handle_error(store, FT_LS_FATAL_ERROR));
+			return (FT_LS_FATAL_ERROR);
 	}
 	return (EXIT_SUCCESS);
 }

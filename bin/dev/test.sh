@@ -7,4 +7,4 @@ docker run -it --rm --user `id -u` --name ${PROJECT_NAME}-test \
 	-v ${PWD}:/workspace \
 	--net host \
 	-w /workspace \
-	${PROJECT_NAME}-dev testing/tester/run.py -e "-p"
+	${PROJECT_NAME}-dev /bin/bash bin/test/all.sh

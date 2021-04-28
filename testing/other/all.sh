@@ -72,4 +72,14 @@ else
 	print_failure "$FAILED"
 fi
 
+printf "\nMallocs\t\t:\t"
+malloc_protections=$(bash ${TEST_SCRIPTS_DIR}/malloc.sh; echo $?)
+if [ $malloc_protections = "0" ]; then
+	print_success "$SUCCESS"
+elif [ $malloc_protections = "1" ]; then
+	print_failure "Found unprotected call(s)"
+else
+	print_failure "Unknown Error"
+fi
+
 printf "\n"

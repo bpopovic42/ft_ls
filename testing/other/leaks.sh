@@ -1,6 +1,9 @@
 #!/bin/bash
 
-make DEBUG="-g -fsanitize=address -fsanitize=leak" re -j9 -C ft_ls > /dev/null 2>&1
+PWD=$(pwd)
+PROJECT_NAME=$(cat $PWD/.project_name)
+
+make DEBUG="-g -fsanitize=leak" re -j9 -C ${PROJECT_NAME} > /dev/null 2>&1
 
 leaks=$(testing/tester/run.py -e "-p" | grep "leaked in" | wc -l)
 

@@ -1,12 +1,15 @@
 #!/bin/bash
 
-if test -f "ft_ls/author" -a -f "ft_ls/auteur"; then
+PWD=$(pwd)
+PROJECT_NAME=$(cat $PWD/.project_name)
+
+if test -f "${PROJECT_NAME}/author" -a -f "${PROJECT_NAME}/auteur"; then
 	printf "Multiple author files found\n"
 	exit 1
-elif test -f "ft_ls/author"; then
-	FILE="ft_ls/author"
-elif test -f "ft_ls/auteur"; then
-	FILE="ft_ls/auteur"
+elif test -f "${PROJECT_NAME}/author"; then
+	FILE="${PROJECT_NAME}/author"
+elif test -f "${PROJECT_NAME}/auteur"; then
+	FILE="${PROJECT_NAME}/auteur"
 else
 	printf "File not found\n"
 	exit 1

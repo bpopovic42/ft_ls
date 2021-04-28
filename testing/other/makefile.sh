@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PROJECT_NAME="ft_ls"
+PWD=$(pwd)
+PROJECT_NAME=$(cat $PWD/.project_name)
 
 compiled_binary_name="ft_ls"
 compiled_binary_path="${PROJECT_NAME}/${compiled_binary_name}"

@@ -6,6 +6,9 @@ TEST_DIR="testing"
 
 docker run --rm -ti --user `id -u` --name ${PROJECT_NAME}-test \
 	-v ${PWD}/${PROJECT_NAME}:/workspace/${PROJECT_NAME} \
+	-v ${PWD}/.project_name:/workspace/.project_name \
+	-v ${PWD}/${TEST_DIR}:/workspace/${TEST_DIR} \
+	-v ${PWD}/bin:/workspace/bin \
 	--net host \
 	-w /workspace \
-	${PROJECT_NAME}-dev norminette ${PROJECT_NAME}/**/*[.c,.h]
+	${PROJECT_NAME}-dev /bin/zsh

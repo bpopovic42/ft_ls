@@ -15,4 +15,4 @@ mc_linux.py
 *.infected
 .sym_logs
 ft_ls/testing_assets/
-tests/sandbox
+testing/tester/sandbox

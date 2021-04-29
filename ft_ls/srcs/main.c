@@ -5,9 +5,9 @@ int exit_clean(t_store *store)
 	int status;
 
 	status = store->error_status;
-	if (status > FT_LS_ERROR && errno != ENOENT && errno != EACCES)
-	{
-		if (errno == 0)
+	if (status > FT_LS_ERROR && store->error_type != EACCES &&
+	    store->error_type != ENOENT) {
+		if (store->error_type == 0)
 			ft_dprintf(2, "%s: Unexpected error\n", store->program_name);
 		else
 			ft_dprintf(2, "%s: %s\n", store->program_name, strerror(status));
@@ -22,8 +22,7 @@ void print_invalid_folders(t_store *store)
 	t_file *invalid_folder;
 
 	invalid_folder_ptr = store->invalid_folders->head;
-	while (invalid_folder_ptr)
-	{
+	while (invalid_folder_ptr) {
 		invalid_folder = invalid_folder_ptr->data;
 		print_file_error(store, invalid_folder);
 		invalid_folder_ptr = invalid_folder_ptr->next;
@@ -35,8 +34,7 @@ int help_flag_requested(int ac, char **av)
 	int i;
 
 	i = 0;
-	while (i < ac)
-	{
+	while (i < ac) {
 		if (ft_strequ(av[i], "--help"))
 			return (1);
 		i++;
@@ -60,8 +58,7 @@ int main(int ac, char **av)
 
 	if (help_flag_requested(ac - 1, av + 1))
 		print_help();
-	else
-	{
+	else {
 		if ((init_store(&store, av[0])) != EXIT_SUCCESS)
 			return (exit_clean(&store));
 		if ((parse_arguments(&store, ac - 1, av + 1)) != EXIT_SUCCESS)

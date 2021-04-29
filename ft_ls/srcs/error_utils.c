@@ -7,6 +7,7 @@
 int handle_error(t_store *store, int err_status)
 {
 	store->error_status = err_status;
+	store->error_type = errno;
 	if (err_status > FT_LS_ERROR || (errno != EACCES && errno != ENOENT))
 		return (FT_LS_FATAL_ERROR);
 	else

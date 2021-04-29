@@ -50,6 +50,7 @@ int handle_flag_argument(t_store *store, char *argument)
 void handle_invalid_file(t_store *store, t_file *invalid_file)
 {
 	store->error_status = FT_LS_FATAL_ERROR;
+	store->error_type = errno;
 	invalid_file->error = errno;
 	invalid_file->error_msg = "cannot access";
 }
@@ -86,14 +87,20 @@ int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 	return (EXIT_SUCCESS);
 }
 
+int argument_is_a_flag(char *argument)
+{
+	if (argument[0] == '-' && ft_strlen(argument) > 1 && !g_flags.option_stop)
+		return 1;
+	return 0;
+}
+
 int parse_arguments(t_store *store, int arg_count, char **arguments)
 {
 	int    i;
 
 	i          = 0;
 	while (i < arg_count) {
-		if (arguments[i][0] == '-' && ft_strlen(arguments[i]) > 1
-		&& !g_flags.option_stop) {
+		if (argument_is_a_flag(arguments[i])) {
 			if (handle_flag_argument(store, &arguments[i][0]) != EXIT_SUCCESS)
 				return (handle_error(store, FT_LS_FATAL_ERROR));
 		}

@@ -2,13 +2,13 @@
 
 int should_process_folder(t_file *file)
 {
-	return !(file->name[0] == '.' && g_flags[0] != 'a' &&
+	return !(file->name[0] == '.' && !g_flags.option_a &&
 	!ft_strequ(file->name, file->path));
 }
 
 int should_add_subfolder(t_file *subfolder)
 {
-	return (g_flags[3] == 'R' && subfolder->mode.type == 'd'
+	return (g_flags.option_R && subfolder->mode.type == 'd'
 	        && !ft_strequ(subfolder->name, ".")
 	        && !ft_strequ(subfolder->name, ".."));
 }

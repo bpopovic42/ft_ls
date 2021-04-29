@@ -33,9 +33,9 @@ int timestamp_compare_reversed(t_file *f1, t_file *f2)
 
 void sort_files(t_list *files)
 {
-	if (g_flags[4] == 't')
+	if (g_flags.option_t)
 	{
-		if (g_flags[2] == 'r')
+		if (g_flags.option_r)
 			ft_lstsort(files, (int (*)(void *, void *))
 			timestamp_compare_reversed);
 		else
@@ -43,7 +43,7 @@ void sort_files(t_list *files)
 	}
 	else
 	{
-		if (g_flags[2] == 'r')
+		if (g_flags.option_r)
 			ft_lstsort(files, (int (*)(void *, void *))ascii_compare_reversed);
 		else
 			ft_lstsort(files, (int (*)(void *, void *))ascii_compare);

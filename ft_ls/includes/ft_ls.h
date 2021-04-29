@@ -83,7 +83,17 @@ typedef struct s_padding
 	size_t file_minor_rdev;
 } t_padding;
 
-char g_flags[FT_LS_FLAGS];
+typedef struct s_flags
+{
+	bool option_a;
+	bool option_l;
+	bool option_r;
+	bool option_R;
+	bool option_t;
+	bool option_stop;
+} t_flags;
+
+t_flags g_flags;
 
 /*
 ** FILES_UTILS
@@ -111,7 +121,7 @@ void clean_store(t_store *store);
 ** PARSE_ARGUMENTS
 */
 
-int parse_arguments(int arg_count, char **arguments, t_store *store);
+int parse_arguments(t_store *store, int arg_count, char **arguments);
 
 /*
 ** SORTING

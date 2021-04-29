@@ -20,7 +20,7 @@ int add_new_file_to_folder(t_file *folder, struct dirent *direntry)
 	new_node = NULL;
 	new_file   = NULL;
 	parent_path = ft_strequ(folder->path, "/") ? "" : folder->path;
-	if (direntry->d_name[0] == '.' && g_flags[0] != 'a')
+	if (direntry->d_name[0] == '.' && !g_flags.option_a)
 		return (EXIT_SUCCESS);
 	if ((error_status = create_new_file(&new_file, direntry->d_name,
 									 parent_path)) != EXIT_SUCCESS)

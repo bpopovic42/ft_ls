@@ -31,10 +31,10 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 	{
 		if (parent_folder != store->folders_queue->head->data)
 			ft_putchar('\n');
-		if (g_flags[3] == 'R' || (store->nbr_of_file_args > 1 &&
+		if (g_flags.option_R || (store->nbr_of_file_args > 1 &&
 			parent_folder->is_cli_arg))
 			ft_printf("%r:\n", parent_folder->path);
-		if (g_flags[1] == 'l')
+		if (g_flags.option_l)
 			ft_printf("total %d\n", parent_folder->properties->total_blocks);
 	}
 	else
@@ -46,7 +46,7 @@ void print_parent_folder(t_store *store, t_file *parent_folder)
 //  instance)
 void print_file(t_file *file, int is_last_file)
 {
-	if (g_flags[1] != 'l')
+	if (!g_flags.option_l)
 		ft_printf("%s%s", file->name, is_last_file ? "\n\n" : "  ");
 	else
 		ft_printf("%s %s\n", &file->mode, file->name);
@@ -140,7 +140,7 @@ void print_file_from_node(t_node *file_node)
 	ft_bzero(&padding, sizeof(padding));
 	ft_lstmap(file->parent_folder->files, (void*)&padding,
 			(int (*)(t_node *, void *))&get_paddings);
-	if (g_flags[1] != 'l')
+	if (!g_flags.option_l)
 		ft_printf("%r\n", file->name);
 	else
 		print_file_l_flag(file, &padding);

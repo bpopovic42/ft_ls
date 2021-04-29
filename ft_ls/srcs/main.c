@@ -58,19 +58,19 @@ int main(int ac, char **av)
 {
 	t_store store;
 
-	if (!help_flag_requested(ac - 1, av + 1))
+	if (help_flag_requested(ac - 1, av + 1))
+		print_help();
+	else
 	{
 		if ((init_store(&store, av[0])) != EXIT_SUCCESS)
 			return (exit_clean(&store));
-		if ((parse_arguments(ac - 1, av + 1, &store)) != EXIT_SUCCESS)
+		if ((parse_arguments(&store, ac - 1, av + 1)) != EXIT_SUCCESS)
 			return (exit_clean(&store));
 		sort_files(store.folders_queue);
 		sort_files(store.cli_file_arguments_folder->files);
 		print_invalid_folders(&store);
 		print_cli_argument_files(&store);
 		process_folders_queue(&store);
-		return (exit_clean(&store));
 	}
-	print_help();
 	return (exit_clean(&store));
 }

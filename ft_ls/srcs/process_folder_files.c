@@ -14,7 +14,7 @@ int is_file_a_valid_subfolder(t_node *file_node)
 
 int register_subfolders(t_file *parent_folder)
 {
-	if (g_flags[3] == 'R')
+	if (g_flags.option_R)
 	{
 		ft_lst_filter(parent_folder->files, &parent_folder->sub_folders,
 		              &is_file_a_valid_subfolder);

@@ -24,7 +24,7 @@ int handle_flag_argument(t_store *store, char *argument)
 
 	i = 1;
 	if (!ft_strcmp(argument, "--"))
-		g_flags[5] = '-';
+		g_flags.option_stop = true;
 	else {
 		while (argument[i]) {
 			if (argument[i] == '-' && i == 1)
@@ -32,15 +32,15 @@ int handle_flag_argument(t_store *store, char *argument)
 			else if (!ft_strchr(FT_LS_FLAGS_LIST, argument[i]))
 				return (handle_invalid_flag(store, argument + i));
 			else if (argument[i] == 'a')
-				g_flags[0] = 'a';
+				g_flags.option_a = true;
 			else if (argument[i] == 'l')
-				g_flags[1] = 'l';
+				g_flags.option_l = true;
 			else if (argument[i] == 'r')
-				g_flags[2] = 'r';
+				g_flags.option_r = true;
 			else if (argument[i] == 'R')
-				g_flags[3] = 'R';
+				g_flags.option_R = true;
 			else if (argument[i] == 't')
-				g_flags[4] = 't';
+				g_flags.option_t = true;
 			i++;
 		}
 	}
@@ -73,7 +73,7 @@ int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 	if (new_folder->error != 0)
 		ft_lstpush_back(store->invalid_folders, new_node);
 	else if (new_folder->mode.type == 'd' ||
-		(g_flags[1] != 'l' && new_folder->mode.type == 'l' &&
+		(!g_flags.option_l && new_folder->mode.type == 'l' &&
 		new_folder->properties->link_mode
 		.type == 'd')) {
 		ft_lstadd(store->folders_queue, new_node);
@@ -86,14 +86,14 @@ int handle_path_argument(t_store *store, char *argument, int is_cli_arg)
 	return (EXIT_SUCCESS);
 }
 
-int parse_arguments(int arg_count, char **arguments, t_store *store)
+int parse_arguments(t_store *store, int arg_count, char **arguments)
 {
 	int    i;
 
 	i          = 0;
 	while (i < arg_count) {
-		if (arguments[i][0] == '-' && ft_strlen(arguments[i]) > 1 && g_flags[5]
-		!= '-') {
+		if (arguments[i][0] == '-' && ft_strlen(arguments[i]) > 1
+		&& !g_flags.option_stop) {
 			if (handle_flag_argument(store, &arguments[i][0]) != EXIT_SUCCESS)
 				return (handle_error(store, FT_LS_FATAL_ERROR));
 		}

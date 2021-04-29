@@ -11,9 +11,11 @@ void add_subfolders_to_queue(t_node *folders_queue, t_file *parent_folder)
 
 int process_folder(t_store *store, t_file *folder)
 {
-	if (get_folder_files(folder) != EXIT_SUCCESS)
+	int error_status;
+
+	if ((error_status = get_folder_files(folder)) != EXIT_SUCCESS)
 	{
-		if (handle_error(store, FT_LS_ERROR) != EXIT_SUCCESS)
+		if (handle_error(store, error_status) != EXIT_SUCCESS)
 			return (FT_LS_FATAL_ERROR);
 	}
 	if (process_folder_files(store, folder) != EXIT_SUCCESS)
@@ -33,7 +35,8 @@ int process_folders_queue(t_store *store)
 		folder = folders_queue_ptr->data;
 		if (should_process_folder(folder))
 		{
-			process_folder(store, folder);
+			if (process_folder(store, folder) != EXIT_SUCCESS)
+				return (EXIT_FAILURE);
 			add_subfolders_to_queue(folders_queue_ptr, folder);
 		}
 		folders_queue_ptr = folders_queue_ptr->next;

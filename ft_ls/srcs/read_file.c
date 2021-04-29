@@ -198,7 +198,7 @@ int read_file_properties(t_file *file)
 		return (EXIT_FAILURE);
 	get_file_mode(&file->mode, &file_stat);
 	if (get_file_properties(file, &file_stat) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		return (FT_LS_FATAL_ERROR);
 	return (EXIT_SUCCESS);
 }
 

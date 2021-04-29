@@ -1,10 +1,13 @@
 #include "ft_ls.h"
 
-int exit_error(t_file **file_to_clean)
+int exit_error(t_file **file_to_clean, int error_status)
 {
 	if (*file_to_clean && errno != ENOENT)
+	{
 		del_file(*file_to_clean, (*file_to_clean)->struct_size);
-	return (EXIT_FAILURE);
+		*file_to_clean = NULL;
+	}
+	return (error_status);
 }
 
 int allocate_new_file(t_file **new_file, char *name, char *parent_path)
@@ -20,7 +23,7 @@ int allocate_new_file(t_file **new_file, char *name, char *parent_path)
 	sizeof_path        = sizeof_name + sizeof_parent_path + 1;
 	allocation_size    = sizeof(t_file) + sizeof_name + sizeof_path;
 	if (!(memory_block = ft_memalloc(allocation_size)))
-		return exit_error(new_file);
+		return exit_error(new_file, FT_LS_FATAL_ERROR);
 	*new_file = memory_block;
 	(*new_file)->name        = memory_block + sizeof(t_file);
 	(*new_file)->path        = memory_block + sizeof(t_file) + sizeof_name;
@@ -51,16 +54,19 @@ void build_file_path(char *file_path, char *parent_file_path, char *file_name)
 
 int create_new_file(t_file **new_file, char *name, char *parent_path)
 {
+	int error_status;
+
+	error_status = 0;
 	if (allocate_new_file(new_file, name, parent_path) != EXIT_SUCCESS)
-		return exit_error(new_file);
+		return exit_error(new_file, FT_LS_FATAL_ERROR);
 	if (!((*new_file)->files       = ft_lstnew()))
-		return exit_error(new_file);
+		return exit_error(new_file, FT_LS_FATAL_ERROR);
 	if (!((*new_file)->sub_folders = ft_lstnew()))
-		return exit_error(new_file);
+		return exit_error(new_file, FT_LS_FATAL_ERROR);
 	ft_strcpy((*new_file)->name, name);
 	build_file_path((*new_file)->path, parent_path, name);
-	if (read_file_properties(*new_file) != EXIT_SUCCESS)
-		return exit_error(new_file);
+	if ((error_status = read_file_properties(*new_file)) != EXIT_SUCCESS)
+		return exit_error(new_file, error_status);
 	return (EXIT_SUCCESS);
 }
 

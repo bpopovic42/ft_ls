@@ -6,7 +6,12 @@ int exit_clean(t_store *store)
 
 	status = store->error_status;
 	if (status > FT_LS_ERROR && errno != ENOENT && errno != EACCES)
-		ft_dprintf(2, "%s: %s\n", store->program_name, strerror(status));
+	{
+		if (errno == 0)
+			ft_dprintf(2, "%s: Unexpected error\n", store->program_name);
+		else
+			ft_dprintf(2, "%s: %s\n", store->program_name, strerror(status));
+	}
 	clean_store(store);
 	return (status);
 }

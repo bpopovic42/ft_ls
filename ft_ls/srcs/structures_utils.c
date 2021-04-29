@@ -17,7 +17,8 @@ void clean_store(t_store *store)
 {
 	ft_lstdel(store->folders_queue, (void (*)(void *, size_t))del_file);
 	ft_lstdel(store->invalid_folders, (void (*)(void *, size_t))del_file);
-	del_file(store->cli_file_arguments_folder,
-		  store->cli_file_arguments_folder->struct_size);
+	if (NULL != store->cli_file_arguments_folder)
+		del_file(store->cli_file_arguments_folder,
+		   store->cli_file_arguments_folder->struct_size);
 	ft_bzero(store, sizeof(t_store));
 }

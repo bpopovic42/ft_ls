@@ -143,6 +143,11 @@ def test_error_handling_25():
     return sandbox.run()
 
 
+def test_error_handling_26():
+    sandbox = Sandbox("test_error_handling_26", ". \"\"")
+    return sandbox.run()
+
+
 def get_tests_error_handling():
     return (
         test_error_handling_1,
@@ -169,5 +174,6 @@ def get_tests_error_handling():
         test_error_handling_22,
         test_error_handling_23,
         test_error_handling_24,
-        test_error_handling_25
+        test_error_handling_25,
+        test_error_handling_26
     )

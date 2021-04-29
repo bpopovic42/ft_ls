@@ -127,6 +127,7 @@ class Sandbox:
                 print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "CRASH" + COLOR_END)
             else:
                 print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "FAILED " + COLOR_END)
+        if self.test_results.crash or self.keep_all_results:
             self.__record_test_results()
             self.__print_test_results()
 

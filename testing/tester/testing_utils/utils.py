@@ -18,9 +18,8 @@ def get_new_file(basepath, file_name):
 
 
 def append_to_file(filepath, to_append):
-    file = open(filepath, "a")
-    print(str(to_append), file=file)
-    file.close()
+    with open(filepath, "a") as file:
+        print(str(to_append), file=file)
 
 
 def clean_existing_tests():

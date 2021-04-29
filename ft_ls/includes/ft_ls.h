@@ -123,6 +123,8 @@ void clean_store(t_store *store);
 */
 
 int parse_arguments(t_store *store, int arg_count, char **arguments);
+int parse_path_argument(struct s_store *store, char *argument, int is_cli_arg);
+int parse_flag_argument(struct s_store *store, char *argument);
 
 /*
 ** SORTING

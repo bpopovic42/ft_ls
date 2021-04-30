@@ -116,7 +116,11 @@ class Sandbox:
         self.__record_stderr()
 
     def __print_test_results(self):
-        if self.print_results and (not self.test_results.stdout_matches or not self.test_results.stderr_matches):
+        if self.print_results and (
+                not self.test_results.stdout_matches
+                or not self.test_results.stderr_matches
+                or not self.test_results.returncode_matches
+        ):
             os.system("diff -u " + self.ls_output_file_path + " " + self.ft_ls_output_file_path + " | ydiff -s -p cat")
 
     def __process_test_results(self):
@@ -127,8 +131,9 @@ class Sandbox:
                 print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "CRASH" + COLOR_END)
             else:
                 print("{}: ".format(self.name).ljust(40, " ") + COLOR_RED + "FAILED " + COLOR_END)
-        if self.test_results.crash or self.keep_all_results:
+        if not self.test_results.success or self.keep_all_results:
             self.__record_test_results()
+        if not self.test_results.success and self.print_results:
             self.__print_test_results()
 
     def run(self):

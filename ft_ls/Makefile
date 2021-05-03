@@ -20,7 +20,9 @@ LS_FILES	=	main.c sorting.c error_utils.c \
 	process_folder_queues.c process_main_folder_queue.c process_folder_files.c \
 	get_folder_files.c \
 	parse_arguments.c parse_path_arguments.c parse_flag_arguments.c \
-	structures_utils.c files_utils.c read_file.c
+	structures_utils.c files_utils.c \
+	read_file_properties.c get_file_properties.c get_file_info.c read_link.c \
+	get_file_mode.c
 
 # **************************************************************************** #
 # Complete path :

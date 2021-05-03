@@ -118,6 +118,33 @@ void del_file(t_file *file, size_t folder_size);
 int read_file_properties(t_file *file);
 
 /*
+** GET FILE PROPERTIES
+*/
+
+int get_file_properties(t_file *file, struct stat *file_stat);
+
+/*
+** GET FILE INFO
+*/
+
+int get_usr_and_grp_info(struct stat *file_stat, char **usr_name, char
+		**grp_name);
+int get_file_time(t_file *file, struct stat *file_stat);
+
+/*
+** GET FILE MODE
+*/
+
+void get_file_mode(t_mode *mode, struct stat *file_stat);
+
+/*
+** READ_LINK
+*/
+
+int read_link(t_file *file, char *link);
+int read_link_properties(t_file *file);
+
+/*
 ** STRUCTURES UTILS
 */
 

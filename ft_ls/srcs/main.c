@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 17:04:51 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 17:05:36 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-int exit_clean(t_store *store)
+int		exit_clean(t_store *store)
 {
 	int exit_code;
 
@@ -8,17 +20,18 @@ int exit_clean(t_store *store)
 	if (store->error.exit_code > FT_LS_ERROR)
 		if (store->error.type != EACCES && store->error.type != ENOENT)
 			ft_dprintf(2, "%s: %s\n", store->program_name,
-			  store->error.message);
+			store->error.message);
 	clean_store(store);
 	return (exit_code);
 }
 
-int help_flag_requested(int ac, char **av)
+int		help_flag_requested(int ac, char **av)
 {
 	int i;
 
 	i = 0;
-	while (i < ac) {
+	while (i < ac)
+	{
 		if (ft_strequ(av[i], "--help"))
 			return (1);
 		i++;
@@ -26,13 +39,14 @@ int help_flag_requested(int ac, char **av)
 	return (0);
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_store store;
 
 	if (help_flag_requested(ac - 1, av + 1))
 		print_help();
-	else {
+	else
+	{
 		if ((init_store(&store, av[0])) != EXIT_SUCCESS)
 			return (exit_clean(&store));
 		if ((parse_arguments(&store, ac - 1, av + 1)) != EXIT_SUCCESS)

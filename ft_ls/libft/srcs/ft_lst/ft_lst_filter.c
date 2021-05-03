@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lst_filter.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 18:06:07 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 18:06:30 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void ft_lst_filter(t_list *list, t_list **result, int (f)(t_node *node))
+void	ft_lst_filter(t_list *list, t_list **result, int (f)(t_node *node))
 {
 	t_node *result_node;
 	t_node *node_ptr;

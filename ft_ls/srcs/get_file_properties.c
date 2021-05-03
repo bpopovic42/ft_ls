@@ -1,19 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_file_properties.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 17:07:57 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 17:08:55 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 #include <sys/sysmacros.h>
 
-int allocate_properties(t_file *file, char *pw_name, char *gr_name, char *link)
+int		allocate_properties(t_file *file, char *pw_name, char *gr_name,
+		char *link)
 {
-	ulong sizeof_pw_name;
-	ulong sizeof_gr_name;
-	ulong sizeof_link;
-	ulong allocation_size;
-	void *memory_block;
+	ulong	sizeof_pw_name;
+	ulong	sizeof_gr_name;
+	ulong	sizeof_link;
+	ulong	allocation_size;
+	void	*memory_block;
 
 	sizeof_pw_name = ft_strlen(pw_name) + 1;
 	sizeof_gr_name = ft_strlen(gr_name) + 1;
 	sizeof_link = ft_strlen(link) + 1;
 	allocation_size = sizeof(t_properties) + sizeof_pw_name + sizeof_gr_name
-	                  + sizeof_link;
+						+ sizeof_link;
 	if (!(memory_block = ft_memalloc(allocation_size)))
 		return (ENOMEM);
 	file->properties = memory_block;
@@ -31,7 +44,7 @@ int allocate_properties(t_file *file, char *pw_name, char *gr_name, char *link)
 ** GNU ls's behavior
 */
 
-int get_file_properties(t_file *file, struct stat *file_stat)
+int		get_file_properties(t_file *file, struct stat *file_stat)
 {
 	char *usr_name;
 	char *grp_name;
@@ -48,8 +61,8 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	ft_strcpy(file->properties->grp_owner, grp_name);
 	ft_strcpy(file->properties->link, link);
 	get_file_time(file, file_stat);
-	file->hard_links         = file_stat->st_nlink;
-	file->properties->size   = file_stat->st_size;
+	file->hard_links = file_stat->st_nlink;
+	file->properties->size = file_stat->st_size;
 	file->properties->blocks = file_stat->st_blocks / 2;
 	file->properties->major_rdev = major(file_stat->st_rdev);
 	file->properties->minor_rdev = minor(file_stat->st_rdev);

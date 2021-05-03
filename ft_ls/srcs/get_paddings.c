@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_paddings.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 17:06:00 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 17:06:01 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void set_special_file_padding(t_padding *padding,
-							  size_t major_rdev_size, size_t minor_rdev_size)
+void	set_special_file_padding(t_padding *padding,
+			size_t major_rdev_size, size_t minor_rdev_size)
 {
 	if (major_rdev_size > padding->file_major_rdev)
 		padding->file_major_rdev = major_rdev_size;
 	if (minor_rdev_size > padding->file_minor_rdev)
 		padding->file_minor_rdev = minor_rdev_size;
-	if (major_rdev_size + minor_rdev_size > padding->file_size) {
+	if (major_rdev_size + minor_rdev_size > padding->file_size)
 		padding->file_size = major_rdev_size + minor_rdev_size;
-	}
 }
 
-int get_paddings(t_node *file_node, t_padding *padding)
+int		get_paddings(t_node *file_node, t_padding *padding)
 {
 	t_file *file;
 	size_t major_rdev_size;

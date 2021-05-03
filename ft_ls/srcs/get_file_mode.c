@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_file_mode.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 17:09:00 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 17:09:09 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void get_special_bits(t_mode *mode, struct stat *file_stat)
+void	get_special_bits(t_mode *mode, struct stat *file_stat)
 {
 	if (S_IXUSR & file_stat->st_mode)
 		mode->usr_exec = (S_ISUID & file_stat->st_mode) ? 's' : 'x';
@@ -16,7 +28,7 @@ void get_special_bits(t_mode *mode, struct stat *file_stat)
 		mode->oth_exec = (S_ISVTX & file_stat->st_mode) ? 'T' : '-';
 }
 
-void get_file_mode(t_mode *mode, struct stat *file_stat)
+void	get_file_mode(t_mode *mode, struct stat *file_stat)
 {
 	if (S_ISBLK(file_stat->st_mode))
 		mode->type = 'b';

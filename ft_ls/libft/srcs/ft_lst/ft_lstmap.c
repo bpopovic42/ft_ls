@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 18:07:59 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 18:08:04 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /*
@@ -7,7 +19,7 @@
 ** Returns EXIT_SUCCESS otherwise
 */
 
-int ft_lstmap(t_list *lst, void *res, int (map)(t_node *node, void *res))
+int		ft_lstmap(t_list *lst, void *res, int (map)(t_node *node, void *res))
 {
 	t_node *node_ptr;
 

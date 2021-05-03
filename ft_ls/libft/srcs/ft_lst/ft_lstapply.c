@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstapply.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 18:07:27 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 18:07:38 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /*
@@ -6,7 +18,7 @@
 ** Returns EXIT_SUCCESS otherwise
 */
 
-int ft_lstapply(t_list *lst, int (apply)(t_node *node))
+int	ft_lstapply(t_list *lst, int (apply)(t_node *node))
 {
 	t_node *node_ptr;
 

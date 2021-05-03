@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmutate.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 18:06:40 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 18:06:51 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /*
@@ -7,7 +19,8 @@
 ** Returns EXIT_SUCCESS otherwise
 */
 
-int ft_lstmutate(t_list *src, t_list *dst, int (mut)(t_node *src, t_node **dst))
+int		ft_lstmutate(t_list *src, t_list *dst,
+			int (mut)(t_node *src, t_node **dst))
 {
 	t_node *node_ptr;
 	t_node *result_node;

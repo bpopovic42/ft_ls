@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_file_info.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/03 17:09:57 by bopopovi          #+#    #+#             */
+/*   Updated: 2021/05/03 17:10:05 by bopopovi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-int get_file_time(t_file *file, struct stat *file_stat)
+int		get_file_time(t_file *file, struct stat *file_stat)
 {
-	char *date;
-	t_uint64 current_time;
+	char		*date;
+	t_uint64	current_time;
 
 	current_time = time(0);
 	date = ctime(&file_stat->st_mtime);
 	file->properties->mtime = file_stat->st_mtim.tv_sec * 1000 +
-	                          file_stat->st_mtim.tv_nsec / 1000000;
+								file_stat->st_mtim.tv_nsec / 1000000;
 	ft_strncpy(file->properties->date, date + 4, 7);
 	if ((current_time - file_stat->st_mtim.tv_sec) >
-	    (t_uint64)(SECONDS_IN_A_YEAR / 2))
+		(t_uint64)(SECONDS_IN_A_YEAR / 2))
 		ft_strncpy(file->properties->date + 7, date + 19, 5);
 	else
 		ft_strncpy(file->properties->date + 7, date + 11, 5);
 	return (EXIT_SUCCESS);
 }
 
-int get_usr_name(struct stat *file_stat, char **usr_name)
+int		get_usr_name(struct stat *file_stat, char **usr_name)
 {
 	struct passwd *pwuid;
 
@@ -36,7 +48,7 @@ int get_usr_name(struct stat *file_stat, char **usr_name)
 	return (EXIT_SUCCESS);
 }
 
-int get_grp_name(struct stat *file_stat, char **grp_name)
+int		get_grp_name(struct stat *file_stat, char **grp_name)
 {
 	struct group *grgid;
 
@@ -54,8 +66,8 @@ int get_grp_name(struct stat *file_stat, char **grp_name)
 	return (EXIT_SUCCESS);
 }
 
-int get_usr_and_grp_info(struct stat *file_stat, char **usr_name, char
-**grp_name)
+int		get_usr_and_grp_info(struct stat *file_stat, char **usr_name, char
+		**grp_name)
 {
 	if (get_usr_name(file_stat, usr_name) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);

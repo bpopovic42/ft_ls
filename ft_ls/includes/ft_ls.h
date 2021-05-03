@@ -154,7 +154,8 @@ void print_help();
 ** PROCESS FOLDERS
 */
 
-int process_folders_queue(t_store *store);
+void process_folder_queues(t_store *store);
+int process_main_folders_queue(t_store *store);
 
 /*
 ** GET FOLDER FILES

@@ -13,8 +13,7 @@ int process_folder(t_store *store, t_file *folder)
 {
 	int error_status;
 
-	if ((error_status = get_folder_files(folder)) != EXIT_SUCCESS)
-	{
+	if ((error_status = get_folder_files(folder)) != EXIT_SUCCESS) {
 		if (handle_error(store, error_status) > FT_LS_ERROR)
 			return (EXIT_FAILURE);
 	}
@@ -23,18 +22,16 @@ int process_folder(t_store *store, t_file *folder)
 	return (EXIT_SUCCESS);
 }
 
-int process_folders_queue(t_store *store)
+int process_main_folders_queue(t_store *store)
 {
 	t_file *folder;
 	t_node *folders_queue_ptr;
 
 	folder            = NULL;
 	folders_queue_ptr = store->folders_queue->head;
-	while (folders_queue_ptr)
-	{
+	while (folders_queue_ptr) {
 		folder = folders_queue_ptr->data;
-		if (should_process_folder(folder))
-		{
+		if (should_process_folder(folder)) {
 			if (process_folder(store, folder) != EXIT_SUCCESS)
 				return (EXIT_FAILURE);
 			add_subfolders_to_queue(folders_queue_ptr, folder);
@@ -43,3 +40,4 @@ int process_folders_queue(t_store *store)
 	}
 	return (EXIT_SUCCESS);
 }
+

@@ -13,19 +13,6 @@ int exit_clean(t_store *store)
 	return (exit_code);
 }
 
-void print_invalid_folders(t_store *store)
-{
-	t_node *invalid_folder_ptr;
-	t_file *invalid_folder;
-
-	invalid_folder_ptr = store->invalid_folders->head;
-	while (invalid_folder_ptr) {
-		invalid_folder = invalid_folder_ptr->data;
-		print_file_error(store, invalid_folder);
-		invalid_folder_ptr = invalid_folder_ptr->next;
-	}
-}
-
 int help_flag_requested(int ac, char **av)
 {
 	int i;
@@ -39,16 +26,6 @@ int help_flag_requested(int ac, char **av)
 	return (0);
 }
 
-void print_cli_argument_files(t_store *store)
-{
-	if (store->cli_file_arguments_folder->files->size > 0) {
-		ft_lstiter(store->cli_file_arguments_folder->files,
-		           &print_file_from_node);
-		if (store->folders_queue->size > 0)
-			ft_putchar('\n');
-	}
-}
-
 int main(int ac, char **av)
 {
 	t_store store;
@@ -60,11 +37,7 @@ int main(int ac, char **av)
 			return (exit_clean(&store));
 		if ((parse_arguments(&store, ac - 1, av + 1)) != EXIT_SUCCESS)
 			return (exit_clean(&store));
-		sort_files(store.folders_queue);
-		sort_files(store.cli_file_arguments_folder->files);
-		print_invalid_folders(&store);
-		print_cli_argument_files(&store);
-		process_folders_queue(&store);
+		process_folder_queues(&store);
 	}
 	return (exit_clean(&store));
 }

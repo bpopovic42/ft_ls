@@ -1,6 +1,7 @@
 #!/bin/bash
 
-norm_output=$(norminette ft_ls/**/*[.c,.h])
+files=$(find ft_ls -type f \( -name \*.c -o -name \*.h \))
+norm_output=$(norminette $files)
 norm_errors=$(echo "$norm_output" | grep Error)
 norm_warnings=$(echo "$norm_output" | grep Warning)
 

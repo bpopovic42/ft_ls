@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 15:28:14 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/04/03 06:48:40 by bopopovi         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:30:24 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ void				ft_printf_print_wcs(t_ptf *ptf, wchar_t *input, int n);
 
 void				ft_printf_buff_cat(t_ptf *ptf, char *inp, u_int64_t siz);
 void				ft_printf_buff_catn(t_ptf *ptf, char *inp, u_int64_t n);
-void				ft_printf_buff_cat_npr(t_ptf *ptf, char *inp, u_int64_t siz);
+void				ft_printf_buff_cat_npr(t_ptf *ptf, char *inp,
+						u_int64_t siz);
 void				ft_printf_dump_fmt(t_ptf *ptf);
 
 /*
@@ -137,7 +138,8 @@ int					ft_printf_is_flag(int c);
 int					ft_printf_is_spec(int c);
 size_t				ft_printf_atoi(const char *str, int *res);
 int					ft_printf_lltoa_base(char *buff, char *chrst, int64_t nb);
-int					ft_printf_ulltoa_base(char *buff, char *chrst, u_int64_t nb);
+int					ft_printf_ulltoa_base(char *buff, char *chrst,
+						u_int64_t nb);
 int					ft_printf_dtoa(double val, int prec, char *buff, char spe);
 int					ft_printf_ldtoa(t_ldbl val, int prec, char *buff, char spe);
 

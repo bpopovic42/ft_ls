@@ -6,6 +6,7 @@ TEST_DIR="testing"
 
 docker run --rm -ti --user `id -u` --name ${PROJECT_NAME}-test \
 	-v ${PWD}/${PROJECT_NAME}:/workspace/${PROJECT_NAME} \
+	-v ${PWD}/${TEST_DIR}:/workspace/${TEST_DIR} \
 	--net host \
 	-w /workspace \
-	${PROJECT_NAME}-dev norminette ${PROJECT_NAME}/**/*[.c,.h]
+	${PROJECT_NAME}-dev bash testing/other/norm_output.sh

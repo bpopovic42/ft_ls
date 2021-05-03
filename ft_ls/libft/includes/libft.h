@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 16:27:54 by bopopovi          #+#    #+#             */
-/*   Updated: 2019/06/22 20:31:41 by bopopovi         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:31:07 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,14 @@ t_node				*ft_lstget_tail(t_list *list);
 void				*ft_lstget_tail_data(t_list *list);
 t_list				*ft_lstdup(t_list *list);
 void				ft_lstnode_remove(t_list *list, t_node *target);
-void                ft_lstinsert_after(t_list *src, t_node *dest);
-void ft_lst_filter(t_list *list, t_list **result, int (f)(t_node *node));
-int ft_lstmap(t_list *lst, void *res, int (map)(t_node *node, void *res));
-int ft_lstapply(t_list *lst, int (apply)(t_node *node));
-int ft_lstmutate(t_list *src, t_list *dst, int (mut)(t_node *src, t_node
-**dst));
+void				ft_lstinsert_after(t_list *src, t_node *dest);
+void				ft_lst_filter(t_list *list, t_list **result,
+						int (f)(t_node *node));
+int					ft_lstmap(t_list *lst, void *res,
+						int (map)(t_node *node, void *res));
+int					ft_lstapply(t_list *lst, int (apply)(t_node *node));
+int					ft_lstmutate(t_list *src, t_list *dst,
+						int (mut)(t_node *src, t_node **dst));
 
 /*
 ** MEMORY FUNCTIONS
@@ -225,8 +227,8 @@ char				*ft_strtoupper(char *str);
 long				ft_atol(const char *str);
 size_t				ft_count_words(const char *s, const char *spaces);
 int					ft_is_valid_int(const char *nbr);
-char	                        *ft_strcatn(char *s1, size_t ac, ...);
-size_t                 ft_intlen(int nbr);
+char				*ft_strcatn(char *s1, size_t ac, ...);
+size_t				ft_intlen(int nbr);
 
 /*
 ** DICTIONARY FUNCTIONS

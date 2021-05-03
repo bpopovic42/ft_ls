@@ -22,6 +22,12 @@ int process_folder(t_store *store, t_file *folder)
 	return (EXIT_SUCCESS);
 }
 
+int should_process_folder(t_file *file)
+{
+	return !(file->name[0] == '.' && !g_flags.option_a &&
+	         !ft_strequ(file->name, file->path));
+}
+
 int process_main_folders_queue(t_store *store)
 {
 	t_file *folder;
@@ -40,4 +46,3 @@ int process_main_folders_queue(t_store *store)
 	}
 	return (EXIT_SUCCESS);
 }
-

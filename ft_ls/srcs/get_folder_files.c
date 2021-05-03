@@ -16,7 +16,6 @@ int add_new_file_to_folder(t_file *folder, struct dirent *direntry)
 	t_file        *new_file;
 	char            *parent_path;
 
-	error_status = 0;
 	new_node = NULL;
 	new_file   = NULL;
 	parent_path = ft_strequ(folder->path, "/") ? "" : folder->path;

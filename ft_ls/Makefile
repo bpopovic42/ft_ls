@@ -15,11 +15,12 @@ ODIR		=	./objs
 # **************************************************************************** #
 # ft_ls :
 
-LS_FILES	=	main.c sorting.c printing.c error_utils.c \
+LS_FILES	=	main.c sorting.c error_utils.c \
+	printing.c print_l_flag.c get_paddings.c \
 	process_folder_queues.c process_main_folder_queue.c process_folder_files.c \
 	get_folder_files.c \
 	parse_arguments.c parse_path_arguments.c parse_flag_arguments.c \
-	structures_utils.c files_utils.c read_file.c files_processing_conditions.c \
+	structures_utils.c files_utils.c read_file.c
 
 # **************************************************************************** #
 # Complete path :

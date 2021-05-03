@@ -145,10 +145,16 @@ int ascii_compare(t_file *f1, t_file *f2);
 */
 
 void print_parent_folder(t_store *store, t_file *parent_folder);
-void print_file(t_file *file, int is_last_file);
+void print_file_l_flag(t_file *file, t_padding *padding);
 void print_file_from_node(t_node *file_node);
 void print_file_error(t_store *store, t_file *file);
 void print_help();
+
+/*
+** PADDING
+*/
+
+int get_paddings(t_node *file_node, t_padding *padding);
 
 /*
 ** PROCESS FOLDERS

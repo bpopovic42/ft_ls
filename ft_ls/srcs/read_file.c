@@ -169,9 +169,9 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 	ft_bzero(link, PATH_MAX);
 	read_link(file, link);
 	if (get_usr_and_grp_info(file_stat, &usr_name, &grp_name) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		return (ENOMEM);
 	if (allocate_properties(file, usr_name, grp_name, link) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		return (ENOMEM);
 	read_link_properties(file);
 	ft_strcpy(file->properties->usr_owner, usr_name);
 	ft_strcpy(file->properties->grp_owner, grp_name);
@@ -193,12 +193,13 @@ int get_file_properties(t_file *file, struct stat *file_stat)
 int read_file_properties(t_file *file)
 {
 	struct stat file_stat;
+	int         error_status;
 
+	error_status = 0;
 	if (lstat(file->path, &file_stat) < 0)
-		return (EXIT_FAILURE);
+		return (errno);
 	get_file_mode(&file->mode, &file_stat);
-	if (get_file_properties(file, &file_stat) != EXIT_SUCCESS)
-		return (FT_LS_FATAL_ERROR);
+	if ((error_status = get_file_properties(file, &file_stat)) != EXIT_SUCCESS)
+		return (error_status);
 	return (EXIT_SUCCESS);
 }
-

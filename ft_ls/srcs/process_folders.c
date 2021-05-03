@@ -15,8 +15,8 @@ int process_folder(t_store *store, t_file *folder)
 
 	if ((error_status = get_folder_files(folder)) != EXIT_SUCCESS)
 	{
-		if (handle_error(store, error_status) != EXIT_SUCCESS)
-			return (FT_LS_FATAL_ERROR);
+		if (handle_error(store, error_status) > FT_LS_ERROR)
+			return (EXIT_FAILURE);
 	}
 	if (process_folder_files(store, folder) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);

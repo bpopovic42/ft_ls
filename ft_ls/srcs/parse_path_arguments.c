@@ -2,10 +2,9 @@
 
 void handle_invalid_file(t_store *store, t_file *invalid_file)
 {
-	store->error_status = FT_LS_FATAL_ERROR;
-	store->error_type = errno;
 	invalid_file->error = errno;
 	invalid_file->error_msg = "cannot access";
+	handle_error(store, errno);
 }
 
 void add_file_to_proper_queue(t_store *store, t_node *file_node)
@@ -36,7 +35,7 @@ int parse_path_argument(struct s_store *store, char *argument, int is_cli_arg)
 	if (create_new_file(&new_file, argument, NULL) != EXIT_SUCCESS)
 	{
 		if (errno != ENOENT)
-			return (handle_error(store, FT_LS_FATAL_ERROR));
+			return (handle_error(store, errno));
 		handle_invalid_file(store, new_file);
 	}
 	if (!(new_node = ft_node_new(NULL, 0)))

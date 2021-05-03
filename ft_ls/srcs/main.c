@@ -2,18 +2,15 @@
 
 int exit_clean(t_store *store)
 {
-	int status;
+	int exit_code;
 
-	status = store->error_status;
-	if (status > FT_LS_ERROR && store->error_type != EACCES &&
-	    store->error_type != ENOENT) {
-		if (store->error_type == 0)
-			ft_dprintf(2, "%s: Unexpected error\n", store->program_name);
-		else
-			ft_dprintf(2, "%s: %s\n", store->program_name, strerror(status));
-	}
+	exit_code = store->error.exit_code;
+	if (store->error.exit_code > FT_LS_ERROR)
+		if (store->error.type != EACCES && store->error.type != ENOENT)
+			ft_dprintf(2, "%s: %s\n", store->program_name,
+			  store->error.message);
 	clean_store(store);
-	return (status);
+	return (exit_code);
 }
 
 void print_invalid_folders(t_store *store)

@@ -43,7 +43,7 @@ int handle_opendir_failure(t_file *file)
 		file->error = errno;
 		file->error_msg = "cannot open directory";
 	}
-	return (EXIT_FAILURE);
+	return (errno);
 }
 
 int get_folder_files(struct s_file *folder)

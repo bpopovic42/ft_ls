@@ -4,12 +4,12 @@
 ** Original ls doesn't exit in case of access failure
 */
 
-int handle_error(t_store *store, int err_status)
+int handle_error(t_store *store, int err_type)
 {
-	store->error_status = err_status;
-	store->error_type = errno;
-	if (err_status > FT_LS_ERROR || (errno != EACCES && errno != ENOENT))
-		return (FT_LS_FATAL_ERROR);
+	store->error.type = err_type;
+	if (err_type == EACCES)
+		store->error.exit_code = FT_LS_ERROR;
 	else
-		return (EXIT_SUCCESS);
+		store->error.exit_code = FT_LS_FATAL_ERROR;
+	return (store->error.exit_code);
 }

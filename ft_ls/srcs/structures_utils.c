@@ -8,7 +8,8 @@ int init_store(t_store *store, char *program_name)
 		return (handle_error(store, FT_LS_FATAL_ERROR));
 	if (!(store->invalid_folders = ft_lstnew()))
 		return (handle_error(store, FT_LS_FATAL_ERROR));
-	if (create_new_file(&store->cli_file_arguments_folder, "", "") != EXIT_SUCCESS)
+	if (allocate_new_file(&store->cli_file_arguments_folder, "", "") !=
+	EXIT_SUCCESS)
 		return (handle_error(store, FT_LS_FATAL_ERROR));
 	return (EXIT_SUCCESS);
 }

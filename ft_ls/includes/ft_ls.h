@@ -17,13 +17,18 @@
 # define FT_LS_FATAL_ERROR 2
 # define SECONDS_IN_A_YEAR 31556952
 
+typedef struct s_error
+{
+	int  type;
+	char *message;
+	int  exit_code;
+} t_error;
 
 typedef struct s_store
 {
 	int nbr_of_file_args;
 	char *program_name;
-	int error_status;
-	int error_type;
+	t_error error;
 	struct s_file *cli_file_arguments_folder;
 	t_list *folders_queue;
 	t_list *invalid_folders;
@@ -100,6 +105,8 @@ t_flags g_flags;
 ** FILES_UTILS
 */
 
+int allocate_new_file(t_file **new_file, char *name, char *parent_path);
+
 int create_new_file(t_file **new_file, char *name, char *parent_path);
 
 void del_file(t_file *file, size_t folder_size);
@@ -173,6 +180,6 @@ int should_add_subfolder(t_file *subfolder);
 ** ERROR UTILS
 */
 
-int handle_error(t_store *store, int err_status);
+int handle_error(t_store *store, int err_type);
 
 #endif

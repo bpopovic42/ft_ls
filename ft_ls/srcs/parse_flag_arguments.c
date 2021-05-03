@@ -6,7 +6,7 @@ int handle_invalid_flag(struct s_store *store, char *argument)
 		   *argument);
 	ft_dprintf(2, "Try '%s --help' for more information.\n",
 	store->program_name);
-	return (handle_error(store, FT_LS_FATAL_ERROR));
+	return (handle_error(store, EINVAL));
 }
 
 int handle_unrecognized_flag(struct s_store *store, char *argument)
@@ -15,7 +15,7 @@ int handle_unrecognized_flag(struct s_store *store, char *argument)
 	           argument);
 	ft_dprintf(2, "Try '%s --help' for more information.\n",
 	           store->program_name);
-	return (handle_error(store, FT_LS_FATAL_ERROR));
+	return (handle_error(store, EINVAL));
 }
 
 void handle_flag(char flag)

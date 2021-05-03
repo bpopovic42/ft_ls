@@ -23,12 +23,16 @@ int allocate_new_file(t_file **new_file, char *name, char *parent_path)
 	sizeof_path        = sizeof_name + sizeof_parent_path + 1;
 	allocation_size    = sizeof(t_file) + sizeof_name + sizeof_path;
 	if (!(memory_block = ft_memalloc(allocation_size)))
-		return exit_error(new_file, FT_LS_FATAL_ERROR);
+		return exit_error(new_file, ENOMEM);
 	*new_file = memory_block;
 	(*new_file)->name        = memory_block + sizeof(t_file);
 	(*new_file)->path        = memory_block + sizeof(t_file) + sizeof_name;
 	(*new_file)->struct_size = allocation_size;
 	ft_memset(&(*new_file)->mode, '-', sizeof(t_mode));
+	if (!((*new_file)->files       = ft_lstnew()))
+		return exit_error(new_file, ENOMEM);
+	if (!((*new_file)->sub_folders = ft_lstnew()))
+		return exit_error(new_file, ENOMEM);
 	return (EXIT_SUCCESS);
 }
 
@@ -58,11 +62,7 @@ int create_new_file(t_file **new_file, char *name, char *parent_path)
 
 	error_status = 0;
 	if (allocate_new_file(new_file, name, parent_path) != EXIT_SUCCESS)
-		return exit_error(new_file, FT_LS_FATAL_ERROR);
-	if (!((*new_file)->files       = ft_lstnew()))
-		return exit_error(new_file, FT_LS_FATAL_ERROR);
-	if (!((*new_file)->sub_folders = ft_lstnew()))
-		return exit_error(new_file, FT_LS_FATAL_ERROR);
+		return exit_error(new_file, ENOMEM);
 	ft_strcpy((*new_file)->name, name);
 	build_file_path((*new_file)->path, parent_path, name);
 	if ((error_status = read_file_properties(*new_file)) != EXIT_SUCCESS)

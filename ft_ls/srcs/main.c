@@ -6,7 +6,7 @@
 /*   By: bopopovi <bopopovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:04:51 by bopopovi          #+#    #+#             */
-/*   Updated: 2021/05/03 17:05:36 by bopopovi         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:39:52 by bopopovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int		main(int ac, char **av)
 	t_store store;
 
 	if (help_flag_requested(ac - 1, av + 1))
+	{
 		print_help();
+		return (0);
+	}
 	else
 	{
 		if ((init_store(&store, av[0])) != EXIT_SUCCESS)
